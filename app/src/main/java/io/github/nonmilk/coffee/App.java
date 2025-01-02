@@ -15,7 +15,7 @@ public final class App extends Application {
     @Override
     public void start(final Stage stage) throws IOException {
         final FXMLLoader l = new FXMLLoader(
-                Grinder.class.getResource("grinder.fxml"));
+                Grinder.class.getResource("app.fxml"));
 
         final Scene scene = new Scene(l.load());
 
