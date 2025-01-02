@@ -11,11 +11,11 @@ public final class Grinder {
     private Scener sceneController;
 
     @FXML
-    private Camerer cameraController;
+    private Camerer camerasController;
 
     @FXML
     private void initialize() {
         sceneController.setRenderer(viewController.renderer());
-        sceneController.setCamerer(cameraController);
+        sceneController.setCamerer(camerasController);
     }
 }
