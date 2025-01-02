@@ -25,6 +25,6 @@ javafx {
     modules("javafx.controls", "javafx.fxml")
 }
 
-// application {
-//     mainClass = "..."
-// }
+application {
+    mainClass = "io.github.nonmilk.coffee.App"
+}
