@@ -1,5 +1,6 @@
 plugins {
     id("application")
+    id("org.openjfx.javafxplugin") version "0.1.0"
 }
 
 group = "io.github.nonmilk"
@@ -19,6 +20,11 @@ java {
     }
 }
 
-// application {
-//     mainClass = "..."
-// }
+javafx {
+    version = "21"
+    modules("javafx.controls", "javafx.fxml")
+}
+
+application {
+    mainClass = "io.github.nonmilk.coffee.App"
+}
