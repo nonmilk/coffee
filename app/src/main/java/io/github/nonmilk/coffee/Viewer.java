@@ -59,4 +59,8 @@ public final class Viewer {
             renderer.render();
         });
     }
+
+    public Renderer renderer() {
+        return renderer;
+    }
 }
