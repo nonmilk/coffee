@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane fx:id="root" fx:controller="io.github.nonmilk.coffee.Grinder" xmlns:fx="http://javafx.com/fxml">
-    <fx:include fx:id="view" source="viewer.fxml"/>
-    <fx:include fx:id="scene" source="scener.fxml"/>
-    <fx:include fx:id="camera" source="camerer.fxml"/>
+    <fx:include fx:id="view" source="view.fxml"/>
+    <fx:include fx:id="scenes" source="scenes.fxml"/>
+    <fx:include fx:id="cameras" source="cameras.fxml"/>
 </AnchorPane>

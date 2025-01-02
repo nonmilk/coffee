@@ -8,14 +8,14 @@ public final class Grinder {
     private Viewer viewController;
 
     @FXML
-    private Scener sceneController;
+    private Scener scenesController;
 
     @FXML
-    private Camerer cameraController;
+    private Camerer camerasController;
 
     @FXML
     private void initialize() {
-        sceneController.setRenderer(viewController.renderer());
-        sceneController.setCamerer(cameraController);
+        scenesController.setRenderer(viewController.renderer());
+        scenesController.setCamerer(camerasController);
     }
 }
