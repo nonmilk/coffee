@@ -59,6 +59,19 @@ public final class Scener {
         scenes.put(newName, scene);
     }
 
+    private void select(final String name) {
+        final var scene = scenes.get(name);
+        if (scene == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        active = scene;
+    }
+
+    private Scene active() {
+        return active.unwrap();
+    }
+
     public void setRenderer(final Renderer renderer) {
         this.renderer = Objects.requireNonNull(renderer);
         updateScenes();
