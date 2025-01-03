@@ -11,6 +11,10 @@ import io.github.nonmilk.coffee.grinder.camera.PerspectiveCamera;
 import io.github.nonmilk.coffee.grinder.camera.view.PerspectiveView;
 import io.github.nonmilk.coffee.grinder.math.Vec3f;
 import io.github.nonmilk.coffee.grinder.render.Scene;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 
 public final class Camerer {
 
@@ -25,12 +29,30 @@ public final class Camerer {
     private Map<String, NamedCamera> cameras = new HashMap<>();
     private NamedCamera active;
 
+    @FXML
+    private ListView<NamedCamera> view;
+
+    private final ObservableList<NamedCamera> list = FXCollections.observableArrayList();
+
+    @FXML
+    private void initialize() {
+        view.setItems(list);
+    }
+
+    private void update() {
+        view.refresh();
+    }
+
     public void setScene(final Scene s) {
         scene = Objects.requireNonNull(s);
 
         final var cameras = scenes.get(scene);
         if (cameras != null) {
             this.cameras = cameras;
+
+            list.clear();
+            list.addAll(cameras.values());
+
             select(activeCameras.get(scene).name());
             return;
         }
@@ -47,6 +69,9 @@ public final class Camerer {
             add(camera(), name); // FIXME
         }
 
+        list.clear();
+        list.addAll(this.cameras.values());
+
         select(name);
     }
 
@@ -56,6 +81,9 @@ public final class Camerer {
         }
 
         cameras.put(name, new NamedCamera(c, name));
+
+        // TODO
+        update();
     }
 
     private void remove(final String name) {
@@ -68,6 +96,9 @@ public final class Camerer {
         }
 
         cameras.remove(name);
+
+        // TODO
+        update();
     }
 
     private void rename(final String oldName, final String newName) {
@@ -83,6 +114,9 @@ public final class Camerer {
         cameras.remove(oldName);
         camera.rename(newName);
         cameras.put(newName, camera);
+
+        // TODO
+        update();
     }
 
     private void select(final String name) {
@@ -94,6 +128,9 @@ public final class Camerer {
         active = camera;
         activeCameras.put(scene, active);
         scene.setCamera(active());
+
+        // TODO
+        update();
     }
 
     private Camera active() {
