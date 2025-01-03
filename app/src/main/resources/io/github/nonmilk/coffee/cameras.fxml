@@ -20,24 +20,24 @@
         </HBox>
         <VBox>
             <HBox>
-                <fx:define>
-                    <ToggleGroup fx:id="typeTg"/>
-                </fx:define>
-                <RadioButton fx:id="perspectiveBtn" text="perspective" toggleGroup="$typeTg"/>
-                <RadioButton fx:id="orthographicBtn" text="orthographic" toggleGroup="$typeTg"/>
+                <HBox>
+                    <TextField fx:id="positionXField"/>
+                    <TextField fx:id="positionYField"/>
+                    <TextField fx:id="positionZField"/>
+                </HBox>
+                <HBox>
+                    <TextField fx:id="targetXField"/>
+                    <TextField fx:id="targetYField"/>
+                    <TextField fx:id="targetZField"/>
+                </HBox>
             </HBox>
             <VBox>
                 <HBox>
-                    <HBox>
-                        <TextField fx:id="positionXField"/>
-                        <TextField fx:id="positionYField"/>
-                        <TextField fx:id="positionZField"/>
-                    </HBox>
-                    <HBox>
-                        <TextField fx:id="targetXField"/>
-                        <TextField fx:id="targetYField"/>
-                        <TextField fx:id="targetZField"/>
-                    </HBox>
+                    <fx:define>
+                        <ToggleGroup fx:id="typeTg"/>
+                    </fx:define>
+                    <RadioButton fx:id="perspectiveBtn" text="perspective" toggleGroup="$typeTg"/>
+                    <RadioButton fx:id="orthographicBtn" text="orthographic" toggleGroup="$typeTg"/>
                 </HBox>
                 <StackPane fx:id="viewPane">
                     <fx:define>
@@ -46,19 +46,16 @@
                             <TextField fx:id="heightField"/>
                         </HBox>
                         <HBox fx:id="perspectiveViewPane">
-                            <VBox>
-                                <TextField fx:id="arWidthField"/>
-                                <TextField fx:id="arHeightField"/>
-                            </VBox>
+                            <TextField fx:id="arField"/>
                             <TextField fx:id="fovField"/>
                         </HBox>
                     </fx:define>
                 </StackPane>
-                <HBox>
-                    <TextField fx:id="addBoxNearPlane"/>
-                    <TextField fx:id="addBoxFarPlane"/>
-                </HBox>
             </VBox>
+            <HBox>
+                <TextField fx:id="boxNearPlaneField"/>
+                <TextField fx:id="boxFarPlaneField"/>
+            </HBox>
             <Button fx:id="apply" text="apply"/>
         </VBox>
     </VBox>
