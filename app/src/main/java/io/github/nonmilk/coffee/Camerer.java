@@ -19,9 +19,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
@@ -47,6 +49,9 @@ public final class Camerer {
 
     @FXML
     private Button removeBtn;
+
+    @FXML
+    private Button renameBtn;
 
     @FXML
     private Button selectBtn;
@@ -129,6 +134,27 @@ public final class Camerer {
             remove(selection.getSelectedItem().name());
             list.remove(selection.getSelectedIndex());
             view.refresh();
+        });
+
+        renameBtn.setOnAction(e -> {
+            final var selection = view.selectionModelProperty().get();
+            final var name = selection.getSelectedItem().name();
+
+            final TextInputDialog dialog = new TextInputDialog(name);
+            dialog.show();
+
+            dialog.setOnCloseRequest(event -> {
+                try {
+                    rename(name, dialog.getEditor().getText());
+                } catch (final IllegalArgumentException err) {
+                    event.consume();
+                    // TODO error alert
+                }
+            });
+
+            dialog.setOnHidden(event -> {
+                view.refresh();
+            });
         });
     }
 
