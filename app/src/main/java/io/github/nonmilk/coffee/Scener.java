@@ -74,7 +74,17 @@ public final class Scener {
 
     public void setRenderer(final Renderer renderer) {
         this.renderer = Objects.requireNonNull(renderer);
-        updateScenes();
+
+        scenes.clear();
+
+        namePostfix = 1;
+        final String name = name();
+        add(new Scene(), name);
+        select(name);
+
+        if (camerer != null) {
+            updateCamerer();
+        }
     }
 
     public void setCamerer(final Camerer camerer) {
@@ -82,20 +92,8 @@ public final class Scener {
         updateCamerer();
     }
 
-    private void updateScenes() {
-        scenes.clear();
-        active = new NamedScene(new Scene(), name());
-        scenes.put(active.name(), active);
-        renderer.setScene(active.unwrap());
-        updateCamerer();
-    }
-
     private void updateCamerer() {
-        if (camerer == null) {
-            return;
-        }
-
-        camerer.setScene(active.unwrap());
+        camerer.setScene(active());
     }
 
     private String name() {
