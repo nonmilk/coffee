@@ -4,11 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import io.github.alphameo.linear_algebra.vec.Vec3;
+import io.github.alphameo.linear_algebra.vec.Vector3;
 import io.github.nonmilk.coffee.grinder.camera.Camera;
 import io.github.nonmilk.coffee.grinder.camera.ClippingBox;
 import io.github.nonmilk.coffee.grinder.camera.Orientation;
 import io.github.nonmilk.coffee.grinder.camera.OrthographicCamera;
 import io.github.nonmilk.coffee.grinder.camera.PerspectiveCamera;
+import io.github.nonmilk.coffee.grinder.camera.view.OrthographicView;
 import io.github.nonmilk.coffee.grinder.camera.view.PerspectiveView;
 import io.github.nonmilk.coffee.grinder.math.Vec3f;
 import io.github.nonmilk.coffee.grinder.render.Scene;
@@ -38,6 +41,9 @@ public final class Camerer {
     @FXML
     private ListView<NamedCamera> view;
     private final ObservableList<NamedCamera> list = FXCollections.observableArrayList();
+
+    @FXML
+    private Button addBtn;
 
     @FXML
     private Button selectBtn;
@@ -100,11 +106,20 @@ public final class Camerer {
         selectBtn.setOnAction(e -> {
             final var selection = view.selectionModelProperty().get();
             select(selection.getSelectedItem().name());
+            updateFields();
         });
-    }
 
-    private void update() {
-        view.refresh();
+        addBtn.setOnAction(e -> {
+            final var name = name();
+
+            add(createFromFields(), name);
+            list.add(cameras.get(name));
+            view.refresh();
+
+            select(name);
+            // TODO update visual selection
+            updateFields();
+        });
     }
 
     public void setScene(final Scene s) {
@@ -135,6 +150,7 @@ public final class Camerer {
 
         list.clear();
         list.addAll(this.cameras.values());
+        // TODO update visual selection
 
         select(name);
     }
@@ -145,9 +161,6 @@ public final class Camerer {
         }
 
         cameras.put(name, new NamedCamera(c, name));
-
-        // TODO
-        update();
     }
 
     private void remove(final String name) {
@@ -160,9 +173,6 @@ public final class Camerer {
         }
 
         cameras.remove(name);
-
-        // TODO
-        update();
     }
 
     private void rename(final String oldName, final String newName) {
@@ -178,9 +188,6 @@ public final class Camerer {
         cameras.remove(oldName);
         camera.rename(newName);
         cameras.put(newName, camera);
-
-        // TODO
-        update();
     }
 
     private void select(final String name) {
@@ -192,17 +199,46 @@ public final class Camerer {
         active = camera;
         activeCameras.put(scene, active);
         scene.setCamera(active());
-
-        // TODO
-        update();
-        updateProperties();
     }
 
     private Camera active() {
         return active.unwrap();
     }
 
-    private void updateProperties() {
+    // TODO error handling
+    private Camera createFromFields() {
+        final var posX = Float.parseFloat(positionXField.getText());
+        final var posY = Float.parseFloat(positionYField.getText());
+        final var posZ = Float.parseFloat(positionZField.getText());
+        final Vector3 pos = new Vec3(posX, posY, posZ);
+
+        final var targetX = Float.parseFloat(targetXField.getText());
+        final var targetY = Float.parseFloat(targetYField.getText());
+        final var targetZ = Float.parseFloat(targetZField.getText());
+        final Vector3 target = new Vec3(targetX, targetY, targetZ);
+
+        final var orientation = new Orientation(pos, target);
+
+        final var nearPlane = Float.parseFloat(boxNearPlaneField.getText());
+        final var farPlane = Float.parseFloat(boxFarPlaneField.getText());
+        final var box = new ClippingBox(nearPlane, farPlane);
+
+        if (orthographicBtn.isSelected()) {
+            final var width = Float.parseFloat(widthField.getText());
+            final var height = Float.parseFloat(heightField.getText());
+            final var view = new OrthographicView(width, height);
+            return new OrthographicCamera(orientation, view, box);
+        } else if (perspectiveBtn.isSelected()) {
+            final var fov = Float.parseFloat(fovField.getText());
+            final var ar = Float.parseFloat(arField.getText());
+            final var view = new PerspectiveView(fov, ar);
+            return new PerspectiveCamera(orientation, view, box);
+        }
+
+        return null; // maybe not the best solution
+    }
+
+    private void updateFields() {
         final var cam = active();
         final var orientation = cam.orientation();
         final var box = cam.box();
