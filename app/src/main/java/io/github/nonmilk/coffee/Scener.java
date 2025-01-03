@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 public final class Scener {
 
     private static final String DEFAULT_NAME = "scene";
+    private int namePostfix = 1;
 
     private Renderer renderer;
 
@@ -47,5 +48,9 @@ public final class Scener {
         }
 
         camerer.setScene(active);
+    }
+
+    private String name() {
+        return String.format("%s %d", DEFAULT_NAME, namePostfix++);
     }
 }
