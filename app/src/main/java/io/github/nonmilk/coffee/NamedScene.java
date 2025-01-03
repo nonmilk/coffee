@@ -27,4 +27,9 @@ public final class NamedScene implements Named {
     public void rename(final String name) {
         this.name = Objects.requireNonNull(name);
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
