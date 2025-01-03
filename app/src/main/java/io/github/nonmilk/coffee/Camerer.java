@@ -46,6 +46,9 @@ public final class Camerer {
     private Button addBtn;
 
     @FXML
+    private Button removeBtn;
+
+    @FXML
     private Button selectBtn;
 
     @FXML
@@ -119,6 +122,13 @@ public final class Camerer {
             select(name);
             // TODO update visual selection
             updateFields();
+        });
+
+        removeBtn.setOnAction(e -> {
+            final var selection = view.selectionModelProperty().get();
+            remove(selection.getSelectedItem().name());
+            list.remove(selection.getSelectedIndex());
+            view.refresh();
         });
     }
 
