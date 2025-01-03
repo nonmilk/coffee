@@ -17,11 +17,26 @@ public final class Scener {
 
     private Camerer camerer;
 
-    private final Map<Scene, String> scenes = new HashMap<>();
-    private Scene active;
+    private final Map<String, NamedScene> scenes = new HashMap<>();
+    private NamedScene active;
 
     @FXML
     private void initialize() {
+    }
+
+    private void rename(final String oldName, final String newName) {
+        final var scene = scenes.get(oldName);
+        if (scene == null) {
+            throw new IllegalArgumentException("scene with this name doesn't exist");
+        }
+
+        if (scenes.get(newName) != null) {
+            throw new IllegalArgumentException("this name already exists");
+        }
+
+        scenes.remove(oldName);
+        scene.rename(newName);
+        scenes.put(newName, scene);
     }
 
     public void setRenderer(final Renderer renderer) {
@@ -36,9 +51,9 @@ public final class Scener {
 
     private void updateScenes() {
         scenes.clear();
-        active = new Scene();
-        scenes.put(active, DEFAULT_NAME);
-        renderer.setScene(active);
+        active = new NamedScene(new Scene(), name());
+        scenes.put(active.name(), active);
+        renderer.setScene(active.unwrap());
         updateCamerer();
     }
 
@@ -47,7 +62,7 @@ public final class Scener {
             return;
         }
 
-        camerer.setScene(active);
+        camerer.setScene(active.unwrap());
     }
 
     private String name() {
