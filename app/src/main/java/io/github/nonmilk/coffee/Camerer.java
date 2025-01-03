@@ -14,6 +14,7 @@ import io.github.nonmilk.coffee.grinder.render.Scene;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 
 public final class Camerer {
@@ -32,11 +33,19 @@ public final class Camerer {
     @FXML
     private ListView<NamedCamera> view;
 
+    @FXML
+    private Button selectBtn;
+
     private final ObservableList<NamedCamera> list = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() {
         view.setItems(list);
+
+        selectBtn.setOnAction(e -> {
+            final var selection = view.selectionModelProperty().get();
+            select(selection.getSelectedItem().name());
+        });
     }
 
     private void update() {
