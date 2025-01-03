@@ -24,10 +24,30 @@ public final class Scener {
     private void initialize() {
     }
 
+    private void add(final Scene s, final String name) {
+        if (scenes.get(name) != null) {
+            throw new IllegalArgumentException("this name already exists");
+        }
+
+        scenes.put(name, new NamedScene(s, name));
+    }
+
+    private void remove(final String name) {
+        final var scene = scenes.get(name);
+
+        if (scene == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        } else if (scene == active) {
+            throw new IllegalArgumentException("cannot remove active scene");
+        }
+
+        scenes.remove(name);
+    }
+
     private void rename(final String oldName, final String newName) {
         final var scene = scenes.get(oldName);
         if (scene == null) {
-            throw new IllegalArgumentException("scene with this name doesn't exist");
+            throw new IllegalArgumentException("this name doesn't exist");
         }
 
         if (scenes.get(newName) != null) {
