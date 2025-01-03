@@ -66,6 +66,7 @@ public final class Scener {
         }
 
         active = scene;
+        renderer.setScene(active());
     }
 
     private Scene active() {
