@@ -1,8 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
 
 <AnchorPane fx:id="root" fx:controller="io.github.nonmilk.coffee.Camerer" xmlns:fx="http://javafx.com/fxml">
-    <ListView fx:id="view"/>
+    <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <ListView fx:id="view"/>
+        <HBox>
+            <Button fx:id="addBtn" text="add"/>
+            <Button fx:id="selectBtn" text="select"/>
+            <Button fx:id="removeBtn" text="remove"/>
+        </HBox>
+        <VBox>
+            <HBox>
+                <fx:define>
+                    <ToggleGroup fx:id="typeTg"/>
+                </fx:define>
+                <RadioButton fx:id="perspectiveBtn" text="perspective" toggleGroup="$typeTg"/>
+                <RadioButton fx:id="orthographicBtn" text="orthographic" toggleGroup="$typeTg"/>
+            </HBox>
+            <VBox>
+                <HBox>
+                    <HBox>
+                        <TextField fx:id="positionXField"/>
+                        <TextField fx:id="positionYField"/>
+                        <TextField fx:id="positionZField"/>
+                    </HBox>
+                    <HBox>
+                        <TextField fx:id="targetXField"/>
+                        <TextField fx:id="targetYField"/>
+                        <TextField fx:id="targetZField"/>
+                    </HBox>
+                </HBox>
+                <StackPane fx:id="viewPane">
+                    <fx:define>
+                        <HBox fx:id="orthographicViewPane">
+                            <TextField fx:id="widthField"/>
+                            <TextField fx:id="heightField"/>
+                        </HBox>
+                        <HBox fx:id="perspectiveViewPane">
+                            <VBox>
+                                <TextField fx:id="arWidthField"/>
+                                <TextField fx:id="arHeightField"/>
+                            </VBox>
+                            <TextField fx:id="fovField"/>
+                        </HBox>
+                    </fx:define>
+                </StackPane>
+                <HBox>
+                    <TextField fx:id="addBoxNearPlane"/>
+                    <TextField fx:id="addBoxFarPlane"/>
+                </HBox>
+            </VBox>
+            <Button fx:id="apply" text="apply"/>
+        </VBox>
+    </VBox>
 </AnchorPane>
