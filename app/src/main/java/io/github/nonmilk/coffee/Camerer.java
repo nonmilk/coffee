@@ -7,6 +7,7 @@ import java.util.Objects;
 import io.github.nonmilk.coffee.grinder.camera.Camera;
 import io.github.nonmilk.coffee.grinder.camera.ClippingBox;
 import io.github.nonmilk.coffee.grinder.camera.Orientation;
+import io.github.nonmilk.coffee.grinder.camera.OrthographicCamera;
 import io.github.nonmilk.coffee.grinder.camera.PerspectiveCamera;
 import io.github.nonmilk.coffee.grinder.camera.view.PerspectiveView;
 import io.github.nonmilk.coffee.grinder.math.Vec3f;
@@ -16,6 +17,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
 public final class Camerer {
 
@@ -32,11 +37,61 @@ public final class Camerer {
 
     @FXML
     private ListView<NamedCamera> view;
+    private final ObservableList<NamedCamera> list = FXCollections.observableArrayList();
 
     @FXML
     private Button selectBtn;
 
-    private final ObservableList<NamedCamera> list = FXCollections.observableArrayList();
+    @FXML
+    private TextField positionXField;
+
+    @FXML
+    private TextField positionYField;
+
+    @FXML
+    private TextField positionZField;
+
+    @FXML
+    private TextField targetXField;
+
+    @FXML
+    private TextField targetYField;
+
+    @FXML
+    private TextField targetZField;
+
+    @FXML
+    private StackPane viewPane;
+
+    @FXML
+    private RadioButton perspectiveBtn;
+
+    @FXML
+    private RadioButton orthographicBtn;
+
+    @FXML
+    private HBox orthographicViewPane;
+
+    @FXML
+    private TextField widthField;
+
+    @FXML
+    private TextField heightField;
+
+    @FXML
+    private HBox perspectiveViewPane;
+
+    @FXML
+    private TextField arField;
+
+    @FXML
+    private TextField fovField;
+
+    @FXML
+    private TextField boxNearPlaneField;
+
+    @FXML
+    private TextField boxFarPlaneField;
 
     @FXML
     private void initialize() {
@@ -140,10 +195,47 @@ public final class Camerer {
 
         // TODO
         update();
+        updateProperties();
     }
 
     private Camera active() {
         return active.unwrap();
+    }
+
+    private void updateProperties() {
+        final var cam = active();
+        final var orientation = cam.orientation();
+        final var box = cam.box();
+        final var pos = orientation.position();
+        final var target = orientation.target();
+
+        positionXField.textProperty().set(String.valueOf(pos.x()));
+        positionYField.textProperty().set(String.valueOf(pos.y()));
+        positionZField.textProperty().set(String.valueOf(pos.z()));
+
+        targetXField.textProperty().set(String.valueOf(target.x()));
+        targetYField.textProperty().set(String.valueOf(target.y()));
+        targetZField.textProperty().set(String.valueOf(target.z()));
+
+        final var stack = viewPane.getChildren();
+        stack.clear();
+
+        if (cam instanceof OrthographicCamera orthographic) {
+            final var view = orthographic.view();
+            orthographicBtn.fire();
+            stack.add(orthographicViewPane);
+            widthField.textProperty().set(String.valueOf(view.width()));
+            heightField.textProperty().set(String.valueOf(view.height()));
+        } else if (cam instanceof PerspectiveCamera perspective) {
+            final var view = perspective.view();
+            perspectiveBtn.fire();
+            stack.add(perspectiveViewPane);
+            arField.textProperty().set(String.valueOf(view.aspectRatio()));
+            fovField.textProperty().set(String.valueOf(view.fov()));
+        }
+
+        boxNearPlaneField.textProperty().set(String.valueOf(box.nearPlane()));
+        boxFarPlaneField.textProperty().set(String.valueOf(box.farPlane()));
     }
 
     // FIXME test code
