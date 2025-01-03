@@ -31,6 +31,7 @@ public final class Camerer {
         final var cameras = scenes.get(scene);
         if (cameras != null) {
             this.cameras = cameras;
+            select(activeCameras.get(scene).name());
             return;
         }
 
