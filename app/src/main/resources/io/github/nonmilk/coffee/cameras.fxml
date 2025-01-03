@@ -15,8 +15,9 @@
         <ListView fx:id="view"/>
         <HBox>
             <Button fx:id="addBtn" text="add"/>
-            <Button fx:id="selectBtn" text="select"/>
             <Button fx:id="removeBtn" text="remove"/>
+            <Button fx:id="renameBtn" text="rename"/>
+            <Button fx:id="selectBtn" text="select"/>
         </HBox>
         <VBox>
             <HBox>
@@ -46,8 +47,8 @@
                             <TextField fx:id="heightField"/>
                         </HBox>
                         <HBox fx:id="perspectiveViewPane">
-                            <TextField fx:id="arField"/>
                             <TextField fx:id="fovField"/>
+                            <TextField fx:id="arField"/>
                         </HBox>
                     </fx:define>
                 </StackPane>
