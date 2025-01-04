@@ -41,6 +41,7 @@ public final class Scener {
     @FXML
     private Button selectBtn;
 
+    // TODO refactor
     @FXML
     private void initialize() {
         view.setItems(list);
@@ -74,6 +75,8 @@ public final class Scener {
             final TextInputDialog dialog = new TextInputDialog(name);
             dialog.show();
 
+            // TODO don't make dialog on each rename
+            // FIXME ignore rename on closing with cancel
             dialog.setOnCloseRequest(event -> {
                 try {
                     rename(name, dialog.getEditor().getText());
@@ -89,6 +92,7 @@ public final class Scener {
         });
     }
 
+    // TODO manage view from there
     private void add(final Scene s, final String name) {
         if (scenes.get(name) != null) {
             throw new IllegalArgumentException("this name already exists");
@@ -97,6 +101,7 @@ public final class Scener {
         scenes.put(name, new NamedScene(s, name));
     }
 
+    // TODO manage view from there
     private void remove(final String name) {
         final var scene = scenes.get(name);
 
@@ -109,6 +114,7 @@ public final class Scener {
         scenes.remove(name);
     }
 
+    // TODO manage view from there
     private void rename(final String oldName, final String newName) {
         final var scene = scenes.get(oldName);
         if (scene == null) {
@@ -179,6 +185,7 @@ public final class Scener {
         camerer.setScene(active());
     }
 
+    // FIXME don't increment the number on unsuccessful rename
     private String name() {
         return String.format("%s %d", DEFAULT_NAME, namePostfix++);
     }

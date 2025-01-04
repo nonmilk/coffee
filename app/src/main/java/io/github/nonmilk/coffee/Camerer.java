@@ -26,6 +26,8 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
+// TODO selected camera edit
+
 public final class Camerer {
 
     private static final String DEFAULT_NAME = "Camera";
@@ -106,6 +108,7 @@ public final class Camerer {
     @FXML
     private TextField boxFarPlaneField;
 
+    // TODO refactor
     @FXML
     private void initialize() {
         view.setItems(list);
@@ -139,6 +142,8 @@ public final class Camerer {
             final TextInputDialog dialog = new TextInputDialog(name);
             dialog.show();
 
+            // TODO don't make dialog on each rename
+            // FIXME ignore rename on closing with cancel
             dialog.setOnCloseRequest(event -> {
                 try {
                     rename(name, dialog.getEditor().getText());
@@ -199,6 +204,7 @@ public final class Camerer {
         select(name);
     }
 
+    // TODO manage view from there
     private void add(final Camera c, final String name) {
         if (cameras.get(name) != null) {
             throw new IllegalArgumentException("this name already exists");
@@ -207,6 +213,7 @@ public final class Camerer {
         cameras.put(name, new NamedCamera(c, name));
     }
 
+    // TODO manage view from there
     private void remove(final String name) {
         final var camera = cameras.get(name);
 
@@ -219,6 +226,7 @@ public final class Camerer {
         cameras.remove(name);
     }
 
+    // TODO manage view from there
     private void rename(final String oldName, final String newName) {
         final var camera = cameras.get(oldName);
         if (camera == null) {
@@ -234,6 +242,7 @@ public final class Camerer {
         cameras.put(newName, camera);
     }
 
+    // TODO manage view from there
     private void select(final String name) {
         final var camera = cameras.get(name);
         if (camera == null) {
@@ -332,6 +341,7 @@ public final class Camerer {
         return new PerspectiveCamera(orientation, view, box);
     }
 
+    // FIXME don't increment the number on unsuccessful rename
     private String name() {
         return String.format("%s %d", DEFAULT_NAME, namePostfix++);
     }
