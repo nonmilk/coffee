@@ -6,7 +6,11 @@ import java.util.Objects;
 
 import io.github.nonmilk.coffee.grinder.Renderer;
 import io.github.nonmilk.coffee.grinder.render.Scene;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 
 public final class Scener {
 
@@ -21,7 +25,24 @@ public final class Scener {
     private NamedScene active;
 
     @FXML
+    private ListView<NamedScene> view;
+    private final ObservableList<NamedScene> list = FXCollections.observableArrayList();
+
+    @FXML
+    private Button addBtn;
+
+    @FXML
+    private Button removeBtn;
+
+    @FXML
+    private Button renameBtn;
+
+    @FXML
+    private Button selectBtn;
+
+    @FXML
     private void initialize() {
+        view.setItems(list);
     }
 
     private void add(final Scene s, final String name) {
@@ -77,6 +98,7 @@ public final class Scener {
         this.renderer = Objects.requireNonNull(renderer);
 
         scenes.clear();
+        list.clear();
 
         namePostfix = 1;
         final String name = name();
@@ -87,6 +109,9 @@ public final class Scener {
         } else {
             add(new Scene(), name);
         }
+
+        list.add(scenes.get(name));
+        view.refresh();
 
         select(name);
 
