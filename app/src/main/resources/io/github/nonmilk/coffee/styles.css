@@ -1,0 +1,61 @@
+.cameras-root {
+    -fx-pref-width: 400;
+}
+
+.cameras-view {
+    -fx-pref-height: 200;
+}
+
+.centered {
+    -fx-alignment: center;
+}
+
+.fill-width {
+    -fx-fill-width: true;
+}
+
+.spacing-4 {
+    -fx-spacing: 4;
+}
+
+.spacing-8 {
+    -fx-spacing: 8;
+}
+
+.spacing-12 {
+    -fx-spacing: 12;
+}
+
+.spacing-16 {
+    -fx-spacing: 16;
+}
+
+.spacing-20 {
+    -fx-spacing: 20;
+}
+
+.padding-4 {
+    -fx-padding: 4;
+}
+
+.padding-8 {
+    -fx-padding: 8;
+}
+
+.padding-12 {
+    -fx-padding: 12;
+}
+
+.padding-16 {
+    -fx-padding: 16;
+}
+
+.padding-20 {
+    -fx-padding: 20;
+}
+
+.panel {
+    -fx-border-color: black;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+}
