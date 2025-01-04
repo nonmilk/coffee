@@ -156,6 +156,18 @@ public final class Camerer {
                 view.refresh();
             });
         });
+
+        final var stack = viewPane.getChildren();
+
+        perspectiveBtn.setOnAction(e -> {
+            stack.clear();
+            stack.add(perspectiveViewPane);
+        });
+
+        orthographicBtn.setOnAction(e -> {
+            stack.clear();
+            stack.add(orthographicViewPane);
+        });
     }
 
     public void setScene(final Scene s) {
