@@ -2,8 +2,16 @@
     -fx-pref-width: 400;
 }
 
+.scenes-root {
+    -fx-pref-width: 400;
+}
+
 .cameras-view {
     -fx-pref-height: 200;
+}
+
+.scenes-view {
+    -fx-pref-height: 100;
 }
 
 .centered {
