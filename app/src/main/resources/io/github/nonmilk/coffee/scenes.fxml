@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 
-<AnchorPane fx:id="root" fx:controller="io.github.nonmilk.coffee.Scener" xmlns:fx="http://javafx.com/fxml">
+<AnchorPane fx:id="root" fx:controller="io.github.nonmilk.coffee.Scener" xmlns:fx="http://javafx.com/fxml" stylesheets="@styles.css" styleClass="scenes-root">
+    <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" styleClass="centered, padding-8, fill-width">
+        <Label text="Scenes" styleClass="padding-8"/>
+        <ListView fx:id="view" styleClass="scenes-view"/>
+        <HBox styleClass="centered, spacing-8, padding-8">
+            <Button fx:id="addBtn" text="Add"/>
+            <Button fx:id="removeBtn" text="Remove"/>
+            <Button fx:id="renameBtn" text="Rename"/>
+            <Button fx:id="selectBtn" text="Select"/>
+        </HBox>
+    </VBox>
 </AnchorPane>
