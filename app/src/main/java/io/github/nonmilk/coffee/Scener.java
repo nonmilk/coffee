@@ -80,7 +80,14 @@ public final class Scener {
 
         namePostfix = 1;
         final String name = name();
-        add(new Scene(), name);
+
+        final var scene = renderer.scene();
+        if (scene != null) {
+            add(scene, name);
+        } else {
+            add(new Scene(), name);
+        }
+
         select(name);
 
         if (camerer != null) {
