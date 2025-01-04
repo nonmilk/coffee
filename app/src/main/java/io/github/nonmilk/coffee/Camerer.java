@@ -293,33 +293,36 @@ public final class Camerer {
         final var pos = orientation.position();
         final var target = orientation.target();
 
-        positionXField.textProperty().set(String.valueOf(pos.x()));
-        positionYField.textProperty().set(String.valueOf(pos.y()));
-        positionZField.textProperty().set(String.valueOf(pos.z()));
+        positionXField.setText(String.valueOf(pos.x()));
+        positionYField.setText(String.valueOf(pos.y()));
+        positionZField.setText(String.valueOf(pos.z()));
 
-        targetXField.textProperty().set(String.valueOf(target.x()));
-        targetYField.textProperty().set(String.valueOf(target.y()));
-        targetZField.textProperty().set(String.valueOf(target.z()));
-
-        final var stack = viewPane.getChildren();
-        stack.clear();
+        targetXField.setText(String.valueOf(target.x()));
+        targetYField.setText(String.valueOf(target.y()));
+        targetZField.setText(String.valueOf(target.z()));
 
         if (cam instanceof OrthographicCamera orthographic) {
             final var view = orthographic.view();
             orthographicBtn.fire();
-            stack.add(orthographicViewPane);
-            widthField.textProperty().set(String.valueOf(view.width()));
-            heightField.textProperty().set(String.valueOf(view.height()));
+
+            widthField.setText(String.valueOf(view.width()));
+            heightField.setText(String.valueOf(view.height()));
+
+            arField.clear();
+            fovField.clear();
         } else if (cam instanceof PerspectiveCamera perspective) {
             final var view = perspective.view();
             perspectiveBtn.fire();
-            stack.add(perspectiveViewPane);
-            arField.textProperty().set(String.valueOf(view.aspectRatio()));
-            fovField.textProperty().set(String.valueOf(view.fov()));
+
+            arField.setText(String.valueOf(view.aspectRatio()));
+            fovField.setText(String.valueOf(view.fov()));
+
+            widthField.clear();
+            heightField.clear();
         }
 
-        boxNearPlaneField.textProperty().set(String.valueOf(box.nearPlane()));
-        boxFarPlaneField.textProperty().set(String.valueOf(box.farPlane()));
+        boxNearPlaneField.setText(String.valueOf(box.nearPlane()));
+        boxFarPlaneField.setText(String.valueOf(box.farPlane()));
     }
 
     // FIXME test code
