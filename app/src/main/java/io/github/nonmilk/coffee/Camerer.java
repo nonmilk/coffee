@@ -114,7 +114,6 @@ public final class Camerer {
         selectBtn.setOnAction(e -> {
             final var selection = view.selectionModelProperty().get();
             select(selection.getSelectedItem().name());
-            updateFields();
         });
 
         addBtn.setOnAction(e -> {
@@ -125,8 +124,6 @@ public final class Camerer {
             view.refresh();
 
             select(name);
-            // TODO update visual selection
-            updateFields();
         });
 
         removeBtn.setOnAction(e -> {
@@ -247,6 +244,9 @@ public final class Camerer {
         active = camera;
         activeCameras.put(scene, active);
         scene.setCamera(active());
+
+        view.getSelectionModel().select(active);
+        updateFields();
     }
 
     private Camera active() {
