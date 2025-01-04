@@ -11,10 +11,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextInputDialog;
 
 public final class Scener {
 
-    private static final String DEFAULT_NAME = "scene";
+    private static final String DEFAULT_NAME = "Scene";
     private int namePostfix = 1;
 
     private Renderer renderer;
@@ -43,6 +44,49 @@ public final class Scener {
     @FXML
     private void initialize() {
         view.setItems(list);
+
+        selectBtn.setOnAction(e -> {
+            final var selection = view.selectionModelProperty().get();
+            select(selection.getSelectedItem().name());
+        });
+
+        addBtn.setOnAction(e -> {
+            final var name = name();
+
+            add(new Scene(), name);
+            list.add(scenes.get(name));
+            view.refresh();
+
+            select(name);
+        });
+
+        removeBtn.setOnAction(e -> {
+            final var selection = view.selectionModelProperty().get();
+            remove(selection.getSelectedItem().name());
+            list.remove(selection.getSelectedIndex());
+            view.refresh();
+        });
+
+        renameBtn.setOnAction(e -> {
+            final var selection = view.selectionModelProperty().get();
+            final var name = selection.getSelectedItem().name();
+
+            final TextInputDialog dialog = new TextInputDialog(name);
+            dialog.show();
+
+            dialog.setOnCloseRequest(event -> {
+                try {
+                    rename(name, dialog.getEditor().getText());
+                } catch (final IllegalArgumentException err) {
+                    event.consume();
+                    // TODO error alert
+                }
+            });
+
+            dialog.setOnHidden(event -> {
+                view.refresh();
+            });
+        });
     }
 
     private void add(final Scene s, final String name) {
@@ -88,6 +132,12 @@ public final class Scener {
 
         active = scene;
         renderer.setScene(active());
+
+        view.getSelectionModel().select(active);
+
+        if (camerer != null) {
+            updateCamerer(); // FIXME unnecessary check
+        }
     }
 
     private Scene active() {
