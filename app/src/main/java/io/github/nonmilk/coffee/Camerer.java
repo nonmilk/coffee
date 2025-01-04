@@ -19,7 +19,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -29,7 +28,7 @@ import javafx.scene.layout.StackPane;
 
 public final class Camerer {
 
-    private static final String DEFAULT_NAME = "camera";
+    private static final String DEFAULT_NAME = "Camera";
     private int namePostfix = 1;
 
     private Scene scene;

@@ -9,55 +9,107 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
 
 <AnchorPane fx:id="root" fx:controller="io.github.nonmilk.coffee.Camerer" xmlns:fx="http://javafx.com/fxml">
     <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <Label text="Cameras"/>
         <ListView fx:id="view"/>
         <HBox>
-            <Button fx:id="addBtn" text="add"/>
-            <Button fx:id="removeBtn" text="remove"/>
-            <Button fx:id="renameBtn" text="rename"/>
-            <Button fx:id="selectBtn" text="select"/>
+            <Button fx:id="addBtn" text="Add"/>
+            <Button fx:id="removeBtn" text="Remove"/>
+            <Button fx:id="renameBtn" text="Rename"/>
+            <Button fx:id="selectBtn" text="Select"/>
         </HBox>
         <VBox>
-            <HBox>
-                <HBox>
-                    <TextField fx:id="positionXField"/>
-                    <TextField fx:id="positionYField"/>
-                    <TextField fx:id="positionZField"/>
-                </HBox>
-                <HBox>
-                    <TextField fx:id="targetXField"/>
-                    <TextField fx:id="targetYField"/>
-                    <TextField fx:id="targetZField"/>
-                </HBox>
-            </HBox>
+            <Label text="Properties"/>
             <VBox>
+                <Label text="Orientation"/>
+                <HBox>
+                    <VBox>
+                        <Label text="Position"/>
+                        <HBox>
+                            <VBox>
+                                <Label text="X"/>
+                                <TextField fx:id="positionXField"/>
+                            </VBox>
+                            <VBox>
+                                <Label text="Y"/>
+                                <TextField fx:id="positionYField"/>
+                            </VBox>
+                            <VBox>
+                                <Label text="Z"/>
+                                <TextField fx:id="positionZField"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    <VBox>
+                        <Label text="Target"/>
+                        <HBox>
+                            <VBox>
+                                <Label text="X"/>
+                                <TextField fx:id="targetXField"/>
+                            </VBox>
+                            <VBox>
+                                <Label text="Y"/>
+                                <TextField fx:id="targetYField"/>
+                            </VBox>
+                            <VBox>
+                                <Label text="Z"/>
+                                <TextField fx:id="targetZField"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+            <VBox>
+                <Label text="View"/>
                 <HBox>
                     <fx:define>
                         <ToggleGroup fx:id="typeTg"/>
                     </fx:define>
-                    <RadioButton fx:id="perspectiveBtn" text="perspective" toggleGroup="$typeTg"/>
-                    <RadioButton fx:id="orthographicBtn" text="orthographic" toggleGroup="$typeTg"/>
+                    <RadioButton fx:id="perspectiveBtn" text="Perspective" toggleGroup="$typeTg"/>
+                    <RadioButton fx:id="orthographicBtn" text="Orthographic" toggleGroup="$typeTg"/>
                 </HBox>
                 <StackPane fx:id="viewPane">
                     <fx:define>
                         <HBox fx:id="orthographicViewPane">
-                            <TextField fx:id="widthField"/>
-                            <TextField fx:id="heightField"/>
+                            <VBox>
+                                <Label text="Width"/>
+                                <TextField fx:id="widthField"/>
+                            </VBox>
+                            <VBox>
+                                <Label text="Height"/>
+                                <TextField fx:id="heightField"/>
+                            </VBox>
                         </HBox>
                         <HBox fx:id="perspectiveViewPane">
-                            <TextField fx:id="fovField"/>
-                            <TextField fx:id="arField"/>
+                            <VBox>
+                                <Label text="Field of View"/>
+                                <TextField fx:id="fovField"/>
+                            </VBox>
+                            <VBox>
+                                <Label text="Aspect Ratio"/>
+                                <TextField fx:id="arField"/>
+                            </VBox>
                         </HBox>
                     </fx:define>
                 </StackPane>
             </VBox>
-            <HBox>
-                <TextField fx:id="boxNearPlaneField"/>
-                <TextField fx:id="boxFarPlaneField"/>
-            </HBox>
-            <Button fx:id="apply" text="apply"/>
+            <VBox>
+                <Label text="Clipping Box"/>
+                <HBox>
+                    <VBox>
+                        <Label text="Near Plane"/>
+                        <TextField fx:id="boxNearPlaneField"/>
+                    </VBox>
+                    <VBox>
+                        <Label text="Far Plane"/>
+                        <TextField fx:id="boxFarPlaneField"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+            <Button fx:id="apply" text="Apply to selected"/>
         </VBox>
     </VBox>
 </AnchorPane>
