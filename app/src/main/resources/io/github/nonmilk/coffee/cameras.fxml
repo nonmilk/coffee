@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
+
+<AnchorPane fx:id="root" fx:controller="io.github.nonmilk.coffee.Camerer" xmlns:fx="http://javafx.com/fxml" stylesheets="@styles.css" styleClass="cameras-root">
+    <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" styleClass="centered, padding-8, fill-width">
+        <Label text="Cameras" styleClass="padding-8"/>
+        <ListView fx:id="view" styleClass="cameras-view"/>
+        <HBox styleClass="centered, spacing-8, padding-8">
+            <Button fx:id="addBtn" text="Add"/>
+            <Button fx:id="removeBtn" text="Remove"/>
+            <Button fx:id="renameBtn" text="Rename"/>
+            <Button fx:id="selectBtn" text="Select"/>
+        </HBox>
+        <VBox styleClass="centered, panel, padding-8, spacing-8">
+            <Label text="Properties" styleClass="padding-8"/>
+            <VBox styleClass="centered, panel, padding-8">
+                <Label text="Orientation"/>
+                <HBox styleClass="spacing-8">
+                    <VBox styleClass="centered">
+                        <Label text="Position" styleClass="padding-4"/>
+                        <HBox styleClass="spacing-4">
+                            <VBox styleClass="centered">
+                                <Label text="X"/>
+                                <TextField fx:id="positionXField"/>
+                            </VBox>
+                            <VBox styleClass="centered">
+                                <Label text="Y"/>
+                                <TextField fx:id="positionYField"/>
+                            </VBox>
+                            <VBox styleClass="centered">
+                                <Label text="Z"/>
+                                <TextField fx:id="positionZField"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    <VBox styleClass="centered">
+                        <Label text="Target" styleClass="padding-4"/>
+                        <HBox styleClass="spacing-4">
+                            <VBox styleClass="centered">
+                                <Label text="X"/>
+                                <TextField fx:id="targetXField"/>
+                            </VBox>
+                            <VBox styleClass="centered">
+                                <Label text="Y"/>
+                                <TextField fx:id="targetYField"/>
+                            </VBox>
+                            <VBox styleClass="centered">
+                                <Label text="Z"/>
+                                <TextField fx:id="targetZField"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+            <VBox styleClass="centered, panel, padding-8, spacing-12, fill-width">
+                <Label text="View"/>
+                <HBox styleClass="centered, spacing-12">
+                    <fx:define>
+                        <ToggleGroup fx:id="typeTg"/>
+                    </fx:define>
+                    <RadioButton fx:id="perspectiveBtn" text="Perspective" toggleGroup="$typeTg"/>
+                    <RadioButton fx:id="orthographicBtn" text="Orthographic" toggleGroup="$typeTg"/>
+                </HBox>
+                <StackPane fx:id="viewPane">
+                    <fx:define>
+                        <HBox fx:id="orthographicViewPane" styleClass="centered, spacing-8">
+                            <VBox styleClass="centered, spacing-4, fill-width">
+                                <Label text="Width"/>
+                                <TextField fx:id="widthField"/>
+                            </VBox>
+                            <VBox styleClass="centered, spacing-4, fill-width">
+                                <Label text="Height"/>
+                                <TextField fx:id="heightField"/>
+                            </VBox>
+                        </HBox>
+                        <HBox fx:id="perspectiveViewPane" styleClass="centered, spacing-8">
+                            <VBox styleClass="centered, spacing-4, fill-width">
+                                <Label text="Field of View"/>
+                                <TextField fx:id="fovField"/>
+                            </VBox>
+                            <VBox styleClass="centered, spacing-4, fill-width">
+                                <Label text="Aspect Ratio"/>
+                                <TextField fx:id="arField"/>
+                            </VBox>
+                        </HBox>
+                    </fx:define>
+                </StackPane>
+            </VBox>
+            <VBox styleClass="centered, panel, padding-8, spacing-12">
+                <Label text="Clipping Box"/>
+                <HBox styleClass="centered, spacing-8">
+                    <VBox styleClass="centered, spacing-4, fill-width">
+                        <Label text="Near Plane"/>
+                        <TextField fx:id="boxNearPlaneField"/>
+                    </VBox>
+                    <VBox styleClass="centered, spacing-4, fill-width">
+                        <Label text="Far Plane"/>
+                        <TextField fx:id="boxFarPlaneField"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+            <Button fx:id="apply" text="Apply to selected"/>
+        </VBox>
+    </VBox>
+</AnchorPane>
