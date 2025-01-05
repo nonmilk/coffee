@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -14,10 +15,13 @@ public final class App extends Application {
 
     @Override
     public void start(final Stage stage) throws IOException {
-        final FXMLLoader l = new FXMLLoader(
-                Grinder.class.getResource("app.fxml"));
+        final var loader = new FXMLLoader(Grinder.class.getResource("app.fxml"));
 
-        final Scene scene = new Scene(l.load());
+        final Parent p = loader.load();
+        final var scene = new Scene(p);
+
+        final Grinder g = loader.getController();
+        g.init(stage);
 
         stage.setTitle("coffee-grinder");
         stage.setScene(scene);
