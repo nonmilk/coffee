@@ -74,6 +74,7 @@ public final class Modeler {
         // TODO inits
         initChooser();
         initImport();
+        initExport();
 
         initialized = true;
     }
@@ -157,7 +158,7 @@ public final class Modeler {
                 return;
             }
 
-            // exportObj(selected().obj(), file); // TODO
+            exportObj(selected().obj(), file);
         });
     }
 
