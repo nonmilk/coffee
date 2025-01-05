@@ -222,6 +222,19 @@ public final class Modeler {
         models.put(newName, model);
     }
 
+    private void remove(final String name) {
+        final var model = models.get(name);
+
+        if (model == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        models.remove(name);
+        scene.models().remove(model.unwrap());
+
+        // removing from the view should be handled by the button
+    }
+
     private NamedModel selected() {
         return view.selectionModelProperty().get().getSelectedItem();
     }
