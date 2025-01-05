@@ -149,6 +149,31 @@ public final class Modeler {
         view.refresh();
     }
 
+    private void initExport() {
+        exportBtn.setOnAction(e -> {
+            final var file = chooser.showSaveDialog(stage);
+
+            if (file == null) {
+                return;
+            }
+
+            // exportObj(selected().obj(), file); // TODO
+        });
+    }
+
+    private void exportObj(final ObjFile src, final File dst) {
+        try {
+            writer.write(src, dst);
+        } catch (final ShaperError err) {
+            // TODO handle
+            return;
+        }
+    }
+
+    private Model selected() {
+        return view.selectionModelProperty().get().getSelectedItem().unwrap();
+    }
+
     private String uniqueName(String name) {
         if (models.get(name) == null) {
             return name;
