@@ -111,5 +111,8 @@ public final class Modeler {
 
         final var name = f.getName();
         models.put(name, new NamedModel(model, name));
+
+        list.add(models.get(name));
+        view.refresh();
     }
 }
