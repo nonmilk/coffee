@@ -30,6 +30,10 @@
     -fx-fill-width: true;
 }
 
+.fill-heigth {
+    -fx-fill-height: true;
+}
+
 .spacing-4 {
     -fx-spacing: 4;
 }
