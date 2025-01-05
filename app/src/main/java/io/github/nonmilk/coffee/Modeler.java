@@ -22,8 +22,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 
+// TODO handle external changes
+
 public final class Modeler {
 
+    private static final String DEFAULT_NAME = "Model";
     private final StringBuilder nameBuilder = new StringBuilder();
 
     private Stage stage;
@@ -73,6 +76,34 @@ public final class Modeler {
         initImport();
 
         initialized = true;
+    }
+
+    public void setScene(final Scene s) {
+        scene = Objects.requireNonNull(s);
+        final var models = scenes.get(scene);
+
+        if (models != null) {
+            this.models = models;
+            updateList();
+            return;
+        }
+
+        this.models = new HashMap<>();
+        scenes.put(scene, this.models);
+
+        String name;
+        for (final Model m : scene.models()) {
+            name = uniqueName(DEFAULT_NAME);
+            this.models.put(name, new NamedModel(m, name));
+        }
+
+        updateList();
+    }
+
+    private void updateList() {
+        list.clear();
+        list.addAll(models.values());
+        view.refresh();
     }
 
     private void initChooser() {
