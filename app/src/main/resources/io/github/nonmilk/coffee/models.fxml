@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.canvas.Canvas?>
+
+<AnchorPane fx:id="root" fx:controller="io.github.nonmilk.coffee.Modeler" xmlns:fx="http://javafx.com/fxml">
+</AnchorPane>
