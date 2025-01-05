@@ -6,7 +6,9 @@ import java.util.Map;
 import java.util.Objects;
 
 import io.github.nonmilk.coffee.grinder.Model;
+import io.github.nonmilk.coffee.grinder.render.ColorTexture;
 import io.github.nonmilk.coffee.grinder.render.Scene;
+import io.github.shimeoki.jfx.rasterization.HTMLColorf;
 import io.github.shimeoki.jshaper.ObjFile;
 import io.github.shimeoki.jshaper.ShaperError;
 import io.github.shimeoki.jshaper.obj.ModelReader;
@@ -139,7 +141,8 @@ public final class Modeler {
             return;
         }
 
-        final var model = new Model(obj, null); // TODO texture?
+        // FIXME texture
+        final var model = new Model(obj, new ColorTexture(HTMLColorf.BLACK));
 
         scene.models().add(model);
 
