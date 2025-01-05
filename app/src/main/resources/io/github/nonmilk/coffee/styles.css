@@ -6,11 +6,19 @@
     -fx-pref-width: 400;
 }
 
+.models-root {
+    -fx-pref-width: 400;
+}
+
 .cameras-view {
     -fx-pref-height: 200;
 }
 
 .scenes-view {
+    -fx-pref-height: 100;
+}
+
+.models-view {
     -fx-pref-height: 100;
 }
 

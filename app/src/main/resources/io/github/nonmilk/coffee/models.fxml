@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
 
-<AnchorPane fx:id="root" fx:controller="io.github.nonmilk.coffee.Modeler" xmlns:fx="http://javafx.com/fxml">
+<AnchorPane fx:id="root" fx:controller="io.github.nonmilk.coffee.Modeler" xmlns:fx="http://javafx.com/fxml" stylesheets="@styles.css" styleClass="models-root">
+    <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" styleClass="centered, padding-8, fill-width">
+        <Label text="Models" styleClass="padding-8"/>
+        <ListView fx:id="view" styleClass="models-view"/>
+        <HBox styleClass="centered, spacing-8, padding-8">
+            <Button fx:id="importBtn" text="Import"/>
+            <Button fx:id="exportBtn" text="Export"/>
+            <Button fx:id="removeBtn" text="Remove"/>
+            <Button fx:id="renameBtn" text="Rename"/>
+        </HBox>
+    </VBox>
 </AnchorPane>
