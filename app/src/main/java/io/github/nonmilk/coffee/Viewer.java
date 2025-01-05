@@ -72,7 +72,10 @@ public final class Viewer {
     }
 
     private KeyFrame frame() {
+        final var ctx = view.getGraphicsContext2D();
+
         return new KeyFrame(Duration.millis(1000 / fps), e -> {
+            ctx.clearRect(0, 0, view.getWidth(), view.getHeight());
             renderer.render();
         });
     }
