@@ -21,6 +21,7 @@ public final class Scener {
     private Renderer renderer;
 
     private Camerer camerer;
+    private Modeler modeler;
 
     private final Map<String, NamedScene> scenes = new HashMap<>();
     private NamedScene active;
@@ -141,9 +142,7 @@ public final class Scener {
 
         view.getSelectionModel().select(active);
 
-        if (camerer != null) {
-            updateCamerer(); // FIXME unnecessary check
-        }
+        update();
     }
 
     private Scene active() {
@@ -171,18 +170,29 @@ public final class Scener {
 
         select(name);
 
-        if (camerer != null) {
-            updateCamerer();
-        }
+        update();
     }
 
-    public void setCamerer(final Camerer camerer) {
-        this.camerer = Objects.requireNonNull(camerer);
-        updateCamerer();
-    }
-
-    private void updateCamerer() {
+    public void setCamerer(final Camerer c) {
+        camerer = Objects.requireNonNull(c);
         camerer.setScene(active());
+    }
+
+    public void setModeler(final Modeler m) {
+        modeler = Objects.requireNonNull(m);
+        modeler.setScene(active());
+    }
+
+    private void update() {
+        final var scene = active();
+
+        if (camerer != null) {
+            camerer.setScene(scene);
+        }
+
+        if (modeler != null) {
+            modeler.setScene(scene);
+        }
     }
 
     // FIXME don't increment the number on unsuccessful rename
