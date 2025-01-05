@@ -23,6 +23,7 @@ public final class Grinder {
     private void initialize() {
         scenesController.setRenderer(viewController.renderer());
         scenesController.setCamerer(camerasController);
+        scenesController.setModeler(modelsController);
     }
 
     public void init(final Stage s) {
