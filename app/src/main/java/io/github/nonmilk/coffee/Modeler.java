@@ -176,6 +176,21 @@ public final class Modeler {
         }
     }
 
+    private void rename(final String oldName, final String newName) {
+        final var model = models.get(oldName);
+        if (model == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        if (models.get(newName) != null) {
+            throw new IllegalArgumentException("this name already exists");
+        }
+
+        models.remove(oldName);
+        model.rename(newName);
+        models.put(newName, model);
+    }
+
     private NamedModel selected() {
         return view.selectionModelProperty().get().getSelectedItem();
     }
