@@ -152,13 +152,15 @@ public final class Modeler {
 
     private void initExport() {
         exportBtn.setOnAction(e -> {
+            chooser.setInitialFileName(selected().name());
+
             final var file = chooser.showSaveDialog(stage);
 
             if (file == null) {
                 return;
             }
 
-            exportObj(selected().obj(), file);
+            exportObj(selected().unwrap().obj(), file);
         });
     }
 
@@ -171,8 +173,8 @@ public final class Modeler {
         }
     }
 
-    private Model selected() {
-        return view.selectionModelProperty().get().getSelectedItem().unwrap();
+    private NamedModel selected() {
+        return view.selectionModelProperty().get().getSelectedItem();
     }
 
     private String uniqueName(String name) {
