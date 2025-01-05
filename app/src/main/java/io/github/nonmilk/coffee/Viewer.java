@@ -40,7 +40,7 @@ public final class Viewer {
         }
 
         this.fps = fps;
-        update();
+        // update();
     }
 
     private void update() {

@@ -6,6 +6,7 @@
 <AnchorPane fx:id="root" fx:controller="io.github.nonmilk.coffee.Grinder" xmlns:fx="http://javafx.com/fxml">
     <VBox>
         <fx:include fx:id="view" source="view.fxml"/>
+        <fx:include fx:id="models" source="models.fxml"/>
         <fx:include fx:id="scenes" source="scenes.fxml"/>
         <fx:include fx:id="cameras" source="cameras.fxml"/>
     </VBox>
