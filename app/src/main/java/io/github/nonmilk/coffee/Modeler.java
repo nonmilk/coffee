@@ -224,8 +224,15 @@ public final class Modeler {
     private void initRemove() {
         removeBtn.setOnAction(e -> {
             final var selection = view.selectionModelProperty().get();
-            remove(selection.getSelectedItem().name());
+
+            final var model = selection.getSelectedItem();
+            if (model == null) {
+                return;
+            }
+
+            remove(model.name());
             list.remove(selection.getSelectedIndex());
+
             view.refresh();
         });
     }
