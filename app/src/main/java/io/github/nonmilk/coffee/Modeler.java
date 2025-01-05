@@ -24,6 +24,8 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 public final class Modeler {
 
+    private final StringBuilder nameBuilder = new StringBuilder();
+
     private Stage stage;
     private boolean initialized = false;
 
@@ -109,10 +111,32 @@ public final class Modeler {
 
         scene.models().add(model);
 
-        final var name = f.getName();
+        final var name = uniqueName(f.getName());
         models.put(name, new NamedModel(model, name));
 
         list.add(models.get(name));
         view.refresh();
+    }
+
+    private String uniqueName(String name) {
+        if (models.get(name) == null) {
+            return name;
+        }
+
+        nameBuilder.setLength(0);
+        nameBuilder.append(name);
+        nameBuilder.append(' ');
+
+        int postfix = 1;
+        nameBuilder.append(postfix++);
+        name = nameBuilder.toString();
+
+        while (models.get(name) != null) {
+            nameBuilder.setLength(nameBuilder.length() - 1);
+            nameBuilder.append(postfix++);
+            name = nameBuilder.toString();
+        }
+
+        return name;
     }
 }
