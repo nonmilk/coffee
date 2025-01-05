@@ -1,6 +1,6 @@
 #!/bin/env sh
 
-cd coffee-grinder
+cd grinder
 ./gradlew build
 
 cd ..

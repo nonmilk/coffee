@@ -1,4 +1,4 @@
-cd coffee-grinder
+cd grinder
 .\gradlew.bat build
 
 cd ..
