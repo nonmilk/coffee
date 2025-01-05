@@ -20,6 +20,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -30,6 +32,8 @@ public final class Modeler {
 
     private static final String DEFAULT_NAME = "Model";
     private final StringBuilder nameBuilder = new StringBuilder();
+
+    private String renaming;
 
     private Stage stage;
     private boolean initialized = false;
@@ -77,6 +81,7 @@ public final class Modeler {
         initChooser();
         initImport();
         initExport();
+        initRename();
 
         initialized = true;
     }
@@ -174,6 +179,32 @@ public final class Modeler {
             // TODO handle
             return;
         }
+    }
+
+    private void initRename() {
+        final var dialog = new TextInputDialog();
+        final var field = dialog.getEditor();
+
+        renameBtn.setOnAction(e -> {
+            renaming = selected().name();
+
+            field.setText(renaming);
+            dialog.show();
+        });
+
+        // FIXME ignore rename on closing with cancel
+        dialog.setOnCloseRequest(e -> {
+            try {
+                rename(renaming, field.getText());
+            } catch (IllegalArgumentException err) {
+                e.consume();
+                // TODO error
+            }
+        });
+
+        dialog.setOnHidden(e -> {
+            view.refresh();
+        });
     }
 
     private void rename(final String oldName, final String newName) {
