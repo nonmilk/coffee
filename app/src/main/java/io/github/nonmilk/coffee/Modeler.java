@@ -20,7 +20,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -77,11 +76,11 @@ public final class Modeler {
 
         stage = Objects.requireNonNull(s); // jfx why
 
-        // TODO inits
         initChooser();
         initImport();
         initExport();
         initRename();
+        initRemove();
 
         initialized = true;
     }
@@ -220,6 +219,15 @@ public final class Modeler {
         models.remove(oldName);
         model.rename(newName);
         models.put(newName, model);
+    }
+
+    private void initRemove() {
+        removeBtn.setOnAction(e -> {
+            final var selection = view.selectionModelProperty().get();
+            remove(selection.getSelectedItem().name());
+            list.remove(selection.getSelectedIndex());
+            view.refresh();
+        });
     }
 
     private void remove(final String name) {
