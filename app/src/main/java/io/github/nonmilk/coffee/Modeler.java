@@ -1,10 +1,18 @@
 package io.github.nonmilk.coffee;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import io.github.nonmilk.coffee.grinder.Model;
 import io.github.nonmilk.coffee.grinder.render.Scene;
+import io.github.shimeoki.jshaper.ObjFile;
+import io.github.shimeoki.jshaper.ShaperError;
+import io.github.shimeoki.jshaper.obj.ModelReader;
+import io.github.shimeoki.jshaper.obj.ModelWriter;
+import io.github.shimeoki.jshaper.obj.Reader;
+import io.github.shimeoki.jshaper.obj.Writer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,6 +28,9 @@ public final class Modeler {
     private boolean initialized = false;
 
     private FileChooser chooser;
+
+    private final Reader reader = new ModelReader();
+    private final Writer writer = new ModelWriter();
 
     private Scene scene;
 
@@ -57,6 +68,7 @@ public final class Modeler {
 
         // TODO inits
         initChooser();
+        initImport();
 
         initialized = true;
     }
@@ -70,5 +82,34 @@ public final class Modeler {
                 new ExtensionFilter("All Files", "*.*"));
 
         this.chooser = chooser;
+    }
+
+    private void initImport() {
+        importBtn.setOnAction(e -> {
+            final var file = chooser.showOpenDialog(stage);
+
+            if (file == null) {
+                return;
+            }
+
+            importObj(file);
+        });
+    }
+
+    private void importObj(final File f) {
+        final ObjFile obj;
+        try {
+            obj = reader.read(f);
+        } catch (final ShaperError err) {
+            // TODO handle
+            return;
+        }
+
+        final var model = new Model(obj, null); // TODO texture?
+
+        scene.models().add(model);
+
+        final var name = f.getName();
+        models.put(name, new NamedModel(model, name));
     }
 }
