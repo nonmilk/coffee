@@ -1,3 +1,3 @@
 [submodule "coffee-grinder"]
-	path = coffee-grinder
+	path = grinder
 	url = https://github.com/nonmilk/coffee-grinder
