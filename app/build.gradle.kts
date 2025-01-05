@@ -17,7 +17,7 @@ dependencies {
     implementation("io.github.traunin:triangulation:1.1.1")
     implementation("io.github.alphameo:linear_algebra:1.2.0")
 
-    implementation(files("../coffee-grinder/lib/build/libs/lib-0.1.0.jar"))
+    implementation(files("../grinder/lib/build/libs/lib-0.1.0.jar"))
 }
 
 java {
