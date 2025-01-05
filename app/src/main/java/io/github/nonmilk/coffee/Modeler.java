@@ -185,7 +185,12 @@ public final class Modeler {
         final var field = dialog.getEditor();
 
         renameBtn.setOnAction(e -> {
-            renaming = selected().name();
+            final var selected = selected();
+            if (selected == null) {
+                return;
+            }
+
+            renaming = selected.name();
 
             field.setText(renaming);
             dialog.show();
