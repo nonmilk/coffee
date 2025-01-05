@@ -8,7 +8,7 @@
 <AnchorPane fx:id="root" fx:controller="io.github.nonmilk.coffee.Viewer" xmlns:fx="http://javafx.com/fxml" stylesheets="@styles.css">
     <HBox styleClass="fill-height" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <VBox fx:id="viewPane" styleClass="fill-width" HBox.hgrow="ALWAYS">
-            <Canvas fx:id="view" width="200" VBox.vgrow="ALWAYS"/>
+            <Canvas fx:id="view" VBox.vgrow="ALWAYS"/>
         </VBox>
     </HBox>
 </AnchorPane>
