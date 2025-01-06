@@ -30,6 +30,9 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 public final class Modeler {
 
+    private static final Texture DEFAULT_TEXTURE = new ColorTexture(
+            HTMLColorf.BLACK);
+
     private static final String DEFAULT_NAME = "Model";
     private final StringBuilder nameBuilder = new StringBuilder();
 
@@ -275,6 +278,16 @@ public final class Modeler {
         }
 
         model.unwrap().setTexture(Objects.requireNonNull(t));
+    }
+
+    private void removeTexture(final String name) {
+        final var model = models.get(name);
+
+        if (model == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        model.unwrap().setTexture(DEFAULT_TEXTURE);
     }
 
     private NamedModel selected() {
