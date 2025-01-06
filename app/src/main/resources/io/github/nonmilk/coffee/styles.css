@@ -64,7 +64,7 @@
 
 .view-pane {
     -fx-background-color: white;
-    -fx-background-insets: 16;
+    -fx-background-insets: 8;
     -fx-border-color: #11111b;
     -fx-border-width: 2;
 }
