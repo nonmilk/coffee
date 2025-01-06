@@ -89,10 +89,15 @@ public final class Modeler {
         stage = Objects.requireNonNull(s); // jfx why
 
         initModelChooser();
+        initTextureChooser();
+
         initImport();
         initExport();
         initRename();
         initRemove();
+
+        initAddTexture();
+        initRemoveTexture();
 
         initialized = true;
     }
