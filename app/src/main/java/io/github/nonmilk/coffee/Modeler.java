@@ -8,6 +8,7 @@ import java.util.Objects;
 import io.github.nonmilk.coffee.grinder.Model;
 import io.github.nonmilk.coffee.grinder.render.ColorTexture;
 import io.github.nonmilk.coffee.grinder.render.Scene;
+import io.github.nonmilk.coffee.grinder.render.Texture;
 import io.github.shimeoki.jfx.rasterization.HTMLColorf;
 import io.github.shimeoki.jshaper.ObjFile;
 import io.github.shimeoki.jshaper.ShaperError;
@@ -264,6 +265,16 @@ public final class Modeler {
         scene.models().remove(model.unwrap());
 
         // removing from the view should be handled by the button
+    }
+
+    private void addTexture(final String name, final Texture t) {
+        final var model = models.get(name);
+
+        if (model == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        model.unwrap().setTexture(Objects.requireNonNull(t));
     }
 
     private NamedModel selected() {
