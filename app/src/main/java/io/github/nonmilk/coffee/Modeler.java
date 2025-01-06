@@ -88,7 +88,7 @@ public final class Modeler {
 
         stage = Objects.requireNonNull(s); // jfx why
 
-        initChooser();
+        initModelChooser();
         initImport();
         initExport();
         initRename();
@@ -125,7 +125,7 @@ public final class Modeler {
         view.refresh();
     }
 
-    private void initChooser() {
+    private void initModelChooser() {
         final var chooser = new FileChooser();
 
         chooser.setTitle("Import Obj File");
@@ -270,6 +270,20 @@ public final class Modeler {
         scene.models().remove(model.unwrap());
 
         // removing from the view should be handled by the button
+    }
+
+    private void initTextureChooser() {
+        final var chooser = new FileChooser();
+
+        chooser.setTitle("Import Texture");
+        chooser.getExtensionFilters().addAll(
+                new ExtensionFilter("Image Files",
+                        "*.png",
+                        "*.jpg",
+                        "*.jpeg"),
+                new ExtensionFilter("All Files", "*.*"));
+
+        this.textureChooser = chooser;
     }
 
     private void initAddTexture() {
