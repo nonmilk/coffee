@@ -300,6 +300,19 @@ public final class Modeler {
         model.unwrap().setTexture(Objects.requireNonNull(t));
     }
 
+    private void initRemoveTexture() {
+        textureRemoveBtn.setOnAction(e -> {
+            final var selection = view.selectionModelProperty().get();
+
+            final var model = selection.getSelectedItem();
+            if (model == null) {
+                return;
+            }
+
+            removeTexture(model.name());
+        });
+    }
+
     private void removeTexture(final String name) {
         final var model = models.get(name);
 
