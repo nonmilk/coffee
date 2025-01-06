@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import io.github.nonmilk.coffee.grinder.Model;
 import io.github.nonmilk.coffee.grinder.render.ColorTexture;
+import io.github.nonmilk.coffee.grinder.render.ImageTexture;
 import io.github.nonmilk.coffee.grinder.render.Scene;
 import io.github.nonmilk.coffee.grinder.render.Texture;
 import io.github.shimeoki.jfx.rasterization.HTMLColorf;
@@ -41,7 +42,8 @@ public final class Modeler {
     private Stage stage;
     private boolean initialized = false;
 
-    private FileChooser chooser;
+    private FileChooser modelChooser;
+    private FileChooser textureChooser;
 
     private final Reader reader = new ModelReader();
     private final Writer writer = new ModelWriter();
@@ -131,12 +133,12 @@ public final class Modeler {
                 new ExtensionFilter("Obj Files", "*.obj"),
                 new ExtensionFilter("All Files", "*.*"));
 
-        this.chooser = chooser;
+        this.modelChooser = chooser;
     }
 
     private void initImport() {
         importBtn.setOnAction(e -> {
-            final var file = chooser.showOpenDialog(stage);
+            final var file = modelChooser.showOpenDialog(stage);
 
             if (file == null) {
                 return;
@@ -174,9 +176,9 @@ public final class Modeler {
                 return;
             }
 
-            chooser.setInitialFileName(selected.name());
+            modelChooser.setInitialFileName(selected.name());
 
-            final var file = chooser.showSaveDialog(stage);
+            final var file = modelChooser.showSaveDialog(stage);
 
             if (file == null) {
                 return;
@@ -268,6 +270,24 @@ public final class Modeler {
         scene.models().remove(model.unwrap());
 
         // removing from the view should be handled by the button
+    }
+
+    private void initAddTexture() {
+        textureAddBtn.setOnAction(e -> {
+            final var selection = view.selectionModelProperty().get();
+
+            final var model = selection.getSelectedItem();
+            if (model == null) {
+                return;
+            }
+
+            final var file = textureChooser.showOpenDialog(stage);
+            if (file == null) {
+                return;
+            }
+
+            addTexture(model.name(), ImageTexture.makeFromFile(file));
+        });
     }
 
     private void addTexture(final String name, final Texture t) {
