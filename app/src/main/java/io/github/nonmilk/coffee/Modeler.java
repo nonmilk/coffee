@@ -162,8 +162,7 @@ public final class Modeler {
             return;
         }
 
-        // FIXME texture
-        final var model = new Model(obj, new ColorTexture(HTMLColorf.BLACK));
+        final var model = new Model(obj, DEFAULT_TEXTURE);
 
         scene.models().add(model);
 
