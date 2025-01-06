@@ -13,8 +13,20 @@
     -fx-background-insets: 8 4 8 4;
 }
 
+.menu-pane {
+    -fx-background-color: #11111b;
+}
+
 .scroll-bar {
     -fx-background-color: #6c7086;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: #181825;
+}
+
+.thumb {
+    -fx-background-color: #313244;
 }
 
 .list-cell {
