@@ -65,6 +65,12 @@ public final class Modeler {
     private Button renameBtn;
 
     @FXML
+    private Button textureAddBtn;
+
+    @FXML
+    private Button textureRemoveBtn;
+
+    @FXML
     private void initialize() {
         view.setItems(list);
     }
