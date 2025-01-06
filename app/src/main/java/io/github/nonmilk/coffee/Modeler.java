@@ -159,7 +159,12 @@ public final class Modeler {
 
     private void initExport() {
         exportBtn.setOnAction(e -> {
-            chooser.setInitialFileName(selected().name());
+            final var selected = selected();
+            if (selected == null) {
+                return;
+            }
+
+            chooser.setInitialFileName(selected.name());
 
             final var file = chooser.showSaveDialog(stage);
 
@@ -167,7 +172,7 @@ public final class Modeler {
                 return;
             }
 
-            exportObj(selected().unwrap().obj(), file);
+            exportObj(selected.unwrap().obj(), file);
         });
     }
 
@@ -185,7 +190,12 @@ public final class Modeler {
         final var field = dialog.getEditor();
 
         renameBtn.setOnAction(e -> {
-            renaming = selected().name();
+            final var selected = selected();
+            if (selected == null) {
+                return;
+            }
+
+            renaming = selected.name();
 
             field.setText(renaming);
             dialog.show();
@@ -224,8 +234,15 @@ public final class Modeler {
     private void initRemove() {
         removeBtn.setOnAction(e -> {
             final var selection = view.selectionModelProperty().get();
-            remove(selection.getSelectedItem().name());
+
+            final var model = selection.getSelectedItem();
+            if (model == null) {
+                return;
+            }
+
+            remove(model.name());
             list.remove(selection.getSelectedIndex());
+
             view.refresh();
         });
     }
