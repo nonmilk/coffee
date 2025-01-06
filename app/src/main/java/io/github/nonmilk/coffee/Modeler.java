@@ -7,7 +7,9 @@ import java.util.Objects;
 
 import io.github.nonmilk.coffee.grinder.Model;
 import io.github.nonmilk.coffee.grinder.render.ColorTexture;
+import io.github.nonmilk.coffee.grinder.render.ImageTexture;
 import io.github.nonmilk.coffee.grinder.render.Scene;
+import io.github.nonmilk.coffee.grinder.render.Texture;
 import io.github.shimeoki.jfx.rasterization.HTMLColorf;
 import io.github.shimeoki.jshaper.ObjFile;
 import io.github.shimeoki.jshaper.ShaperError;
@@ -29,6 +31,9 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 public final class Modeler {
 
+    private static final Texture DEFAULT_TEXTURE = new ColorTexture(
+            HTMLColorf.BLACK);
+
     private static final String DEFAULT_NAME = "Model";
     private final StringBuilder nameBuilder = new StringBuilder();
 
@@ -37,7 +42,8 @@ public final class Modeler {
     private Stage stage;
     private boolean initialized = false;
 
-    private FileChooser chooser;
+    private FileChooser modelChooser;
+    private FileChooser textureChooser;
 
     private final Reader reader = new ModelReader();
     private final Writer writer = new ModelWriter();
@@ -65,6 +71,12 @@ public final class Modeler {
     private Button renameBtn;
 
     @FXML
+    private Button textureAddBtn;
+
+    @FXML
+    private Button textureRemoveBtn;
+
+    @FXML
     private void initialize() {
         view.setItems(list);
     }
@@ -76,11 +88,16 @@ public final class Modeler {
 
         stage = Objects.requireNonNull(s); // jfx why
 
-        initChooser();
+        initModelChooser();
+        initTextureChooser();
+
         initImport();
         initExport();
         initRename();
         initRemove();
+
+        initAddTexture();
+        initRemoveTexture();
 
         initialized = true;
     }
@@ -113,7 +130,7 @@ public final class Modeler {
         view.refresh();
     }
 
-    private void initChooser() {
+    private void initModelChooser() {
         final var chooser = new FileChooser();
 
         chooser.setTitle("Import Obj File");
@@ -121,12 +138,12 @@ public final class Modeler {
                 new ExtensionFilter("Obj Files", "*.obj"),
                 new ExtensionFilter("All Files", "*.*"));
 
-        this.chooser = chooser;
+        this.modelChooser = chooser;
     }
 
     private void initImport() {
         importBtn.setOnAction(e -> {
-            final var file = chooser.showOpenDialog(stage);
+            final var file = modelChooser.showOpenDialog(stage);
 
             if (file == null) {
                 return;
@@ -145,8 +162,7 @@ public final class Modeler {
             return;
         }
 
-        // FIXME texture
-        final var model = new Model(obj, new ColorTexture(HTMLColorf.BLACK));
+        final var model = new Model(obj, DEFAULT_TEXTURE);
 
         scene.models().add(model);
 
@@ -164,9 +180,9 @@ public final class Modeler {
                 return;
             }
 
-            chooser.setInitialFileName(selected.name());
+            modelChooser.setInitialFileName(selected.name());
 
-            final var file = chooser.showSaveDialog(stage);
+            final var file = modelChooser.showSaveDialog(stage);
 
             if (file == null) {
                 return;
@@ -258,6 +274,71 @@ public final class Modeler {
         scene.models().remove(model.unwrap());
 
         // removing from the view should be handled by the button
+    }
+
+    private void initTextureChooser() {
+        final var chooser = new FileChooser();
+
+        chooser.setTitle("Import Texture");
+        chooser.getExtensionFilters().addAll(
+                new ExtensionFilter("Image Files",
+                        "*.png",
+                        "*.jpg",
+                        "*.jpeg"),
+                new ExtensionFilter("All Files", "*.*"));
+
+        this.textureChooser = chooser;
+    }
+
+    private void initAddTexture() {
+        textureAddBtn.setOnAction(e -> {
+            final var selection = view.selectionModelProperty().get();
+
+            final var model = selection.getSelectedItem();
+            if (model == null) {
+                return;
+            }
+
+            final var file = textureChooser.showOpenDialog(stage);
+            if (file == null) {
+                return;
+            }
+
+            addTexture(model.name(), ImageTexture.makeFromFile(file));
+        });
+    }
+
+    private void addTexture(final String name, final Texture t) {
+        final var model = models.get(name);
+
+        if (model == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        model.unwrap().setTexture(Objects.requireNonNull(t));
+    }
+
+    private void initRemoveTexture() {
+        textureRemoveBtn.setOnAction(e -> {
+            final var selection = view.selectionModelProperty().get();
+
+            final var model = selection.getSelectedItem();
+            if (model == null) {
+                return;
+            }
+
+            removeTexture(model.name());
+        });
+    }
+
+    private void removeTexture(final String name) {
+        final var model = models.get(name);
+
+        if (model == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        model.unwrap().setTexture(DEFAULT_TEXTURE);
     }
 
     private NamedModel selected() {
