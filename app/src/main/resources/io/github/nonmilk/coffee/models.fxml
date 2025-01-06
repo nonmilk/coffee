@@ -19,8 +19,8 @@
         </HBox>
         <HBox alignment="CENTER_LEFT" styleClass="spacing-8, padding-8">
             <Label text="Texture" styleClass="padding-8"/>
-            <Button fx:id="textureAdd" text="Add"/>
-            <Button fx:id="textureRemove" text="Remove"/>
+            <Button fx:id="textureAddBtn" text="Add"/>
+            <Button fx:id="textureRemoveBtn" text="Remove"/>
         </HBox>
     </VBox>
 </AnchorPane>
