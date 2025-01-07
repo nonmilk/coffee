@@ -2,6 +2,7 @@ package io.github.nonmilk.coffee;
 
 import java.util.Objects;
 
+import io.github.alphameo.linear_algebra.vec.Vec3;
 import io.github.alphameo.linear_algebra.vec.Vec3Math;
 import io.github.alphameo.linear_algebra.vec.Vector3;
 import io.github.nonmilk.coffee.grinder.camera.Camera;
@@ -21,7 +22,7 @@ public final class CameraController {
     private boolean drag = false;
 
     private static final float multiplier = 0.02f;
-    private static final float SCROLL_MULTIPLIER = 0.05f;
+    private static final float SCROLL_MULTIPLIER = 0.01f;
 
     public CameraController() {
     }
@@ -52,8 +53,14 @@ public final class CameraController {
 
         view.setOnScroll(event -> {
             final Vector3 direction = Vec3Math.subtracted(target, position);
-            final Vector3 pos = Vec3Math.added(position,
-                    Vec3Math.multiplied(direction, (int) (event.getDeltaY() * SCROLL_MULTIPLIER)));
+            float absScroll = (float) Math.abs(event.getDeltaY() * SCROLL_MULTIPLIER);
+            Vector3 dvec;
+            if (event.getDeltaY() < 0) {
+                dvec = Vec3Math.divided(direction, absScroll);
+            } else {
+                dvec = Vec3Math.multiplied(direction, absScroll);
+            }
+            final Vector3 pos = Vec3Math.added(new Vec3(position), dvec);
             System.out.println(pos.x() + " " + pos.y() + " " + pos.z());
             position.setX(pos.x());
             position.setY(pos.y());
