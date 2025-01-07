@@ -50,16 +50,7 @@ public final class Scener {
         view.setItems(list);
 
         initMarkActive();
-
-        addBtn.setOnAction(e -> {
-            final var name = name();
-
-            add(new Scene(), name);
-            list.add(scenes.get(name));
-            view.refresh();
-
-            markActive(name);
-        });
+        initAdd();
 
         removeBtn.setOnAction(e -> {
             final var selection = view.selectionModelProperty().get();
@@ -142,6 +133,18 @@ public final class Scener {
                     // TODO error alert
                 }
             });
+        });
+    }
+
+    private void initAdd() {
+        addBtn.setOnAction(e -> {
+            final var name = name();
+
+            add(new Scene(), name);
+            list.add(scenes.get(name));
+            view.refresh();
+
+            markActive(name);
         });
     }
 
