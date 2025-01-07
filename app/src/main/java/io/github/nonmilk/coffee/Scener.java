@@ -40,16 +40,16 @@ public final class Scener {
     private Button renameBtn;
 
     @FXML
-    private Button selectBtn;
+    private Button markActiveBtn;
 
     // TODO refactor
     @FXML
     private void initialize() {
         view.setItems(list);
 
-        selectBtn.setOnAction(e -> {
+        markActiveBtn.setOnAction(e -> {
             final var selection = view.selectionModelProperty().get();
-            select(selection.getSelectedItem().name());
+            markActive(selection.getSelectedItem().name());
         });
 
         addBtn.setOnAction(e -> {
@@ -59,7 +59,7 @@ public final class Scener {
             list.add(scenes.get(name));
             view.refresh();
 
-            select(name);
+            markActive(name);
         });
 
         removeBtn.setOnAction(e -> {
@@ -131,7 +131,7 @@ public final class Scener {
         scenes.put(newName, scene);
     }
 
-    private void select(final String name) {
+    private void markActive(final String name) {
         final var scene = scenes.get(name);
         if (scene == null) {
             throw new IllegalArgumentException("this name doesn't exist");
@@ -168,7 +168,7 @@ public final class Scener {
         list.add(scenes.get(name));
         view.refresh();
 
-        select(name);
+        markActive(name);
 
         update();
     }
