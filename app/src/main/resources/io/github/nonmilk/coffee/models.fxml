@@ -50,15 +50,15 @@
                 <VBox styleClass="spacing-8">
                     <HBox styleClass="spacing-12, centered-left">
                         <Label text="X"/>
-                        <TextField fx:id="scalingX"/>
+                        <TextField fx:id="scalingXField"/>
                     </HBox>
                     <HBox styleClass="spacing-12, centered-left">
                         <Label text="Y"/>
-                        <TextField fx:id="scalingY"/>
+                        <TextField fx:id="scalingYField"/>
                     </HBox>
                     <HBox styleClass="spacing-12, centered-left">
                         <Label text="Z"/>
-                        <TextField fx:id="scalingZ"/>
+                        <TextField fx:id="scalingZField"/>
                     </HBox>
                 </VBox>
             </VBox>
@@ -67,15 +67,15 @@
                 <VBox styleClass="spacing-8">
                     <HBox styleClass="spacing-12, centered-left">
                         <Label text="X"/>
-                        <TextField fx:id="translationX"/>
+                        <TextField fx:id="translationXField"/>
                     </HBox>
                     <HBox styleClass="spacing-12, centered-left">
                         <Label text="Y"/>
-                        <TextField fx:id="translationY"/>
+                        <TextField fx:id="translationYField"/>
                     </HBox>
                     <HBox styleClass="spacing-12, centered-left">
                         <Label text="Z"/>
-                        <TextField fx:id="translationZ"/>
+                        <TextField fx:id="translationZField"/>
                     </HBox>
                 </VBox>
             </VBox>
@@ -84,15 +84,15 @@
                 <VBox styleClass="spacing-8">
                     <HBox styleClass="spacing-12, centered-left">
                         <Label text="X"/>
-                        <TextField fx:id="rotationX"/>
+                        <TextField fx:id="rotationXField"/>
                     </HBox>
                     <HBox styleClass="spacing-12, centered-left">
                         <Label text="Y"/>
-                        <TextField fx:id="rotationY"/>
+                        <TextField fx:id="rotationYField"/>
                     </HBox>
                     <HBox styleClass="spacing-12, centered-left">
                         <Label text="Z"/>
-                        <TextField fx:id="rotationZ"/>
+                        <TextField fx:id="rotationZField"/>
                     </HBox>
                 </VBox>
             </VBox>
