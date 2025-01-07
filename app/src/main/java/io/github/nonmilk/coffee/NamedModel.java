@@ -9,6 +9,24 @@ public final class NamedModel implements Named {
     private final Model model;
     private String name;
 
+    public enum Status {
+
+        DEFAULT(""),
+        ACTIVE(" (active)"),
+        HIDDEN(" (hidden)");
+
+        private String s;
+
+        private Status(final String s) {
+            this.s = Objects.requireNonNull(s);
+        }
+
+        @Override
+        public String toString() {
+            return s;
+        }
+    }
+
     public NamedModel(final Model m, final String name) {
         model = Objects.requireNonNull(m);
         rename(name);
