@@ -60,13 +60,14 @@ public final class Scener {
         initRename();
     }
 
-    // TODO manage view from there
     private void add(final Scene s, final String name) {
         if (scenes.get(name) != null) {
             throw new IllegalArgumentException("this name already exists");
         }
 
         scenes.put(name, new NamedScene(s, name));
+        list.add(scenes.get(name));
+        view.refresh();
     }
 
     // TODO manage view from there
@@ -137,11 +138,7 @@ public final class Scener {
     private void initAdd() {
         addBtn.setOnAction(e -> {
             final var name = uniqueName();
-
             add(new Scene(), name);
-            list.add(scenes.get(name));
-            view.refresh();
-
             markActive(name);
         });
     }
@@ -187,9 +184,6 @@ public final class Scener {
         } else {
             add(new Scene(), name);
         }
-
-        list.add(scenes.get(name));
-        view.refresh();
 
         markActive(name);
 
