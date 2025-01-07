@@ -114,11 +114,20 @@
 }
 
 .models-view {
-    -fx-pref-height: 100;
+    -fx-pref-height: 200;
 }
 
 .centered {
     -fx-alignment: center;
+}
+
+.centered-left {
+    -fx-alignment: center_left;
+}
+
+.gaps-8 {
+    -fx-hgap: 8;
+    -fx-vgap: 8;
 }
 
 .fill-width {
