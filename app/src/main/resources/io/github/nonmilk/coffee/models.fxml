@@ -34,6 +34,8 @@
             <HBox styleClass="spacing-12">
                 <Button fx:id="removeBtn" text="Remove"/>
                 <Button fx:id="renameBtn" text="Rename"/>
+                <Button fx:id="hideBtn" text="Hide"/>
+                <Button fx:id="unhideBtn" text="Unhide"/>
             </HBox>
         </VBox>
         <VBox styleClass="spacing-8">
