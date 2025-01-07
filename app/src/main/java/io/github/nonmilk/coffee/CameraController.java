@@ -31,7 +31,6 @@ public final class CameraController {
 
     public void setCamera(Camera camera) {
         Objects.requireNonNull(camera);
-        System.out.println("Camera(" + camera.hashCode() + ") has been initialized");
         this.camera = camera;
     }
 
@@ -46,6 +45,9 @@ public final class CameraController {
             drag = false;
         });
 
+        Vector3 target = camera.orientation().target();
+        Vector3 camPos = camera.orientation().position();
+
         view.setOnMouseDragged(event -> {
             if (!drag) {
                 oldX = event.getX();
@@ -56,13 +58,11 @@ public final class CameraController {
 
             double newX = event.getX();
             double newY = event.getY();
-            float dx = (float) (newX - oldX) * multiplier;
-            float dy = (float) (newY - oldY) * multiplier;
+            float dx = (float) (newX - oldX);
+            float dy = (float) (newY - oldY);
             oldX = newX;
             oldY = newY;
 
-            Vector3 target = camera.orientation().target();
-            Vector3 camPos = camera.orientation().position();
             double r = LengthBetween(target, camPos);
 
             System.out.println(
@@ -78,28 +78,31 @@ public final class CameraController {
                         .setY((float) (target.y() + r * Math.sin(hAngle) * Math.cos(vAngle)));
                 camPos
                         .setZ((float) (target.z() + r * Math.sin(vAngle)));
+
                 System.out.println("h=" + hAngle + " v=" + vAngle);
                 return;
             }
 
             camPos.setX(camPos.x() + dx);
             camPos.setY(camPos.y() + dy);
+            target.setX(target.x() + dx);
+            target.setY(target.y() + dy);
         });
     }
 
     private void addHorAng(double rad) {
-        hAngle += rad;
-        double pi2 = Math.PI * 2;
-        if (hAngle > pi2) {
-            hAngle -= pi2;
+        hAngle += rad * multiplier;
+        if (hAngle < -Math.PI) {
+            hAngle = Math.PI;
+        } else if (hAngle > Math.PI) {
+            hAngle = -Math.PI;
         }
     }
 
     private void addVertAng(double rad) {
-        vAngle += rad;
-        double pi2 = Math.PI * 2;
-        if (Math.abs(vAngle) > pi2) {
-            vAngle -= pi2;
+        double newVAngle = vAngle + rad * multiplier;
+        if (Math.abs(newVAngle) < Math.PI / 2) {
+            vAngle = newVAngle;
         }
     }
 
