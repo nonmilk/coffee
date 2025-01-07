@@ -9,12 +9,11 @@
 <?import javafx.scene.control.Button?>
 
 <AnchorPane fx:id="root" fx:controller="io.github.nonmilk.coffee.Modeler" xmlns:fx="http://javafx.com/fxml" stylesheets="@styles.css" styleClass="models-root">
-    <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+    <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" styleClass="padding-20, spacing-16">
         <HBox>
-            <Label text="Model Management"/>
-        </HBox>
-        <VBox>
             <Label text="Models"/>
+        </HBox>
+        <VBox styleClass="spacing-8">
             <HBox>
                 <VBox>
                     <Label text="All"/>
@@ -26,30 +25,30 @@
                 </VBox>
             </HBox>
         </VBox>
-        <VBox>
+        <VBox styleClass="spacing-8">
             <Label text="Obj"/>
-            <HBox>
+            <HBox styleClass="spacing-12">
                 <Button fx:id="importBtn" text="Import"/>
                 <Button fx:id="exportBtn" text="Export"/>
             </HBox>
         </VBox>
-        <VBox>
+        <VBox styleClass="spacing-8">
             <Label text="Active"/>
-            <HBox>
+            <HBox styleClass="spacing-12">
                 <Button fx:id="activeAddBtn" text="Add"/>
                 <Button fx:id="activeRemoveBtn" text="Remove"/>
             </HBox>
         </VBox>
-        <VBox>
+        <VBox styleClass="spacing-8">
             <Label text="Control"/>
-            <HBox>
+            <HBox styleClass="spacing-12">
                 <Button fx:id="removeBtn" text="Remove"/>
                 <Button fx:id="renameBtn" text="Rename"/>
             </HBox>
         </VBox>
-        <VBox>
+        <VBox styleClass="spacing-8">
             <Label text="Texture"/>
-            <HBox>
+            <HBox styleClass="spacing-12">
                 <Button fx:id="textureAddBtn" text="Add"/>
                 <Button fx:id="textureRemoveBtn" text="Remove"/>
             </HBox>
