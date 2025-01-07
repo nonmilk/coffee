@@ -3,6 +3,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Label?>
@@ -17,33 +18,33 @@
         <ListView fx:id="view" styleClass="models-view"/>
         <VBox styleClass="spacing-8">
             <Label text="I/O (.obj)"/>
-            <HBox styleClass="spacing-12">
+            <FlowPane styleClass="gaps-8">
                 <Button fx:id="importBtn" text="Import"/>
                 <Button fx:id="exportBtn" text="Export"/>
-            </HBox>
+            </FlowPane>
         </VBox>
         <VBox styleClass="spacing-8">
             <Label text="Active (selected)"/>
-            <HBox styleClass="spacing-12">
+            <FlowPane styleClass="gaps-8">
                 <Button fx:id="activeAddBtn" text="Mark"/>
                 <Button fx:id="activeRemoveBtn" text="Unmark" disable="true"/>
-            </HBox>
+            </FlowPane>
         </VBox>
         <VBox styleClass="spacing-8">
             <Label text="Control (selected)"/>
-            <HBox styleClass="spacing-12">
+            <FlowPane styleClass="gaps-8">
                 <Button fx:id="removeBtn" text="Remove"/>
                 <Button fx:id="renameBtn" text="Rename"/>
                 <Button fx:id="hideBtn" text="Hide"/>
                 <Button fx:id="unhideBtn" text="Unhide"/>
-            </HBox>
+            </FlowPane>
         </VBox>
         <VBox styleClass="spacing-8">
             <Label text="Texture (selected)"/>
-            <HBox styleClass="spacing-12">
+            <FlowPane styleClass="gaps-8">
                 <Button fx:id="textureAddBtn" text="Add"/>
                 <Button fx:id="textureRemoveBtn" text="Remove"/>
-            </HBox>
+            </FlowPane>
         </VBox>
         <VBox styleClass="spacing-12">
             <Label text="Transformations"/>
@@ -62,10 +63,10 @@
                         <Label text="Z"/>
                         <TextField fx:id="scalingZField"/>
                     </HBox>
-                    <HBox styleClass="spacing-12, centered-left">
+                    <FlowPane styleClass="gaps-8, centered-left">
                         <Button fx:id="scalingApplyBtn" text="Apply"/>
                         <Button fx:id="scalingResetBtn" text="Reset"/>
-                    </HBox>
+                    </FlowPane>
                 </VBox>
             </VBox>
             <VBox styleClass="spacing-8">
@@ -83,10 +84,10 @@
                         <Label text="Z"/>
                         <TextField fx:id="translationZField"/>
                     </HBox>
-                    <HBox styleClass="spacing-12, centered-left">
+                    <FlowPane styleClass="gaps-8, centered-left">
                         <Button fx:id="translationApplyBtn" text="Apply"/>
                         <Button fx:id="translationResetBtn" text="Reset"/>
-                    </HBox>
+                    </FlowPane>
                 </VBox>
             </VBox>
             <VBox styleClass="spacing-8">
@@ -104,10 +105,10 @@
                         <Label text="Z"/>
                         <TextField fx:id="rotationZField"/>
                     </HBox>
-                    <HBox styleClass="spacing-12, centered-left">
+                    <FlowPane styleClass="gaps-8, centered-left">
                         <Button fx:id="rotationApplyBtn" text="Apply"/>
                         <Button fx:id="rotationResetBtn" text="Reset"/>
-                    </HBox>
+                    </FlowPane>
                 </VBox>
             </VBox>
         </VBox>
