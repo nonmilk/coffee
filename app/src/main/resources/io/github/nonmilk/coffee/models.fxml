@@ -62,6 +62,23 @@
                     </HBox>
                 </VBox>
             </VBox>
+            <VBox>
+                <Label text="Translation"/>
+                <VBox styleClass="spacing-8">
+                    <HBox styleClass="spacing-12, centered-left">
+                        <Label text="X"/>
+                        <TextField fx:id="translationX"/>
+                    </HBox>
+                    <HBox styleClass="spacing-12, centered-left">
+                        <Label text="Y"/>
+                        <TextField fx:id="translationY"/>
+                    </HBox>
+                    <HBox styleClass="spacing-12, centered-left">
+                        <Label text="Z"/>
+                        <TextField fx:id="translationZ"/>
+                    </HBox>
+                </VBox>
+            </VBox>
         </VBox>
     </VBox>
 </AnchorPane>
