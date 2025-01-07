@@ -31,12 +31,12 @@ public final class CameraController {
         setView(view);
     }
 
-    public void setCamera(Camera camera) {
+    public void setCamera(final Camera camera) {
         Objects.requireNonNull(camera);
         this.camera = camera;
     }
 
-    public void setView(Canvas view) {
+    public void setView(final Canvas view) {
         Objects.requireNonNull(view);
         this.view = view;
         initCanvas();
@@ -47,12 +47,12 @@ public final class CameraController {
             drag = false;
         });
 
-        Vector3 target = camera.orientation().target();
-        Vector3 position = camera.orientation().position();
+        final Vector3 target = camera.orientation().target();
+        final Vector3 position = camera.orientation().position();
 
         view.setOnScroll(event -> {
-            Vector3 direction = Vec3Math.subtracted(target, position);
-            Vector3 pos = Vec3Math.added(position,
+            final Vector3 direction = Vec3Math.subtracted(target, position);
+            final Vector3 pos = Vec3Math.added(position,
                     Vec3Math.multiplied(direction, (int) (event.getDeltaY() * SCROLL_MULTIPLIER)));
             System.out.println(pos.x() + " " + pos.y() + " " + pos.z());
             position.setX(pos.x());
@@ -68,14 +68,14 @@ public final class CameraController {
                 return;
             }
 
-            double newX = event.getX();
-            double newY = event.getY();
-            float dx = (float) (newX - oldX);
-            float dy = (float) (newY - oldY);
+            final double newX = event.getX();
+            final double newY = event.getY();
+            final float dx = (float) (newX - oldX);
+            final float dy = (float) (newY - oldY);
             oldX = newX;
             oldY = newY;
 
-            double r = LengthBetween(target, position);
+            final double r = LengthBetween(target, position);
 
             System.out.println(
                     camera.hashCode() + " \t" + event.getX() + " " + event.getY() + "| dx=" + dx + " dy= " + dy
@@ -102,7 +102,7 @@ public final class CameraController {
         });
     }
 
-    private void addHorAng(double rad) {
+    private void addHorAng(final double rad) {
         hAngle += rad * multiplier;
         if (hAngle < -Math.PI) {
             hAngle = Math.PI;
@@ -111,14 +111,14 @@ public final class CameraController {
         }
     }
 
-    private void addVertAng(double rad) {
-        double newVAngle = vAngle + rad * multiplier;
+    private void addVertAng(final double rad) {
+        final double newVAngle = vAngle + rad * multiplier;
         if (Math.abs(newVAngle) < Math.PI / 2) {
             vAngle = newVAngle;
         }
     }
 
-    private double LengthBetween(Vector3 v1, Vector3 v2) {
+    private double LengthBetween(final Vector3 v1, final Vector3 v2) {
         return Math.sqrt(
                 (v1.x() - v2.x()) * (v1.x() - v2.x())
                         + (v1.y() - v2.y()) * (v1.y() - v2.y())
