@@ -27,7 +27,7 @@
             <Label text="Active (selected)"/>
             <FlowPane styleClass="gaps-8">
                 <Button fx:id="activeAddBtn" text="Mark"/>
-                <Button fx:id="activeRemoveBtn" text="Unmark" disable="true"/>
+                <Button fx:id="activeRemoveBtn" text="Unmark"/>
             </FlowPane>
         </VBox>
         <VBox styleClass="spacing-8">
