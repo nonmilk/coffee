@@ -137,10 +137,15 @@ public final class Scener {
             throw new IllegalArgumentException("this name doesn't exist");
         }
 
+        if (active != null) {
+            active.setStatus(NamedScene.Status.DEFAULT);
+        }
+
         active = scene;
+        active.setStatus(NamedScene.Status.ACTIVE);
         renderer.setScene(active());
 
-        view.getSelectionModel().select(active);
+        view.refresh();
 
         update();
     }
