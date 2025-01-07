@@ -130,8 +130,12 @@ public final class Scener {
 
     private void initMarkActive() {
         markActiveBtn.setOnAction(e -> {
-            final var selection = view.selectionModelProperty().get();
-            markActive(selection.getSelectedItem().name());
+            final var scene = selected();
+            if (scene == null) {
+                return;
+            }
+
+            markActive(scene.name());
         });
     }
 
@@ -156,6 +160,10 @@ public final class Scener {
 
     private Scene active() {
         return active.unwrap();
+    }
+
+    private NamedScene selected() {
+        return view.selectionModelProperty().get().getSelectedItem();
     }
 
     public void setRenderer(final Renderer renderer) {
