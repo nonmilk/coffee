@@ -7,6 +7,7 @@ import io.github.nonmilk.coffee.grinder.Model;
 public final class NamedModel implements Named {
 
     private final Model model;
+    private Status status;
     private String name;
 
     public enum Status {
@@ -29,11 +30,16 @@ public final class NamedModel implements Named {
 
     public NamedModel(final Model m, final String name) {
         model = Objects.requireNonNull(m);
+        status = Status.DEFAULT;
         rename(name);
     }
 
     public Model unwrap() {
         return model;
+    }
+
+    public void setStatus(final Status s) {
+        status = Objects.requireNonNull(s);
     }
 
     @Override
@@ -48,6 +54,6 @@ public final class NamedModel implements Named {
 
     @Override
     public String toString() {
-        return name;
+        return String.format("%s%s", name, status);
     }
 }
