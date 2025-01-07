@@ -13,18 +13,7 @@
         <HBox>
             <Label text="Models"/>
         </HBox>
-        <VBox styleClass="spacing-8">
-            <HBox>
-                <VBox>
-                    <Label text="All"/>
-                    <ListView fx:id="viewAll" styleClass="models-view"/>
-                </VBox>
-                <VBox>
-                    <Label text="Active"/>
-                    <ListView fx:id="viewActive" styleClass="models-view"/>
-                </VBox>
-            </HBox>
-        </VBox>
+        <ListView fx:id="view" styleClass="models-view"/>
         <VBox styleClass="spacing-8">
             <Label text="Obj"/>
             <HBox styleClass="spacing-12">
