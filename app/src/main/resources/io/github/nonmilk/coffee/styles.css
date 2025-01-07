@@ -121,6 +121,10 @@
     -fx-alignment: center;
 }
 
+.centered-left {
+    -fx-alignment: center_left;
+}
+
 .fill-width {
     -fx-fill-width: true;
 }

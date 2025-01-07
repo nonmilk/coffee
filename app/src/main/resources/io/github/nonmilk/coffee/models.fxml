@@ -7,6 +7,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
 
 <AnchorPane fx:id="root" fx:controller="io.github.nonmilk.coffee.Modeler" xmlns:fx="http://javafx.com/fxml" stylesheets="@styles.css" styleClass="models-root">
     <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" styleClass="padding-20, spacing-16">
@@ -41,6 +42,26 @@
                 <Button fx:id="textureAddBtn" text="Add"/>
                 <Button fx:id="textureRemoveBtn" text="Remove"/>
             </HBox>
+        </VBox>
+        <VBox>
+            <Label text="Transformations"/>
+            <VBox>
+                <Label text="Scaling"/>
+                <VBox styleClass="spacing-8">
+                    <HBox styleClass="spacing-12, centered-left">
+                        <Label text="X"/>
+                        <TextField fx:id="scalingX"/>
+                    </HBox>
+                    <HBox styleClass="spacing-12, centered-left">
+                        <Label text="Y"/>
+                        <TextField fx:id="scalingY"/>
+                    </HBox>
+                    <HBox styleClass="spacing-12, centered-left">
+                        <Label text="Z"/>
+                        <TextField fx:id="scalingZ"/>
+                    </HBox>
+                </VBox>
+            </VBox>
         </VBox>
     </VBox>
 </AnchorPane>
