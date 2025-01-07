@@ -16,7 +16,7 @@ import javafx.scene.control.TextInputDialog;
 public final class Scener {
 
     private static final String DEFAULT_NAME = "Scene";
-    private int namePostfix = 1;
+    private final StringBuilder nameBuilder = new StringBuilder();
 
     private Renderer renderer;
 
@@ -40,69 +40,28 @@ public final class Scener {
     private Button renameBtn;
 
     @FXML
-    private Button selectBtn;
+    private Button markActiveBtn;
 
-    // TODO refactor
     @FXML
     private void initialize() {
         view.setItems(list);
 
-        selectBtn.setOnAction(e -> {
-            final var selection = view.selectionModelProperty().get();
-            select(selection.getSelectedItem().name());
-        });
-
-        addBtn.setOnAction(e -> {
-            final var name = name();
-
-            add(new Scene(), name);
-            list.add(scenes.get(name));
-            view.refresh();
-
-            select(name);
-        });
-
-        removeBtn.setOnAction(e -> {
-            final var selection = view.selectionModelProperty().get();
-            remove(selection.getSelectedItem().name());
-            list.remove(selection.getSelectedIndex());
-            view.refresh();
-        });
-
-        renameBtn.setOnAction(e -> {
-            final var selection = view.selectionModelProperty().get();
-            final var name = selection.getSelectedItem().name();
-
-            final TextInputDialog dialog = new TextInputDialog(name);
-            dialog.show();
-
-            // TODO don't make dialog on each rename
-            // FIXME ignore rename on closing with cancel
-            dialog.setOnCloseRequest(event -> {
-                try {
-                    rename(name, dialog.getEditor().getText());
-                } catch (final IllegalArgumentException err) {
-                    event.consume();
-                    // TODO error alert
-                }
-            });
-
-            dialog.setOnHidden(event -> {
-                view.refresh();
-            });
-        });
+        initMarkActive();
+        initAdd();
+        initRemove();
+        initRename();
     }
 
-    // TODO manage view from there
     private void add(final Scene s, final String name) {
         if (scenes.get(name) != null) {
             throw new IllegalArgumentException("this name already exists");
         }
 
         scenes.put(name, new NamedScene(s, name));
+        list.add(scenes.get(name));
+        view.refresh();
     }
 
-    // TODO manage view from there
     private void remove(final String name) {
         final var scene = scenes.get(name);
 
@@ -113,9 +72,10 @@ public final class Scener {
         }
 
         scenes.remove(name);
+        view.refresh();
+        // removal from list should be handled by the button
     }
 
-    // TODO manage view from there
     private void rename(final String oldName, final String newName) {
         final var scene = scenes.get(oldName);
         if (scene == null) {
@@ -129,18 +89,82 @@ public final class Scener {
         scenes.remove(oldName);
         scene.rename(newName);
         scenes.put(newName, scene);
+
+        view.refresh();
     }
 
-    private void select(final String name) {
+    private void initMarkActive() {
+        markActiveBtn.setOnAction(e -> {
+            final var scene = selected();
+            if (scene == null) {
+                return;
+            }
+
+            markActive(scene.name());
+        });
+    }
+
+    private void initRename() {
+        final var dialog = new TextInputDialog();
+        final var field = dialog.getEditor();
+
+        renameBtn.setOnAction(e -> {
+            final var scene = selected();
+            if (scene == null) {
+                return;
+            }
+
+            field.setText(scene.name());
+
+            dialog.showAndWait().ifPresent(response -> {
+                try {
+                    rename(scene.name(), response);
+                } catch (final IllegalArgumentException err) {
+                    return;
+                    // TODO intercept?
+                    // TODO error alert
+                }
+            });
+        });
+    }
+
+    private void initAdd() {
+        addBtn.setOnAction(e -> {
+            final var name = uniqueName();
+            add(new Scene(), name);
+            markActive(name);
+        });
+    }
+
+    private void initRemove() {
+        removeBtn.setOnAction(e -> {
+            final var selection = view.selectionModelProperty().get();
+
+            final var scene = selection.getSelectedItem();
+            if (scene == null) {
+                return;
+            }
+
+            remove(scene.name());
+            list.remove(selection.getSelectedIndex());
+        });
+    }
+
+    private void markActive(final String name) {
         final var scene = scenes.get(name);
         if (scene == null) {
             throw new IllegalArgumentException("this name doesn't exist");
         }
 
+        if (active != null) {
+            active.setStatus(NamedScene.Status.DEFAULT);
+        }
+
         active = scene;
+        active.setStatus(NamedScene.Status.ACTIVE);
         renderer.setScene(active());
 
-        view.getSelectionModel().select(active);
+        view.refresh();
 
         update();
     }
@@ -149,14 +173,17 @@ public final class Scener {
         return active.unwrap();
     }
 
+    private NamedScene selected() {
+        return view.selectionModelProperty().get().getSelectedItem();
+    }
+
     public void setRenderer(final Renderer renderer) {
         this.renderer = Objects.requireNonNull(renderer);
 
         scenes.clear();
         list.clear();
 
-        namePostfix = 1;
-        final String name = name();
+        final String name = uniqueName();
 
         final var scene = renderer.scene();
         if (scene != null) {
@@ -165,10 +192,7 @@ public final class Scener {
             add(new Scene(), name);
         }
 
-        list.add(scenes.get(name));
-        view.refresh();
-
-        select(name);
+        markActive(name);
 
         update();
     }
@@ -195,8 +219,27 @@ public final class Scener {
         }
     }
 
-    // FIXME don't increment the number on unsuccessful rename
-    private String name() {
-        return String.format("%s %d", DEFAULT_NAME, namePostfix++);
+    private String uniqueName() {
+        var name = DEFAULT_NAME;
+
+        if (scenes.get(name) == null) {
+            return name;
+        }
+
+        nameBuilder.setLength(0);
+        nameBuilder.append(name);
+        nameBuilder.append(' ');
+
+        int postfix = 1;
+        nameBuilder.append(postfix++);
+        name = nameBuilder.toString();
+
+        while (scenes.get(name) != null) {
+            nameBuilder.setLength(nameBuilder.length() - 1);
+            nameBuilder.append(postfix++);
+            name = nameBuilder.toString();
+        }
+
+        return name;
     }
 }

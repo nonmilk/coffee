@@ -24,7 +24,7 @@
             <Label text="Control (selected)"/>
             <FlowPane styleClass="gaps-8">
                 <Button fx:id="renameBtn" text="Rename"/>
-                <Button fx:id="selectBtn" text="Select"/>
+                <Button fx:id="markActiveBtn" text="Mark Active"/>
             </FlowPane>
         </VBox>
     </VBox>
