@@ -9,6 +9,23 @@ public final class NamedScene implements Named {
     private final Scene scene;
     private String name;
 
+    public enum Status {
+
+        DEFAULT(""),
+        ACTIVE(" (active)");
+
+        private String s;
+
+        private Status(final String s) {
+            this.s = Objects.requireNonNull(s);
+        }
+
+        @Override
+        public String toString() {
+            return s;
+        }
+    }
+
     public NamedScene(final Scene s, final String name) {
         scene = Objects.requireNonNull(s);
         rename(name);
