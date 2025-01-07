@@ -16,28 +16,28 @@
         </HBox>
         <ListView fx:id="view" styleClass="models-view"/>
         <VBox styleClass="spacing-8">
-            <Label text="Obj"/>
+            <Label text="I/O (.obj)"/>
             <HBox styleClass="spacing-12">
                 <Button fx:id="importBtn" text="Import"/>
                 <Button fx:id="exportBtn" text="Export"/>
             </HBox>
         </VBox>
         <VBox styleClass="spacing-8">
-            <Label text="Active"/>
+            <Label text="Active (selected)"/>
             <HBox styleClass="spacing-12">
-                <Button fx:id="activeAddBtn" text="Add"/>
-                <Button fx:id="activeRemoveBtn" text="Remove"/>
+                <Button fx:id="activeAddBtn" text="Mark"/>
+                <Button fx:id="activeRemoveBtn" text="Unmark"/>
             </HBox>
         </VBox>
         <VBox styleClass="spacing-8">
-            <Label text="Control"/>
+            <Label text="Control (selected)"/>
             <HBox styleClass="spacing-12">
                 <Button fx:id="removeBtn" text="Remove"/>
                 <Button fx:id="renameBtn" text="Rename"/>
             </HBox>
         </VBox>
         <VBox styleClass="spacing-8">
-            <Label text="Texture"/>
+            <Label text="Texture (selected)"/>
             <HBox styleClass="spacing-12">
                 <Button fx:id="textureAddBtn" text="Add"/>
                 <Button fx:id="textureRemoveBtn" text="Remove"/>
