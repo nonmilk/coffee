@@ -47,10 +47,7 @@ public final class Scener {
     private void initialize() {
         view.setItems(list);
 
-        markActiveBtn.setOnAction(e -> {
-            final var selection = view.selectionModelProperty().get();
-            markActive(selection.getSelectedItem().name());
-        });
+        initMarkActive();
 
         addBtn.setOnAction(e -> {
             final var name = name();
@@ -129,6 +126,13 @@ public final class Scener {
         scenes.remove(oldName);
         scene.rename(newName);
         scenes.put(newName, scene);
+    }
+
+    private void initMarkActive() {
+        markActiveBtn.setOnAction(e -> {
+            final var selection = view.selectionModelProperty().get();
+            markActive(selection.getSelectedItem().name());
+        });
     }
 
     private void markActive(final String name) {
