@@ -43,9 +43,9 @@
                 <Button fx:id="textureRemoveBtn" text="Remove"/>
             </HBox>
         </VBox>
-        <VBox>
+        <VBox styleClass="spacing-12">
             <Label text="Transformations"/>
-            <VBox>
+            <VBox styleClass="spacing-8">
                 <Label text="Scaling"/>
                 <VBox styleClass="spacing-8">
                     <HBox styleClass="spacing-12, centered-left">
@@ -62,7 +62,7 @@
                     </HBox>
                 </VBox>
             </VBox>
-            <VBox>
+            <VBox styleClass="spacing-8">
                 <Label text="Translation"/>
                 <VBox styleClass="spacing-8">
                     <HBox styleClass="spacing-12, centered-left">
@@ -79,7 +79,7 @@
                     </HBox>
                 </VBox>
             </VBox>
-            <VBox>
+            <VBox styleClass="spacing-8">
                 <Label text="Rotation"/>
                 <VBox styleClass="spacing-8">
                     <HBox styleClass="spacing-12, centered-left">
