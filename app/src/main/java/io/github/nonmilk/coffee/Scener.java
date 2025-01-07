@@ -8,8 +8,10 @@ import io.github.nonmilk.coffee.grinder.Renderer;
 import io.github.nonmilk.coffee.grinder.render.Scene;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
 
@@ -66,28 +68,7 @@ public final class Scener {
             view.refresh();
         });
 
-        renameBtn.setOnAction(e -> {
-            final var selection = view.selectionModelProperty().get();
-            final var name = selection.getSelectedItem().name();
-
-            final TextInputDialog dialog = new TextInputDialog(name);
-            dialog.show();
-
-            // TODO don't make dialog on each rename
-            // FIXME ignore rename on closing with cancel
-            dialog.setOnCloseRequest(event -> {
-                try {
-                    rename(name, dialog.getEditor().getText());
-                } catch (final IllegalArgumentException err) {
-                    event.consume();
-                    // TODO error alert
-                }
-            });
-
-            dialog.setOnHidden(event -> {
-                view.refresh();
-            });
-        });
+        initRename();
     }
 
     // TODO manage view from there
@@ -136,6 +117,32 @@ public final class Scener {
             }
 
             markActive(scene.name());
+        });
+    }
+
+    private void initRename() {
+        final var dialog = new TextInputDialog();
+        final var field = dialog.getEditor();
+
+        renameBtn.setOnAction(e -> {
+            final var scene = selected();
+            if (scene == null) {
+                return;
+            }
+
+            field.setText(scene.name());
+
+            dialog.showAndWait().ifPresent(response -> {
+                try {
+                    rename(scene.name(), response);
+                } catch (final IllegalArgumentException err) {
+                    return;
+                    // TODO intercept?
+                    // TODO error alert
+                }
+
+                view.refresh();
+            });
         });
     }
 
