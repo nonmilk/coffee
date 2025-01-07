@@ -75,7 +75,7 @@ public final class CameraController {
             oldX = newX;
             oldY = newY;
 
-            final double r = LengthBetween(target, position);
+            final double r = Vec3Math.len(Vec3Math.subtracted(target, position));
 
             System.out.println(
                     camera.hashCode() + " \t" + event.getX() + " " + event.getY() + "| dx=" + dx + " dy= " + dy
