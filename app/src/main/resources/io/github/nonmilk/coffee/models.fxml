@@ -9,7 +9,7 @@
 <?import javafx.scene.control.Button?>
 
 <AnchorPane fx:id="root" fx:controller="io.github.nonmilk.coffee.Modeler" xmlns:fx="http://javafx.com/fxml" stylesheets="@styles.css" styleClass="models-root">
-    <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" alignment="CENTER_LEFT" styleClass="padding-16, fill-width">
+    <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" alignment="CENTER_LEFT" styleClass="padding-16, spacing-4, fill-width">
         <Label text="Models" styleClass="padding-8"/>
         <HBox styleClass="spacing-8">
             <VBox>
@@ -21,27 +21,25 @@
                 <ListView fx:id="viewActive" VBox.vgrow="ALWAYS" styleClass="models-view"/>
             </VBox>
         </HBox>
-        <GridPane hgap="12" vgap="12" styleClass="padding-8, fill-width">
-            <Label text="Obj" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-            <HBox alignment="CENTER_LEFT" spacing="8" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.columnIndex="1">
-                <Button fx:id="importBtn" text="Import"/>
-                <Button fx:id="exportBtn" text="Export"/>
-            </HBox>
-            <Label text="Active" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-            <HBox GridPane.rowIndex="1" spacing="8" GridPane.columnIndex="1">
-                <Button fx:id="activeAddBtn" text="Add"/>
-                <Button fx:id="activeRemoveBtn" text="Remove"/>
-            </HBox>
-            <Label text="Control" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-            <HBox GridPane.rowIndex="2" spacing="8" GridPane.columnIndex="1">
-                <Button fx:id="removeBtn" text="Remove"/>
-                <Button fx:id="renameBtn" text="Rename"/>
-            </HBox>
-            <Label text="Texture" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-            <HBox GridPane.rowIndex="3" spacing="8" GridPane.columnIndex="1">
-                <Button fx:id="textureAddBtn" text="Add"/>
-                <Button fx:id="textureRemoveBtn" text="Remove"/>
-            </HBox>
-        </GridPane>
+        <Label text="Obj" styleClass="padding-8"/>
+        <HBox alignment="CENTER_LEFT" spacing="8">
+            <Button fx:id="importBtn" text="Import"/>
+            <Button fx:id="exportBtn" text="Export"/>
+        </HBox>
+        <Label text="Active" styleClass="padding-8"/>
+        <HBox spacing="8">
+            <Button fx:id="activeAddBtn" text="Add"/>
+            <Button fx:id="activeRemoveBtn" text="Remove"/>
+        </HBox>
+        <Label text="Control" styleClass="padding-8"/>
+        <HBox spacing="8">
+            <Button fx:id="removeBtn" text="Remove"/>
+            <Button fx:id="renameBtn" text="Rename"/>
+        </HBox>
+        <Label text="Texture" styleClass="padding-8"/>
+        <HBox spacing="8">
+            <Button fx:id="textureAddBtn" text="Add"/>
+            <Button fx:id="textureRemoveBtn" text="Remove"/>
+        </HBox>
     </VBox>
 </AnchorPane>
