@@ -55,7 +55,7 @@ public final class Modeler {
     private Map<String, NamedModel> models;
 
     @FXML
-    private ListView<NamedModel> view;
+    private ListView<NamedModel> viewAll;
     private final ObservableList<NamedModel> list = FXCollections.observableArrayList();
 
     @FXML
@@ -78,7 +78,7 @@ public final class Modeler {
 
     @FXML
     private void initialize() {
-        view.setItems(list);
+        viewAll.setItems(list);
     }
 
     public void init(final Stage s) {
@@ -127,7 +127,7 @@ public final class Modeler {
     private void updateList() {
         list.clear();
         list.addAll(models.values());
-        view.refresh();
+        viewAll.refresh();
     }
 
     private void initModelChooser() {
@@ -170,7 +170,7 @@ public final class Modeler {
         models.put(name, new NamedModel(model, name));
 
         list.add(models.get(name));
-        view.refresh();
+        viewAll.refresh();
     }
 
     private void initExport() {
@@ -228,7 +228,7 @@ public final class Modeler {
         });
 
         dialog.setOnHidden(e -> {
-            view.refresh();
+            viewAll.refresh();
         });
     }
 
@@ -249,7 +249,7 @@ public final class Modeler {
 
     private void initRemove() {
         removeBtn.setOnAction(e -> {
-            final var selection = view.selectionModelProperty().get();
+            final var selection = viewAll.selectionModelProperty().get();
 
             final var model = selection.getSelectedItem();
             if (model == null) {
@@ -259,7 +259,7 @@ public final class Modeler {
             remove(model.name());
             list.remove(selection.getSelectedIndex());
 
-            view.refresh();
+            viewAll.refresh();
         });
     }
 
@@ -292,7 +292,7 @@ public final class Modeler {
 
     private void initAddTexture() {
         textureAddBtn.setOnAction(e -> {
-            final var selection = view.selectionModelProperty().get();
+            final var selection = viewAll.selectionModelProperty().get();
 
             final var model = selection.getSelectedItem();
             if (model == null) {
@@ -320,7 +320,7 @@ public final class Modeler {
 
     private void initRemoveTexture() {
         textureRemoveBtn.setOnAction(e -> {
-            final var selection = view.selectionModelProperty().get();
+            final var selection = viewAll.selectionModelProperty().get();
 
             final var model = selection.getSelectedItem();
             if (model == null) {
@@ -342,7 +342,7 @@ public final class Modeler {
     }
 
     private NamedModel selected() {
-        return view.selectionModelProperty().get().getSelectedItem();
+        return viewAll.selectionModelProperty().get().getSelectedItem();
     }
 
     private String uniqueName(String name) {
