@@ -9,37 +9,50 @@
 <?import javafx.scene.control.Button?>
 
 <AnchorPane fx:id="root" fx:controller="io.github.nonmilk.coffee.Modeler" xmlns:fx="http://javafx.com/fxml" stylesheets="@styles.css" styleClass="models-root">
-    <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" alignment="CENTER_LEFT" styleClass="padding-16, spacing-4, fill-width">
-        <Label text="Models" styleClass="padding-8"/>
-        <HBox styleClass="spacing-8">
-            <VBox>
-                <Label text="All" styleClass="padding-8"/>
-                <ListView fx:id="viewAll" VBox.vgrow="ALWAYS" styleClass="models-view"/>
-            </VBox>
-            <VBox>
-                <Label text="Active" styleClass="padding-8"/>
-                <ListView fx:id="viewActive" VBox.vgrow="ALWAYS" styleClass="models-view"/>
-            </VBox>
+    <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <HBox>
+            <Label text="Model Management"/>
         </HBox>
-        <Label text="Obj" styleClass="padding-8"/>
-        <HBox alignment="CENTER_LEFT" spacing="8">
-            <Button fx:id="importBtn" text="Import"/>
-            <Button fx:id="exportBtn" text="Export"/>
-        </HBox>
-        <Label text="Active" styleClass="padding-8"/>
-        <HBox spacing="8">
-            <Button fx:id="activeAddBtn" text="Add"/>
-            <Button fx:id="activeRemoveBtn" text="Remove"/>
-        </HBox>
-        <Label text="Control" styleClass="padding-8"/>
-        <HBox spacing="8">
-            <Button fx:id="removeBtn" text="Remove"/>
-            <Button fx:id="renameBtn" text="Rename"/>
-        </HBox>
-        <Label text="Texture" styleClass="padding-8"/>
-        <HBox spacing="8">
-            <Button fx:id="textureAddBtn" text="Add"/>
-            <Button fx:id="textureRemoveBtn" text="Remove"/>
-        </HBox>
+        <VBox>
+            <Label text="Models"/>
+            <HBox>
+                <VBox>
+                    <Label text="All"/>
+                    <ListView fx:id="viewAll" styleClass="models-view"/>
+                </VBox>
+                <VBox>
+                    <Label text="Active"/>
+                    <ListView fx:id="viewActive" styleClass="models-view"/>
+                </VBox>
+            </HBox>
+        </VBox>
+        <VBox>
+            <Label text="Obj"/>
+            <HBox>
+                <Button fx:id="importBtn" text="Import"/>
+                <Button fx:id="exportBtn" text="Export"/>
+            </HBox>
+        </VBox>
+        <VBox>
+            <Label text="Active"/>
+            <HBox>
+                <Button fx:id="activeAddBtn" text="Add"/>
+                <Button fx:id="activeRemoveBtn" text="Remove"/>
+            </HBox>
+        </VBox>
+        <VBox>
+            <Label text="Control"/>
+            <HBox>
+                <Button fx:id="removeBtn" text="Remove"/>
+                <Button fx:id="renameBtn" text="Rename"/>
+            </HBox>
+        </VBox>
+        <VBox>
+            <Label text="Texture"/>
+            <HBox>
+                <Button fx:id="textureAddBtn" text="Add"/>
+                <Button fx:id="textureRemoveBtn" text="Remove"/>
+            </HBox>
+        </VBox>
     </VBox>
 </AnchorPane>
