@@ -304,7 +304,7 @@ public final class Modeler {
                 return;
             }
 
-            addTexture(model.name(), ImageTexture.makeFromFile(file));
+            addTexture(model.name(), ImageTexture.fromFile(file));
         });
     }
 
