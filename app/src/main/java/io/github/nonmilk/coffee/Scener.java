@@ -93,7 +93,6 @@ public final class Scener {
         scenes.remove(name);
     }
 
-    // TODO manage view from there
     private void rename(final String oldName, final String newName) {
         final var scene = scenes.get(oldName);
         if (scene == null) {
@@ -107,6 +106,8 @@ public final class Scener {
         scenes.remove(oldName);
         scene.rename(newName);
         scenes.put(newName, scene);
+
+        view.refresh();
     }
 
     private void initMarkActive() {
@@ -140,8 +141,6 @@ public final class Scener {
                     // TODO intercept?
                     // TODO error alert
                 }
-
-                view.refresh();
             });
         });
     }
