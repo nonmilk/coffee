@@ -42,7 +42,6 @@ public final class Scener {
     @FXML
     private Button markActiveBtn;
 
-    // TODO refactor
     @FXML
     private void initialize() {
         view.setItems(list);
