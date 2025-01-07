@@ -49,14 +49,7 @@ public final class Scener {
 
         initMarkActive();
         initAdd();
-
-        removeBtn.setOnAction(e -> {
-            final var selection = view.selectionModelProperty().get();
-            remove(selection.getSelectedItem().name());
-            list.remove(selection.getSelectedIndex());
-            view.refresh();
-        });
-
+        initRemove();
         initRename();
     }
 
@@ -70,7 +63,6 @@ public final class Scener {
         view.refresh();
     }
 
-    // TODO manage view from there
     private void remove(final String name) {
         final var scene = scenes.get(name);
 
@@ -81,6 +73,8 @@ public final class Scener {
         }
 
         scenes.remove(name);
+        view.refresh();
+        // removal from list should be handled by the button
     }
 
     private void rename(final String oldName, final String newName) {
@@ -140,6 +134,20 @@ public final class Scener {
             final var name = uniqueName();
             add(new Scene(), name);
             markActive(name);
+        });
+    }
+
+    private void initRemove() {
+        removeBtn.setOnAction(e -> {
+            final var selection = view.selectionModelProperty().get();
+
+            final var scene = selection.getSelectedItem();
+            if (scene == null) {
+                return;
+            }
+
+            remove(scene.name());
+            list.remove(selection.getSelectedIndex());
         });
     }
 
