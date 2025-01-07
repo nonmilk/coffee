@@ -26,7 +26,7 @@
             <Label text="Active (selected)"/>
             <HBox styleClass="spacing-12">
                 <Button fx:id="activeAddBtn" text="Mark"/>
-                <Button fx:id="activeRemoveBtn" text="Unmark"/>
+                <Button fx:id="activeRemoveBtn" text="Unmark" disable="true"/>
             </HBox>
         </VBox>
         <VBox styleClass="spacing-8">
