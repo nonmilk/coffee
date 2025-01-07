@@ -60,6 +60,7 @@
                         <Label text="Z"/>
                         <TextField fx:id="scalingZField"/>
                     </HBox>
+                    <Button fx:id="scalingApplyBtn" text="Apply"/>
                 </VBox>
             </VBox>
             <VBox styleClass="spacing-8">
@@ -77,6 +78,7 @@
                         <Label text="Z"/>
                         <TextField fx:id="translationZField"/>
                     </HBox>
+                    <Button fx:id="translationApplyBtn" text="Apply"/>
                 </VBox>
             </VBox>
             <VBox styleClass="spacing-8">
@@ -94,6 +96,7 @@
                         <Label text="Z"/>
                         <TextField fx:id="rotationZField"/>
                     </HBox>
+                    <Button fx:id="rotationApplyBtn" text="Apply"/>
                 </VBox>
             </VBox>
         </VBox>
