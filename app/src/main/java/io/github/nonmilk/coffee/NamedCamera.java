@@ -9,6 +9,23 @@ public final class NamedCamera implements Named {
     private final Camera camera;
     private String name;
 
+    public enum Status {
+
+        DEFAULT(""),
+        ACTIVE(" (active)");
+
+        private String s;
+
+        private Status(final String s) {
+            this.s = Objects.requireNonNull(s);
+        }
+
+        @Override
+        public String toString() {
+            return s;
+        }
+    }
+
     public NamedCamera(final Camera c, final String name) {
         camera = Objects.requireNonNull(c);
         rename(name);
