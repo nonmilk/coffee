@@ -2,6 +2,8 @@
 
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ListView?>
@@ -13,51 +15,58 @@
 
 <AnchorPane fx:id="root" fx:controller="io.github.nonmilk.coffee.Camerer" xmlns:fx="http://javafx.com/fxml" stylesheets="@styles.css" styleClass="cameras-root">
     <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-        <Label text="Cameras"/>
-        <ListView fx:id="view" styleClass="cameras-view"/>
         <HBox>
-            <Button fx:id="addBtn" text="Add"/>
-            <Button fx:id="removeBtn" text="Remove"/>
-            <Button fx:id="renameBtn" text="Rename"/>
-            <Button fx:id="selectBtn" text="Select"/>
+            <Label text="Cameras"/>
         </HBox>
+        <ListView fx:id="view" styleClass="cameras-view"/>
         <VBox>
-            <Label text="Properties"/>
+            <HBox>
+                <Button fx:id="addBtn" text="Add"/>
+                <Button fx:id="removeBtn" text="Remove"/>
+            </HBox>
+        </VBox>
+        <VBox>
+            <Label text="Control (selected)"/>
+            <HBox>
+                <Button fx:id="renameBtn" text="Rename"/>
+                <Button fx:id="markActiveBtn" text="Mark Active"/>
+            </HBox>
+        </VBox>
+        <VBox>
+            <HBox>
+                <Label text="Properties"/>
+            </HBox>
             <VBox>
                 <Label text="Orientation"/>
                 <HBox>
-                    <VBox styleClass="centered">
+                    <VBox>
                         <Label text="Position"/>
                         <HBox>
-                            <VBox>
-                                <Label text="X"/>
-                                <TextField fx:id="positionXField"/>
-                            </VBox>
-                            <VBox>
-                                <Label text="Y"/>
-                                <TextField fx:id="positionYField"/>
-                            </VBox>
-                            <VBox>
-                                <Label text="Z"/>
-                                <TextField fx:id="positionZField"/>
-                            </VBox>
+                            <Label text="X"/>
+                            <TextField fx:id="positionXField"/>
+                        </HBox>
+                        <HBox>
+                            <Label text="Y"/>
+                            <TextField fx:id="positionYField"/>
+                        </HBox>
+                        <HBox>
+                            <Label text="Z"/>
+                            <TextField fx:id="positionZField"/>
                         </HBox>
                     </VBox>
                     <VBox>
                         <Label text="Target"/>
                         <HBox>
-                            <VBox>
-                                <Label text="X"/>
-                                <TextField fx:id="targetXField"/>
-                            </VBox>
-                            <VBox>
-                                <Label text="Y"/>
-                                <TextField fx:id="targetYField"/>
-                            </VBox>
-                            <VBox>
-                                <Label text="Z"/>
-                                <TextField fx:id="targetZField"/>
-                            </VBox>
+                            <Label text="X"/>
+                            <TextField fx:id="targetXField"/>
+                        </HBox>
+                        <HBox>
+                            <Label text="Y"/>
+                            <TextField fx:id="targetYField"/>
+                        </HBox>
+                        <HBox>
+                            <Label text="Z"/>
+                            <TextField fx:id="targetZField"/>
                         </HBox>
                     </VBox>
                 </HBox>
@@ -73,43 +82,55 @@
                 </HBox>
                 <StackPane fx:id="viewPane">
                     <fx:define>
-                        <HBox fx:id="orthographicViewPane">
-                            <VBox>
+                        <GridPane fx:id="orthographicViewPane">
+                            <HBox styleClass="centered-right" GridPane.rowIndex="0" GridPane.columnIndex="0">
                                 <Label text="Width"/>
+                            </HBox>
+                            <HBox GridPane.rowIndex="0" GridPane.columnIndex="1">
                                 <TextField fx:id="widthField"/>
-                            </VBox>
-                            <VBox>
+                            </HBox>
+                            <HBox styleClass="centered-right" GridPane.rowIndex="1" GridPane.columnIndex="0">
                                 <Label text="Height"/>
+                            </HBox>
+                            <HBox GridPane.rowIndex="1" GridPane.columnIndex="1">
                                 <TextField fx:id="heightField"/>
-                            </VBox>
-                        </HBox>
-                        <HBox fx:id="perspectiveViewPane">
-                            <VBox>
+                            </HBox>
+                        </GridPane>
+                        <GridPane fx:id="perspectiveViewPane">
+                            <HBox styleClass="centered-right" GridPane.rowIndex="0" GridPane.columnIndex="0">
                                 <Label text="Field of View"/>
+                            </HBox>
+                            <HBox GridPane.rowIndex="0" GridPane.columnIndex="1">
                                 <TextField fx:id="fovField"/>
-                            </VBox>
-                            <VBox>
+                            </HBox>
+                            <HBox styleClass="centered-right" GridPane.rowIndex="1" GridPane.columnIndex="0">
                                 <Label text="Aspect Ratio"/>
+                            </HBox>
+                            <HBox GridPane.rowIndex="1" GridPane.columnIndex="1">
                                 <TextField fx:id="arField"/>
-                            </VBox>
-                        </HBox>
+                            </HBox>
+                        </GridPane>
                     </fx:define>
                 </StackPane>
             </VBox>
             <VBox>
                 <Label text="Clipping Box"/>
-                <HBox>
-                    <VBox>
+                <GridPane>
+                    <HBox styleClass="centered-right" GridPane.rowIndex="0" GridPane.columnIndex="0">
                         <Label text="Near Plane"/>
+                    </HBox>
+                    <HBox GridPane.rowIndex="0" GridPane.columnIndex="1">
                         <TextField fx:id="boxNearPlaneField"/>
-                    </VBox>
-                    <VBox>
+                    </HBox>
+                    <HBox styleClass="centered-right" GridPane.rowIndex="1" GridPane.columnIndex="0">
                         <Label text="Far Plane"/>
+                    </HBox>
+                    <HBox GridPane.rowIndex="1" GridPane.columnIndex="1">
                         <TextField fx:id="boxFarPlaneField"/>
-                    </VBox>
-                </HBox>
+                    </HBox>
+                </GridPane>
             </VBox>
-            <Button fx:id="apply" text="Apply to selected"/>
+            <Button fx:id="apply" text="Apply"/>
         </VBox>
     </VBox>
 </AnchorPane>
