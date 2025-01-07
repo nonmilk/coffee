@@ -8,10 +8,8 @@ import io.github.nonmilk.coffee.grinder.Renderer;
 import io.github.nonmilk.coffee.grinder.render.Scene;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
 
@@ -19,7 +17,6 @@ public final class Scener {
 
     private static final String DEFAULT_NAME = "Scene";
     private final StringBuilder nameBuilder = new StringBuilder();
-    private int namePostfix = 1;
 
     private Renderer renderer;
 
@@ -182,7 +179,6 @@ public final class Scener {
         scenes.clear();
         list.clear();
 
-        namePostfix = 1;
         final String name = uniqueName();
 
         final var scene = renderer.scene();
