@@ -18,6 +18,7 @@ import javafx.scene.control.TextInputDialog;
 public final class Scener {
 
     private static final String DEFAULT_NAME = "Scene";
+    private final StringBuilder nameBuilder = new StringBuilder();
     private int namePostfix = 1;
 
     private Renderer renderer;
@@ -138,7 +139,7 @@ public final class Scener {
 
     private void initAdd() {
         addBtn.setOnAction(e -> {
-            final var name = name();
+            final var name = uniqueName();
 
             add(new Scene(), name);
             list.add(scenes.get(name));
@@ -182,7 +183,7 @@ public final class Scener {
         list.clear();
 
         namePostfix = 1;
-        final String name = name();
+        final String name = uniqueName();
 
         final var scene = renderer.scene();
         if (scene != null) {
@@ -221,8 +222,27 @@ public final class Scener {
         }
     }
 
-    // FIXME don't increment the number on unsuccessful rename
-    private String name() {
-        return String.format("%s %d", DEFAULT_NAME, namePostfix++);
+    private String uniqueName() {
+        var name = DEFAULT_NAME;
+
+        if (scenes.get(name) == null) {
+            return name;
+        }
+
+        nameBuilder.setLength(0);
+        nameBuilder.append(name);
+        nameBuilder.append(' ');
+
+        int postfix = 1;
+        nameBuilder.append(postfix++);
+        name = nameBuilder.toString();
+
+        while (scenes.get(name) != null) {
+            nameBuilder.setLength(nameBuilder.length() - 1);
+            nameBuilder.append(postfix++);
+            name = nameBuilder.toString();
+        }
+
+        return name;
     }
 }
