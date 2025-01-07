@@ -48,16 +48,16 @@ public final class CameraController {
         });
 
         Vector3 target = camera.orientation().target();
-        Vector3 camPos = camera.orientation().position();
+        Vector3 position = camera.orientation().position();
 
         view.setOnScroll(event -> {
-            Vector3 newDir = Vec3Math.subtracted(target, camPos);
-            Vector3 pos = Vec3Math.added(camPos,
-                    Vec3Math.multiplied(newDir, (int) (event.getDeltaY() * SCROLL_MULTIPLIER)));
+            Vector3 direction = Vec3Math.subtracted(target, position);
+            Vector3 pos = Vec3Math.added(position,
+                    Vec3Math.multiplied(direction, (int) (event.getDeltaY() * SCROLL_MULTIPLIER)));
             System.out.println(pos.x() + " " + pos.y() + " " + pos.z());
-            camPos.setX(pos.x());
-            camPos.setY(pos.y());
-            camPos.setZ(pos.z());
+            position.setX(pos.x());
+            position.setY(pos.y());
+            position.setZ(pos.z());
         });
 
         view.setOnMouseDragged(event -> {
@@ -75,7 +75,7 @@ public final class CameraController {
             oldX = newX;
             oldY = newY;
 
-            double r = LengthBetween(target, camPos);
+            double r = LengthBetween(target, position);
 
             System.out.println(
                     camera.hashCode() + " \t" + event.getX() + " " + event.getY() + "| dx=" + dx + " dy= " + dy
@@ -84,19 +84,19 @@ public final class CameraController {
             if (event.isShiftDown()) {
                 addHorAng(dx);
                 addVertAng(dy);
-                camPos
+                position
                         .setX((float) (target.x() + r * Math.cos(hAngle) * Math.cos(vAngle)));
-                camPos
+                position
                         .setY((float) (target.y() + r * Math.sin(hAngle) * Math.cos(vAngle)));
-                camPos
+                position
                         .setZ((float) (target.z() + r * Math.sin(vAngle)));
 
                 System.out.println("h=" + hAngle + " v=" + vAngle);
                 return;
             }
 
-            camPos.setX(camPos.x() + dx);
-            camPos.setY(camPos.y() + dy);
+            position.setX(position.x() + dx);
+            position.setY(position.y() + dy);
             target.setX(target.x() + dx);
             target.setY(target.y() + dy);
         });
