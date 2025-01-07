@@ -79,6 +79,23 @@
                     </HBox>
                 </VBox>
             </VBox>
+            <VBox>
+                <Label text="Rotation"/>
+                <VBox styleClass="spacing-8">
+                    <HBox styleClass="spacing-12, centered-left">
+                        <Label text="X"/>
+                        <TextField fx:id="rotationX"/>
+                    </HBox>
+                    <HBox styleClass="spacing-12, centered-left">
+                        <Label text="Y"/>
+                        <TextField fx:id="rotationY"/>
+                    </HBox>
+                    <HBox styleClass="spacing-12, centered-left">
+                        <Label text="Z"/>
+                        <TextField fx:id="rotationZ"/>
+                    </HBox>
+                </VBox>
+            </VBox>
         </VBox>
     </VBox>
 </AnchorPane>
