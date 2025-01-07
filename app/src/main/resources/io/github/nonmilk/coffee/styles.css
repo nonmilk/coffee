@@ -125,6 +125,10 @@
     -fx-alignment: center_left;
 }
 
+.centered-right {
+    -fx-alignment: center_right;
+}
+
 .gaps-8 {
     -fx-hgap: 8;
     -fx-vgap: 8;

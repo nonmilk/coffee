@@ -23,7 +23,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 // TODO selected camera edit
@@ -55,7 +55,7 @@ public final class Camerer {
     private Button renameBtn;
 
     @FXML
-    private Button selectBtn;
+    private Button markActiveBtn;
 
     @FXML
     private TextField positionXField;
@@ -85,7 +85,7 @@ public final class Camerer {
     private RadioButton orthographicBtn;
 
     @FXML
-    private HBox orthographicViewPane;
+    private Pane orthographicViewPane;
 
     @FXML
     private TextField widthField;
@@ -94,7 +94,7 @@ public final class Camerer {
     private TextField heightField;
 
     @FXML
-    private HBox perspectiveViewPane;
+    private Pane perspectiveViewPane;
 
     @FXML
     private TextField arField;
@@ -113,7 +113,7 @@ public final class Camerer {
     private void initialize() {
         view.setItems(list);
 
-        selectBtn.setOnAction(e -> {
+        markActiveBtn.setOnAction(e -> {
             final var selection = view.selectionModelProperty().get();
             select(selection.getSelectedItem().name());
         });
