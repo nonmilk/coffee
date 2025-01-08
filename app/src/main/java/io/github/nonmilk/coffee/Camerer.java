@@ -44,6 +44,9 @@ public final class Camerer {
     private static final float DEFAULT_VIEW_WIDTH = 1280;
     private static final float DEFAULT_VIEW_HEIGHT = 720;
 
+    private static final float DEFAULT_NEAR_PLANE = 0.1f;
+    private static final float DEFAULT_FAR_PLANE = 10;
+
     private static final String DEFAULT_NAME = "Camera";
     private final StringBuilder nameBuilder = new StringBuilder();
 
