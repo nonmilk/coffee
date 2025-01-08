@@ -524,6 +524,26 @@ public final class Camerer {
         view.setHeight(height);
     }
 
+    private void setBoxFromFields(final String name) {
+        final var nearPlaneText = boxNearPlaneField.getText();
+        final float nearPlane;
+        if (nearPlaneText.isEmpty()) {
+            nearPlane = DEFAULT_NEAR_PLANE;
+        } else {
+            nearPlane = Float.parseFloat(nearPlaneText);
+        }
+
+        final var farPlaneText = boxFarPlaneField.getText();
+        final float farPlane;
+        if (farPlaneText.isEmpty()) {
+            farPlane = DEFAULT_FAR_PLANE;
+        } else {
+            farPlane = Float.parseFloat(farPlaneText);
+        }
+
+        setBox(name, nearPlane, farPlane);
+    }
+
     private void setBox(final String name,
             final float nearPlane, final float farPlane) {
 
