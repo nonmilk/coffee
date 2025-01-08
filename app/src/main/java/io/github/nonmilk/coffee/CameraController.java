@@ -6,10 +6,6 @@ import io.github.alphameo.linear_algebra.Validator;
 import io.github.alphameo.linear_algebra.vec.Vec3Math;
 import io.github.alphameo.linear_algebra.vec.Vector3;
 import io.github.nonmilk.coffee.grinder.camera.Camera;
-import io.github.nonmilk.coffee.grinder.math.affine.Rotator;
-import io.github.nonmilk.coffee.grinder.math.affine.Transformation;
-import io.github.nonmilk.coffee.grinder.math.affine.Translator;
-import io.github.nonmilk.coffee.grinder.math.affine.Rotator.Axis;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
 
