@@ -153,6 +153,7 @@ public final class Camerer {
         initMarkActive();
         initRename();
         initApplyOrientation();
+        initApplyView();
         initApplyBox();
     }
 
@@ -510,6 +511,26 @@ public final class Camerer {
         target.setX(x);
         target.setY(y);
         target.setZ(z);
+    }
+
+    private void initApplyView() {
+        viewApplyBtn.setOnAction(e -> {
+            final var cam = selected();
+            if (cam == null) {
+                return;
+            }
+
+            final var unwrapped = cam.unwrap();
+            final var name = cam.name();
+
+            if (unwrapped instanceof PerspectiveCamera) {
+                setPerspectiveViewFromFields(name);
+            } else if (unwrapped instanceof OrthographicCamera) {
+                setOrthographicViewFromFields(name);
+            }
+
+            updateView();
+        });
     }
 
     private void setPerspectiveViewFromFields(final String name) {
