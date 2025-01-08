@@ -294,10 +294,15 @@ public final class Camerer {
             throw new IllegalArgumentException("this name doesn't exist");
         }
 
+        if (active != null) {
+            active.setStatus(NamedCamera.Status.DEFAULT);
+        }
+
         active = camera;
+        active.setStatus(NamedCamera.Status.ACTIVE);
+
         activeCameras.put(scene, active);
         scene.setCamera(active());
-
         controller().setCamera(active.unwrap());
 
         view.getSelectionModel().select(active);
