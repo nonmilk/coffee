@@ -142,6 +142,7 @@ public final class Camerer {
         initRemove();
         initMarkActive();
         initRename();
+        initApplyOrientation();
     }
 
     public void setScene(final Scene s) {
@@ -357,6 +358,22 @@ public final class Camerer {
 
         boxNearPlaneField.setText(String.valueOf(box.nearPlane()));
         boxFarPlaneField.setText(String.valueOf(box.farPlane()));
+    }
+
+    private void initApplyOrientation() {
+        orientationApplyBtn.setOnAction(e -> {
+            final var cam = selected();
+            if (cam == null) {
+                return;
+            }
+
+            final var name = cam.name();
+
+            setPositionFromFields(name);
+            setTargetFromFields(name);
+
+            updateFields();
+        });
     }
 
     private void setPositionFromFields(final String name) {
