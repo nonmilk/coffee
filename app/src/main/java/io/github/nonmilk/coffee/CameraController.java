@@ -68,15 +68,8 @@ public final class CameraController {
             oldX = newX;
             oldY = newY;
 
-            final double r = Vec3Math.len(Vec3Math.subtracted(target, position));
-
             if (event.isShiftDown()) {
-                addHorAng(dx);
-                addVertAng(dy);
-
-                position.setX((float) (target.x() + r * Math.cos(hAngle) * Math.cos(vAngle)));
-                position.setY((float) (target.y() + r * Math.sin(hAngle) * Math.cos(vAngle)));
-                position.setZ((float) (target.z() + r * Math.sin(vAngle)));
+                handleSphereMovement(dx, dy);
                 return;
             }
 
@@ -115,5 +108,19 @@ public final class CameraController {
         float scrollMultiplier = Math.signum(scrollValue) * ABS_SCROLL_MULTIPLIER;
 
         Vec3Math.add(position, Vec3Math.mult(direction, scrollMultiplier));
+    }
+
+    private void handleSphereMovement(float mouseDX, float mouseDY) {
+        final Vector3 target = camera.orientation().target();
+        final Vector3 position = camera.orientation().position();
+
+        addHorAng(mouseDX);
+        addVertAng(mouseDY);
+
+        final double r = Vec3Math.len(Vec3Math.subtracted(target, position));
+
+        position.setX((float) (target.x() + r * Math.cos(hAngle) * Math.cos(vAngle)));
+        position.setY((float) (target.y() + r * Math.sin(hAngle) * Math.cos(vAngle)));
+        position.setZ((float) (target.z() + r * Math.sin(vAngle)));
     }
 }
