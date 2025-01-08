@@ -391,6 +391,26 @@ public final class Camerer {
         view.setAspectRatio(ar);
     }
 
+    private void setOrthographicView(final String name,
+            final float width, final float height) {
+
+        final var cam = cameras.get(name);
+        if (cam == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        final var unwrapped = cam.unwrap();
+        if (!(unwrapped instanceof OrthographicCamera)) {
+            throw new IllegalArgumentException("this camera is not orthographic");
+        }
+
+        final var orthographic = (OrthographicCamera) unwrapped;
+        final var view = orthographic.view();
+
+        view.setWidth(width);
+        view.setHeight(height);
+    }
+
     public void update(final float width, final float height) {
         if (width <= 0 || height <= 0) {
             return;
