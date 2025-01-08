@@ -30,6 +30,20 @@ import javafx.scene.layout.StackPane;
 
 public final class Camerer {
 
+    private static final float DEFAULT_POSITION_X = 5;
+    private static final float DEFAULT_POSITION_Y = 0;
+    private static final float DEFAULT_POSITION_Z = -5;
+
+    private static final float DEFAULT_TARGET_X = 0;
+    private static final float DEFAULT_TARGET_Y = 0;
+    private static final float DEFAULT_TARGET_Z = 0;
+
+    private static final float DEFAULT_VIEW_FOV = 0.45f * 3.14f;
+    private static final float DEFAULT_VIEW_AR = 1.67f;
+
+    private static final float DEFAULT_VIEW_WIDTH = 1280;
+    private static final float DEFAULT_VIEW_HEIGHT = 720;
+
     private static final String DEFAULT_NAME = "Camera";
     private final StringBuilder nameBuilder = new StringBuilder();
 
