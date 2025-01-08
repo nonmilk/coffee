@@ -143,6 +143,10 @@ public final class Camerer {
 
         cameraController.setCamerer(this);
 
+        arField.disableProperty().set(true);
+        widthField.disableProperty().set(true);
+        heightField.disableProperty().set(true);
+
         initStack();
         initAdd();
         initRemove();
@@ -354,6 +358,9 @@ public final class Camerer {
 
         if (cam instanceof OrthographicCamera orthographic) {
             final var view = orthographic.view();
+
+            perspectiveBtn.disableProperty().set(true);
+            orthographicBtn.disableProperty().set(false);
             orthographicBtn.fire();
 
             widthField.setText(String.valueOf(view.width()));
@@ -363,6 +370,9 @@ public final class Camerer {
             fovField.clear();
         } else if (cam instanceof PerspectiveCamera perspective) {
             final var view = perspective.view();
+
+            orthographicBtn.disableProperty().set(true);
+            perspectiveBtn.disableProperty().set(false);
             perspectiveBtn.fire();
 
             arField.setText(String.valueOf(view.aspectRatio()));
