@@ -676,9 +676,29 @@ public final class Modeler {
 
     // TODO error handling
     private void rotateFromFields(final String name) {
-        final var x = Float.parseFloat(rotationXField.getText());
-        final var y = Float.parseFloat(rotationYField.getText());
-        final var z = Float.parseFloat(rotationZField.getText());
+        final var textX = rotationXField.getText();
+        final float x;
+        if (textX.isEmpty()) {
+            x = 1;
+        } else {
+            x = Float.parseFloat(textX);
+        }
+
+        final var textY = rotationYField.getText();
+        final float y;
+        if (textY.isEmpty()) {
+            y = 1;
+        } else {
+            y = Float.parseFloat(textY);
+        }
+
+        final var textZ = rotationZField.getText();
+        final float z;
+        if (textZ.isEmpty()) {
+            z = 1;
+        } else {
+            z = Float.parseFloat(textZ);
+        }
 
         rotate(name, x, y, z);
     }
