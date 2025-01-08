@@ -6,6 +6,10 @@ import io.github.alphameo.linear_algebra.Validator;
 import io.github.alphameo.linear_algebra.vec.Vec3Math;
 import io.github.alphameo.linear_algebra.vec.Vector3;
 import io.github.nonmilk.coffee.grinder.camera.Camera;
+import io.github.nonmilk.coffee.grinder.math.affine.Rotator;
+import io.github.nonmilk.coffee.grinder.math.affine.Transformation;
+import io.github.nonmilk.coffee.grinder.math.affine.Translator;
+import io.github.nonmilk.coffee.grinder.math.affine.Rotator.Axis;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
 
@@ -23,6 +27,7 @@ public final class CameraController {
     private boolean drag = false;
 
     private static final float MOUSE_TO_ANGLE_MULTIPLIER = 0.02f;
+    private static final float MOUSE_TO_MOVEMENT_MULTIPLIER = 0.01f;
     private static final float ABS_SCROLL_MULTIPLIER = 0.05f;
 
     public CameraController() {
@@ -129,10 +134,22 @@ public final class CameraController {
     }
 
     private void handleSimpleMovement(final float mouseDX, final float mouseDY) {
-        position().setX(position().x() + mouseDX);
-        position().setY(position().y() + mouseDY);
-        target().setX(target().x() + mouseDX);
-        target().setY(target().y() + mouseDY);
+        float ang = (float) Math.atan2(target().z() - position().z(), target().x() - position().x());
+        ang -= ((float) Math.PI) / 2;
+        float dx = mouseDX * ((float) Math.cos(ang)) * MOUSE_TO_MOVEMENT_MULTIPLIER;
+        float dy = mouseDX * ((float) Math.sin(ang)) * MOUSE_TO_MOVEMENT_MULTIPLIER;
+
+        // Horizontal: X movement
+        position().setX(position().x() + dx);
+        target().setX(target().x() + dx);
+
+        // Horizontal: Y movement
+        position().setZ(position().z() + dy);
+        target().setZ(target().z() + dy);
+
+        // Vertical: Z movement
+        position().setY(position().y() - mouseDY * MOUSE_TO_MOVEMENT_MULTIPLIER);
+        target().setY(target().y() - mouseDY * MOUSE_TO_MOVEMENT_MULTIPLIER);
     }
 
     private void initAngles() {
