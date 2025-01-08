@@ -132,11 +132,6 @@ public final class Camerer {
     private void initialize() {
         view.setItems(list);
 
-        markActiveBtn.setOnAction(e -> {
-            final var selection = view.selectionModelProperty().get();
-            select(selection.getSelectedItem().name());
-        });
-
         addBtn.setOnAction(e -> {
             final var name = uniqueName();
 
@@ -144,7 +139,7 @@ public final class Camerer {
             list.add(cameras.get(name));
             view.refresh();
 
-            select(name);
+            markActive(name);
         });
 
         removeBtn.setOnAction(e -> {
@@ -166,6 +161,7 @@ public final class Camerer {
             stack.add(orthographicViewPane);
         });
 
+        initMarkActive();
         initRename();
     }
 
@@ -179,7 +175,7 @@ public final class Camerer {
             list.clear();
             list.addAll(cameras.values());
 
-            select(activeCameras.get(scene).name());
+            markActive(activeCameras.get(scene).name());
             return;
         }
 
@@ -199,7 +195,7 @@ public final class Camerer {
         list.addAll(this.cameras.values());
         // TODO update visual selection
 
-        select(name);
+        markActive(name);
     }
 
     public CameraController controller() {
@@ -269,8 +265,18 @@ public final class Camerer {
         view.refresh();
     }
 
-    // TODO manage view from there
-    private void select(final String name) {
+    private void initMarkActive() {
+        markActiveBtn.setOnAction(e -> {
+            final var cam = selected();
+            if (cam == null) {
+                return;
+            }
+
+            markActive(cam.name());
+        });
+    }
+
+    private void markActive(final String name) {
         final var camera = cameras.get(name);
         if (camera == null) {
             throw new IllegalArgumentException("this name doesn't exist");
@@ -280,10 +286,12 @@ public final class Camerer {
         activeCameras.put(scene, active);
         scene.setCamera(active());
 
-        this.controller().setCamera(active.unwrap());
+        controller().setCamera(active.unwrap());
 
         view.getSelectionModel().select(active);
         updateFields();
+
+        view.refresh();
     }
 
     private Camera active() {
