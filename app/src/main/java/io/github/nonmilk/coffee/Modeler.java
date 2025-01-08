@@ -566,9 +566,29 @@ public final class Modeler {
 
     // TODO error handling
     private void scaleFromFields(final String name) {
-        final var x = Float.parseFloat(scalingXField.getText());
-        final var y = Float.parseFloat(scalingYField.getText());
-        final var z = Float.parseFloat(scalingZField.getText());
+        final var textX = scalingXField.getText();
+        final float x;
+        if (textX.isEmpty()) {
+            x = 1;
+        } else {
+            x = Float.parseFloat(textX);
+        }
+
+        final var textY = scalingYField.getText();
+        final float y;
+        if (textY.isEmpty()) {
+            y = 1;
+        } else {
+            y = Float.parseFloat(textY);
+        }
+
+        final var textZ = scalingZField.getText();
+        final float z;
+        if (textZ.isEmpty()) {
+            z = 1;
+        } else {
+            z = Float.parseFloat(textZ);
+        }
 
         scale(name, x, y, z);
     }
