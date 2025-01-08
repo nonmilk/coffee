@@ -41,6 +41,8 @@ public final class Camerer {
     private Map<String, NamedCamera> cameras = new HashMap<>();
     private NamedCamera active;
 
+    private final CameraController cameraController = new CameraController();
+
     @FXML
     private ListView<NamedCamera> view;
     private final ObservableList<NamedCamera> list = FXCollections.observableArrayList();
@@ -204,6 +206,10 @@ public final class Camerer {
         select(name);
     }
 
+    public CameraController controller() {
+        return cameraController;
+    }
+
     // TODO manage view from there
     private void add(final Camera c, final String name) {
         if (cameras.get(name) != null) {
@@ -252,6 +258,8 @@ public final class Camerer {
         active = camera;
         activeCameras.put(scene, active);
         scene.setCamera(active());
+
+        this.controller().setCamera(active.unwrap());
 
         view.getSelectionModel().select(active);
         updateFields();

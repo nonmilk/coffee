@@ -60,6 +60,10 @@ public final class Viewer {
         update();
     }
 
+    public Canvas view() {
+        return view;
+    }
+
     private void update() {
         final var frames = timeline.getKeyFrames();
 
