@@ -506,6 +506,10 @@ public final class Modeler {
         model.unwrap().transformer().setScaling(x, y, z);
     }
 
+    private void resetScale(final String name) {
+        scale(name, 1, 1, 1);
+    }
+
     private void translate(final String name,
             final float x, final float y, final float z) {
 
@@ -516,6 +520,10 @@ public final class Modeler {
         }
 
         model.unwrap().transformer().setTranslation(x, y, z);
+    }
+
+    private void resetTranslate(final String name) {
+        translate(name, 0, 0, 0);
     }
 
     private void rotate(final String name,
@@ -532,6 +540,10 @@ public final class Modeler {
         transformer.setRotationX(x);
         transformer.setRotationY(y);
         transformer.setRotationZ(z);
+    }
+
+    private void resetRotate(final String name) {
+        rotate(name, 0, 0, 0);
     }
 
     private NamedModel selected() {
