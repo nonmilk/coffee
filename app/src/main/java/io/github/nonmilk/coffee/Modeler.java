@@ -378,6 +378,10 @@ public final class Modeler {
             throw new IllegalArgumentException("this name doesn't exist");
         }
 
+        if (model.status() == NamedModel.Status.ACTIVE) {
+            return;
+        }
+
         final var active = this.active.get(scene);
 
         if (active != null) {
@@ -406,6 +410,10 @@ public final class Modeler {
 
         if (model == null) {
             throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        if (model.status() != NamedModel.Status.ACTIVE) {
+            return;
         }
 
         model.setStatus(NamedModel.Status.DEFAULT);
@@ -444,6 +452,10 @@ public final class Modeler {
             throw new IllegalArgumentException("this name doesn't exist");
         }
 
+        if (model.status() == NamedModel.Status.HIDDEN) {
+            return;
+        }
+
         unmarkActive(name);
 
         model.setStatus(NamedModel.Status.HIDDEN);
@@ -468,6 +480,10 @@ public final class Modeler {
 
         if (model == null) {
             throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        if (model.status() != NamedModel.Status.HIDDEN) {
+            return;
         }
 
         model.setStatus(NamedModel.Status.DEFAULT);
