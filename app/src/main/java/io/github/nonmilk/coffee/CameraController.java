@@ -22,7 +22,7 @@ public final class CameraController {
 
     private boolean drag = false;
 
-    private static final float multiplier = 0.02f;
+    private static final float MOUSE_TO_ANGLE_MULTIPLIER = 0.02f;
     private static final float ABS_SCROLL_MULTIPLIER = 0.05f;
 
     public CameraController() {
@@ -114,8 +114,8 @@ public final class CameraController {
         final Vector3 target = camera.orientation().target();
         final Vector3 position = camera.orientation().position();
 
-        addHorAng(mouseDX * multiplier);
-        addVertAng(mouseDY * multiplier);
+        addHorAng(mouseDX * MOUSE_TO_ANGLE_MULTIPLIER);
+        addVertAng(mouseDY * MOUSE_TO_ANGLE_MULTIPLIER);
 
         final double r = Vec3Math.len(Vec3Math.subtracted(target, position));
 
