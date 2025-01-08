@@ -6,6 +6,7 @@ import io.github.alphameo.linear_algebra.Validator;
 import io.github.alphameo.linear_algebra.vec.Vec3Math;
 import io.github.alphameo.linear_algebra.vec.Vector3;
 import io.github.nonmilk.coffee.grinder.camera.Camera;
+import io.github.nonmilk.coffee.grinder.math.Floats;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
 
@@ -118,7 +119,7 @@ public final class CameraController {
         addHorAng(mouseDX * MOUSE_TO_ANGLE_MULTIPLIER);
         addVertAng(mouseDY * MOUSE_TO_ANGLE_MULTIPLIER);
 
-        final double r = Vec3Math.len(Vec3Math.subtracted(target, position));
+        final float r = Vec3Math.len(Vec3Math.subtracted(target, position));
 
         position.setX((float) (target.x() + r * Math.cos(hAngle) * Math.cos(vAngle)));
         position.setY((float) (target.y() + r * Math.sin(hAngle) * Math.cos(vAngle)));
@@ -139,8 +140,21 @@ public final class CameraController {
         final Vector3 target = camera.orientation().target();
         final Vector3 position = camera.orientation().position();
 
-        final double r = Vec3Math.len(Vec3Math.subtracted(target, position));
+        float r = Vec3Math.len(Vec3Math.subtracted(target, position));
+        if (Validator.equalsEpsilon(r, 0, 1e-5f)) {
+            // Position and target matches. So keep default angles.
+            return;
+        }
+
         vAngle = Math.asin((position.z() - target.z()) / r);
-        hAngle = Math.asin((position.y() - target.y()) / r / Math.cos(vAngle));
+
+        float cosv = (float) Math.cos(vAngle);
+        if (Validator.equalsEpsilon(cosv, 0, 1e-5f)) {
+            // See the target from above or from below -> horizontal angle is not important.
+            // So keep default.
+            return;
+        }
+
+        hAngle = Math.asin((position.y() - target.y()) / r / cosv);
     }
 }
