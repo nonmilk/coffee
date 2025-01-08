@@ -184,7 +184,6 @@ public final class Camerer {
 
         list.clear();
         list.addAll(this.cameras.values());
-        // TODO update visual selection
 
         markActive(name);
     }
