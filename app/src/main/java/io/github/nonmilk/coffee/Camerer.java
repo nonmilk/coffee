@@ -132,13 +132,6 @@ public final class Camerer {
     private void initialize() {
         view.setItems(list);
 
-        removeBtn.setOnAction(e -> {
-            final var selection = view.selectionModelProperty().get();
-            remove(selection.getSelectedItem().name());
-            list.remove(selection.getSelectedIndex());
-            view.refresh();
-        });
-
         final var stack = viewPane.getChildren();
 
         perspectiveBtn.setOnAction(e -> {
@@ -152,6 +145,7 @@ public final class Camerer {
         });
 
         initAdd();
+        initRemove();
         initMarkActive();
         initRename();
     }
@@ -210,7 +204,21 @@ public final class Camerer {
         view.refresh();
     }
 
-    // TODO manage view from there
+    private void initRemove() {
+        removeBtn.setOnAction(e -> {
+            final var selection = view.selectionModelProperty().get();
+
+            final var cam = selection.getSelectedItem();
+            if (cam == null) {
+                return;
+            }
+
+            remove(cam.name());
+            list.remove(selection.getSelectedIndex());
+            view.refresh();
+        });
+    }
+
     private void remove(final String name) {
         final var camera = cameras.get(name);
 
@@ -221,6 +229,7 @@ public final class Camerer {
         }
 
         cameras.remove(name);
+        // removal from list should be handled by the button
     }
 
     private void initRename() {
