@@ -31,7 +31,7 @@ import javafx.scene.layout.StackPane;
 public final class Camerer {
 
     private static final String DEFAULT_NAME = "Camera";
-    private int namePostfix = 1;
+    private final StringBuilder nameBuilder = new StringBuilder();
 
     private Scene scene;
 
@@ -121,7 +121,7 @@ public final class Camerer {
         });
 
         addBtn.setOnAction(e -> {
-            final var name = name();
+            final var name = uniqueName();
 
             add(createFromFields(), name);
             list.add(cameras.get(name));
@@ -190,7 +190,7 @@ public final class Camerer {
         this.cameras = new HashMap<>();
         scenes.put(scene, this.cameras);
 
-        final String name = name();
+        final String name = uniqueName();
 
         final var camera = scene.camera();
         if (camera != null) {
@@ -360,8 +360,27 @@ public final class Camerer {
                 defaultOrientation(), defaultView(), defaultBox());
     }
 
-    // FIXME don't increment the number on unsuccessful rename
-    private String name() {
-        return String.format("%s %d", DEFAULT_NAME, namePostfix++);
+    private String uniqueName() {
+        var name = DEFAULT_NAME;
+
+        if (cameras.get(name) == null) {
+            return name;
+        }
+
+        nameBuilder.setLength(0);
+        nameBuilder.append(name);
+        nameBuilder.append(' ');
+
+        int postfix = 1;
+        nameBuilder.append(postfix++);
+        name = nameBuilder.toString();
+
+        while (cameras.get(name) != null) {
+            nameBuilder.setLength(nameBuilder.length() - 1);
+            nameBuilder.append(postfix++);
+            name = nameBuilder.toString();
+        }
+
+        return name;
     }
 }
