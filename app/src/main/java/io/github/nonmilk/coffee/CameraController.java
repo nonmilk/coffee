@@ -137,7 +137,7 @@ public final class CameraController {
     }
 
     private void initAngles() {
-        float r = Vec3Math.len(Vec3Math.subtracted(target(), position()));
+        final float r = Vec3Math.len(Vec3Math.subtracted(target(), position()));
         if (Validator.equalsEpsilon(r, 0, 1e-5f)) {
             // Position and target matches. So keep default angles.
             return;
@@ -145,7 +145,7 @@ public final class CameraController {
 
         vAngle = (float) Math.asin((position().y() - target().y()) / r);
 
-        float cosv = (float) Math.cos(vAngle);
+        final float cosv = (float) Math.cos(vAngle);
         if (Validator.equalsEpsilon(cosv, 0, 1e-5f)) {
             // See the target from above or from below -> horizontal angle is not important.
             // So keep default.
