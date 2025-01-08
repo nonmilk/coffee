@@ -69,6 +69,7 @@ public final class CameraController {
         mouseToMovementMultiplier = DEFAULT_MOUSE_TO_MOVEMENT_MULTIPLIER * senseMultiplier;
         mouseToAngleMultiplier = DEFAULT_MOUSE_TO_ANGLE_MULTIPLIER * senseMultiplier;
 
+        // return resulting value because we have no exceptions in validation
         return mouseSensitivity;
     }
 
@@ -82,6 +83,7 @@ public final class CameraController {
 
         scrollAbsMultiplier = DEFAULT_SCROLL_ABS_MULTIPLIER * senseMultiplier;
 
+        // return resulting value because we have no exceptions in validation
         return scrollSensitivity;
     }
 
@@ -89,6 +91,7 @@ public final class CameraController {
         setMouseSensitivity(sensitivity);
         setScrollSensitivity(sensitivity);
 
+        // return resulting value because we have no exceptions in validation
         return mouseSensitivity;
     }
 
