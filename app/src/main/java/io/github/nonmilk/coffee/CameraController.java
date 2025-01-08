@@ -11,6 +11,14 @@ import javafx.scene.input.MouseEvent;
 
 public final class CameraController {
 
+    public static final float DEFAULT_MOUSE_TO_ANGLE_MULTIPLIER = 0.02f;
+    public static final float DEFAULT_MOUSE_TO_MOVEMENT_MULTIPLIER = 0.01f;
+    public static final float DEFAULT_SCROLL_ABS_MULTIPLIER = 0.05f;
+    public static final float DEFAULT_OVERALL_SENSITIVITY = 5f;
+
+    private float scrollSensitivity = 1f;
+    private float mouseSensitivity = 1f;
+
     private Camera camera;
     private Canvas view;
 
@@ -22,9 +30,9 @@ public final class CameraController {
 
     private boolean drag = false;
 
-    private static final float MOUSE_TO_ANGLE_MULTIPLIER = 0.02f;
-    private static final float MOUSE_TO_MOVEMENT_MULTIPLIER = 0.01f;
-    private static final float ABS_SCROLL_MULTIPLIER = 0.05f;
+    private float mouseToAngleMultiplier = DEFAULT_MOUSE_TO_ANGLE_MULTIPLIER;
+    private float mouseToMovementMultiplier = DEFAULT_MOUSE_TO_MOVEMENT_MULTIPLIER;
+    private float scrollAbsMultiplier = DEFAULT_SCROLL_ABS_MULTIPLIER;
 
     public CameraController() {
     }
@@ -44,6 +52,30 @@ public final class CameraController {
         Objects.requireNonNull(view);
         this.view = view;
         initCanvas();
+    }
+
+    public float getMouseSensitivity() {
+        return mouseSensitivity;
+    }
+
+    public float getScrollSensitivity() {
+        return scrollSensitivity;
+    }
+
+    public void setScrollSensitivity(final float sensitivity) {
+        scrollSensitivity = validateSensitivity(sensitivity);
+        final float senseMultiplier = computeSensitivityMultiplier(sensitivity);
+
+        scrollAbsMultiplier = DEFAULT_SCROLL_ABS_MULTIPLIER * senseMultiplier;
+    }
+
+    public void setMouseSensitivity(final float sensitivity) {
+        mouseSensitivity = validateSensitivity(sensitivity);
+
+        final float senseMultiplier = computeSensitivityMultiplier(mouseSensitivity);
+
+        mouseToMovementMultiplier = DEFAULT_MOUSE_TO_MOVEMENT_MULTIPLIER * senseMultiplier;
+        mouseToAngleMultiplier = DEFAULT_MOUSE_TO_ANGLE_MULTIPLIER * senseMultiplier;
     }
 
     private void initCanvas() {
@@ -113,14 +145,14 @@ public final class CameraController {
 
         final Vector3 direction = Vec3Math.subtracted(target(), position());
 
-        final float scrollMultiplier = Math.signum(scrollValue) * ABS_SCROLL_MULTIPLIER;
+        final float scrollMultiplier = Math.signum(scrollValue) * scrollAbsMultiplier;
 
         Vec3Math.add(position(), Vec3Math.mult(direction, scrollMultiplier));
     }
 
     private void handleSphereMovement(final float mouseDX, final float mouseDY) {
-        addHorAng(mouseDX * MOUSE_TO_ANGLE_MULTIPLIER);
-        addVertAng(-mouseDY * MOUSE_TO_ANGLE_MULTIPLIER);
+        addHorAng(mouseDX * mouseToAngleMultiplier);
+        addVertAng(-mouseDY * mouseToAngleMultiplier);
 
         final float r = Vec3Math.len(Vec3Math.subtracted(target(), position()));
 
@@ -132,8 +164,8 @@ public final class CameraController {
     private void handleSimpleMovement(final float mouseDX, final float mouseDY) {
         float ang = (float) Math.atan2(target().z() - position().z(), target().x() - position().x());
         ang -= ((float) Math.PI) / 2;
-        final float dx = mouseDX * ((float) Math.cos(ang)) * MOUSE_TO_MOVEMENT_MULTIPLIER;
-        final float dy = mouseDX * ((float) Math.sin(ang)) * MOUSE_TO_MOVEMENT_MULTIPLIER;
+        final float dx = mouseDX * ((float) Math.cos(ang)) * mouseToMovementMultiplier;
+        final float dy = mouseDX * ((float) Math.sin(ang)) * mouseToMovementMultiplier;
 
         // Horizontal: X movement
         position().setX(position().x() + dx);
@@ -144,8 +176,8 @@ public final class CameraController {
         target().setZ(target().z() + dy);
 
         // Vertical: Z movement
-        position().setY(position().y() - mouseDY * MOUSE_TO_MOVEMENT_MULTIPLIER);
-        target().setY(target().y() - mouseDY * MOUSE_TO_MOVEMENT_MULTIPLIER);
+        position().setY(position().y() - mouseDY * mouseToMovementMultiplier);
+        target().setY(target().y() - mouseDY * mouseToMovementMultiplier);
     }
 
     private void initAngles() {
@@ -165,5 +197,20 @@ public final class CameraController {
         }
 
         hAngle = (float) Math.asin((position().z() - target().z()) / r / cosv);
+    }
+
+    private float validateSensitivity(float sensitivity) {
+        if (sensitivity < 1) {
+            sensitivity = 1;
+        }
+        if (sensitivity > 10) {
+            sensitivity = 10;
+        }
+
+        return sensitivity;
+    }
+
+    private float computeSensitivityMultiplier(final float sensitivity) {
+        return 1 + (sensitivity - DEFAULT_OVERALL_SENSITIVITY) / 10;
     }
 }
