@@ -130,6 +130,12 @@ public final class Modeler {
     private TextField rotationZField;
 
     @FXML
+    private Button rotationApplyBtn;
+
+    @FXML
+    private Button rotationResetBtn;
+
+    @FXML
     private void initialize() {
         view.setItems(list);
     }
@@ -160,6 +166,7 @@ public final class Modeler {
 
         initScale();
         initTranslate();
+        initRotate();
 
         initialized = true;
     }
@@ -625,6 +632,26 @@ public final class Modeler {
 
     private void resetTranslate(final String name) {
         translate(name, 0, 0, 0);
+    }
+
+    private void initRotate() {
+        rotationApplyBtn.setOnAction(e -> {
+            final var model = active.get(scene);
+            if (model == null) {
+                return;
+            }
+
+            rotateFromFields(model.name());
+        });
+
+        rotationResetBtn.setOnAction(e -> {
+            final var model = active.get(scene);
+            if (model == null) {
+                return;
+            }
+
+            resetRotate(model.name());
+        });
     }
 
     // TODO error handling
