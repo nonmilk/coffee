@@ -305,6 +305,8 @@ public final class Modeler {
         models.remove(oldName);
         model.rename(newName);
         models.put(newName, model);
+
+        view.refresh();
     }
 
     private void initRemove() {
