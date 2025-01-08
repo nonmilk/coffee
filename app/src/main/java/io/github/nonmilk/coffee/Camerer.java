@@ -411,6 +411,20 @@ public final class Camerer {
         view.setHeight(height);
     }
 
+    private void setBox(final String name,
+            final float nearPlane, final float farPlane) {
+
+        final var cam = cameras.get(name);
+        if (cam == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        final var box = cam.unwrap().box();
+
+        box.setNearPlane(nearPlane);
+        box.setFarPlane(farPlane);
+    }
+
     public void update(final float width, final float height) {
         if (width <= 0 || height <= 0) {
             return;
