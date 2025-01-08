@@ -551,7 +551,7 @@ public final class Camerer {
     }
 
     private ClippingBox defaultBox() {
-        return new ClippingBox(0.1f, 10);
+        return new ClippingBox(DEFAULT_NEAR_PLANE, DEFAULT_FAR_PLANE);
     }
 
     private Camera defaultCamera() {
