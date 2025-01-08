@@ -145,6 +145,7 @@ public final class Camerer {
         initMarkActive();
         initRename();
         initApplyOrientation();
+        initApplyBox();
     }
 
     public void setScene(final Scene s) {
@@ -387,6 +388,19 @@ public final class Camerer {
 
             setPositionFromFields(name);
             setTargetFromFields(name);
+
+            updateFields();
+        });
+    }
+
+    private void initApplyBox() {
+        boxApplyBtn.setOnAction(e -> {
+            final var cam = selected();
+            if (cam == null) {
+                return;
+            }
+
+            setBoxFromFields(cam.name());
 
             updateFields();
         });
