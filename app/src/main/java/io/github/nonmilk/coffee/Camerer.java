@@ -362,7 +362,7 @@ public final class Camerer {
         final var textX = positionXField.getText();
         final float x;
         if (textX.isEmpty()) {
-            x = 0;
+            x = DEFAULT_POSITION_X;
         } else {
             x = Float.parseFloat(textX);
         }
@@ -370,7 +370,7 @@ public final class Camerer {
         final var textY = positionYField.getText();
         final float y;
         if (textY.isEmpty()) {
-            y = 0;
+            y = DEFAULT_POSITION_Y;
         } else {
             y = Float.parseFloat(textY);
         }
@@ -378,7 +378,7 @@ public final class Camerer {
         final var textZ = positionZField.getText();
         final float z;
         if (textZ.isEmpty()) {
-            z = 0;
+            z = DEFAULT_POSITION_Z;
         } else {
             z = Float.parseFloat(textZ);
         }
@@ -405,7 +405,7 @@ public final class Camerer {
         final var textX = targetXField.getText();
         final float x;
         if (textX.isEmpty()) {
-            x = 0;
+            x = DEFAULT_TARGET_X;
         } else {
             x = Float.parseFloat(textX);
         }
@@ -413,7 +413,7 @@ public final class Camerer {
         final var textY = targetYField.getText();
         final float y;
         if (textY.isEmpty()) {
-            y = 0;
+            y = DEFAULT_TARGET_Y;
         } else {
             y = Float.parseFloat(textY);
         }
@@ -421,7 +421,7 @@ public final class Camerer {
         final var textZ = targetZField.getText();
         final float z;
         if (textZ.isEmpty()) {
-            z = 0;
+            z = DEFAULT_TARGET_Z;
         } else {
             z = Float.parseFloat(textZ);
         }
@@ -448,7 +448,7 @@ public final class Camerer {
         final var widthText = widthField.getText();
         final float width;
         if (widthText.isEmpty()) {
-            width = 0; // FIXME
+            width = DEFAULT_VIEW_WIDTH;
         } else {
             width = Float.parseFloat(widthText);
         }
@@ -456,7 +456,7 @@ public final class Camerer {
         final var heightText = heightField.getText();
         final float height;
         if (heightText.isEmpty()) {
-            height = 0; // FIXME
+            height = DEFAULT_VIEW_HEIGHT;
         } else {
             height = Float.parseFloat(heightText);
         }
