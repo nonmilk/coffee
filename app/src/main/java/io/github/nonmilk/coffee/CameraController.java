@@ -7,6 +7,7 @@ import io.github.alphameo.linear_algebra.vec.Vec3Math;
 import io.github.alphameo.linear_algebra.vec.Vector3;
 import io.github.nonmilk.coffee.grinder.camera.Camera;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.input.MouseEvent;
 
 public final class CameraController {
 
@@ -50,28 +51,7 @@ public final class CameraController {
 
         view.setOnScroll(event -> handleScroll((float) event.getDeltaY()));
 
-        view.setOnMouseDragged(event -> {
-            if (!drag) {
-                oldX = event.getX();
-                oldY = event.getY();
-                drag = true;
-                return;
-            }
-
-            final double newX = event.getX();
-            final double newY = event.getY();
-            final float dx = (float) (newX - oldX);
-            final float dy = (float) (newY - oldY);
-            oldX = newX;
-            oldY = newY;
-
-            if (event.isShiftDown()) {
-                handleSphereMovement(dx, dy);
-                return;
-            }
-
-            handleSimpleMovement(dx, dy);
-        });
+        view.setOnMouseDragged(event -> handleOnMouseDrag(event));
     }
 
     private void addHorAng(final double rad) {
@@ -88,6 +68,32 @@ public final class CameraController {
         if (Math.abs(newVAngle) < Math.PI / 2) {
             vAngle = newVAngle;
         }
+    }
+
+    private void handleOnMouseDrag(MouseEvent event) {
+        if (!event.isPrimaryButtonDown()) {
+            return;
+        }
+        if (!drag) {
+            oldX = event.getX();
+            oldY = event.getY();
+            drag = true;
+            return;
+        }
+
+        final double newX = event.getX();
+        final double newY = event.getY();
+        final float dx = (float) (newX - oldX);
+        final float dy = (float) (newY - oldY);
+        oldX = newX;
+        oldY = newY;
+
+        if (event.isShiftDown()) {
+            handleSphereMovement(dx, dy);
+            return;
+        }
+
+        handleSimpleMovement(dx, dy);
     }
 
     private void handleScroll(float scrollValue) {
