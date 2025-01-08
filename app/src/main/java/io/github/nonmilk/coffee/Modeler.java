@@ -382,6 +382,8 @@ public final class Modeler {
             return;
         }
 
+        unhide(name);
+
         final var active = this.active.get(scene);
 
         if (active != null) {
