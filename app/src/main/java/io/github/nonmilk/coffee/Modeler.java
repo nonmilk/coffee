@@ -51,9 +51,9 @@ public final class Modeler {
     private Scene scene;
 
     private final Map<Scene, Map<String, NamedModel>> scenes = new HashMap<>();
+    private final Map<Scene, NamedModel> active = new HashMap<>();
 
     private Map<String, NamedModel> models;
-    private Map<Scene, NamedModel> active;
 
     @FXML
     private ListView<NamedModel> view;
@@ -78,6 +78,9 @@ public final class Modeler {
     private Button textureRemoveBtn;
 
     @FXML
+    private Button activeAddBtn;
+
+    @FXML
     private void initialize() {
         view.setItems(list);
     }
@@ -99,6 +102,8 @@ public final class Modeler {
 
         initAddTexture();
         initRemoveTexture();
+
+        initMarkActive();
 
         initialized = true;
     }
@@ -340,6 +345,17 @@ public final class Modeler {
         }
 
         model.unwrap().setTexture(DEFAULT_TEXTURE);
+    }
+
+    private void initMarkActive() {
+        activeAddBtn.setOnAction(e -> {
+            final var model = selected();
+            if (model == null) {
+                return;
+            }
+
+            markActive(model.name());
+        });
     }
 
     private void markActive(final String name) {
