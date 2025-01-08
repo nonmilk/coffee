@@ -87,6 +87,9 @@ public final class Modeler {
     private Button hideBtn;
 
     @FXML
+    private Button unhideBtn;
+
+    @FXML
     private void initialize() {
         view.setItems(list);
     }
@@ -113,6 +116,7 @@ public final class Modeler {
         initUnmarkActive();
 
         initHide();
+        initUnhide();
 
         initialized = true;
     }
@@ -446,6 +450,17 @@ public final class Modeler {
         scene.models().remove(model.unwrap());
 
         view.refresh();
+    }
+
+    private void initUnhide() {
+        unhideBtn.setOnAction(e -> {
+            final var model = selected();
+            if (model == null) {
+                return;
+            }
+
+            unhide(model.name());
+        });
     }
 
     private void unhide(final String name) {
