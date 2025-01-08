@@ -154,29 +154,6 @@ public final class Camerer {
             view.refresh();
         });
 
-        renameBtn.setOnAction(e -> {
-            final var selection = view.selectionModelProperty().get();
-            final var name = selection.getSelectedItem().name();
-
-            final TextInputDialog dialog = new TextInputDialog(name);
-            dialog.show();
-
-            // TODO don't make dialog on each rename
-            // FIXME ignore rename on closing with cancel
-            dialog.setOnCloseRequest(event -> {
-                try {
-                    rename(name, dialog.getEditor().getText());
-                } catch (final IllegalArgumentException err) {
-                    event.consume();
-                    // TODO error alert
-                }
-            });
-
-            dialog.setOnHidden(event -> {
-                view.refresh();
-            });
-        });
-
         final var stack = viewPane.getChildren();
 
         perspectiveBtn.setOnAction(e -> {
@@ -188,6 +165,8 @@ public final class Camerer {
             stack.clear();
             stack.add(orthographicViewPane);
         });
+
+        initRename();
     }
 
     public void setScene(final Scene s) {
@@ -247,6 +226,30 @@ public final class Camerer {
         }
 
         cameras.remove(name);
+    }
+
+    private void initRename() {
+        final var dialog = new TextInputDialog();
+        final var field = dialog.getEditor();
+
+        renameBtn.setOnAction(e -> {
+            final var cam = selected();
+            if (cam == null) {
+                return;
+            }
+
+            field.setText(cam.name());
+
+            dialog.showAndWait().ifPresent(response -> {
+                try {
+                    rename(cam.name(), response);
+                } catch (final IllegalArgumentException err) {
+                    return;
+                    // TODO intercept?
+                    // TODO error alert
+                }
+            });
+        });
     }
 
     private void rename(final String oldName, final String newName) {
@@ -598,6 +601,10 @@ public final class Camerer {
     private Camera defaultCamera() {
         return new PerspectiveCamera(
                 defaultOrientation(), defaultView(), defaultBox());
+    }
+
+    private NamedCamera selected() {
+        return view.getSelectionModel().getSelectedItem();
     }
 
     private String uniqueName() {
