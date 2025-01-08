@@ -3,7 +3,6 @@ package io.github.nonmilk.coffee;
 import java.util.Objects;
 
 import io.github.alphameo.linear_algebra.Validator;
-import io.github.alphameo.linear_algebra.vec.Vec3;
 import io.github.alphameo.linear_algebra.vec.Vec3Math;
 import io.github.alphameo.linear_algebra.vec.Vector3;
 import io.github.nonmilk.coffee.grinder.camera.Camera;
@@ -73,6 +72,7 @@ public final class CameraController {
 
             final Vector3 target = camera.orientation().target();
             final Vector3 position = camera.orientation().position();
+
             final double newX = event.getX();
             final double newY = event.getY();
             final float dx = (float) (newX - oldX);
@@ -82,13 +82,10 @@ public final class CameraController {
 
             final double r = Vec3Math.len(Vec3Math.subtracted(target, position));
 
-            System.out.println(
-                    camera.hashCode() + " \t" + event.getX() + " " + event.getY() + "| dx=" + dx + " dy= " + dy
-                            + " shift: " + event.isShiftDown());
-
             if (event.isShiftDown()) {
                 addHorAng(dx);
                 addVertAng(dy);
+
                 position.setX((float) (target.x() + r * Math.cos(hAngle) * Math.cos(vAngle)));
                 position.setY((float) (target.y() + r * Math.sin(hAngle) * Math.cos(vAngle)));
                 position.setZ((float) (target.z() + r * Math.sin(vAngle)));
