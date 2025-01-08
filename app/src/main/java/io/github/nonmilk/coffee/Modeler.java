@@ -522,6 +522,7 @@ public final class Modeler {
         view.refresh();
     }
 
+    // TODO error handling
     private void scaleFromFields(final String name) {
         final var x = Float.parseFloat(scalingXField.getText());
         final var y = Float.parseFloat(scalingYField.getText());
@@ -546,6 +547,7 @@ public final class Modeler {
         scale(name, 1, 1, 1);
     }
 
+    // TODO error handling
     private void translateFromFields(final String name) {
         final var x = Float.parseFloat(translationXField.getText());
         final var y = Float.parseFloat(translationYField.getText());
@@ -570,6 +572,7 @@ public final class Modeler {
         translate(name, 0, 0, 0);
     }
 
+    // TODO error handling
     private void rotateFromFields(final String name) {
         final var x = Float.parseFloat(rotationXField.getText());
         final var y = Float.parseFloat(rotationYField.getText());
