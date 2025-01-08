@@ -20,14 +20,16 @@
         </HBox>
         <ListView fx:id="view" styleClass="cameras-view"/>
         <VBox styleClass="spacing-8">
+            <Label text="Add"/>
             <FlowPane styleClass="gaps-8">
-                <Button fx:id="addBtn" text="Add"/>
-                <Button fx:id="removeBtn" text="Remove"/>
+                <Button fx:id="addPerspectiveBtn" text="Perspective"/>
+                <Button fx:id="addOrthographicBtn" text="Orthographic"/>
             </FlowPane>
         </VBox>
         <VBox styleClass="spacing-8">
             <Label text="Control (selected)"/>
             <FlowPane styleClass="gaps-8">
+                <Button fx:id="removeBtn" text="Remove"/>
                 <Button fx:id="renameBtn" text="Rename"/>
                 <Button fx:id="markActiveBtn" text="Mark Active"/>
             </FlowPane>

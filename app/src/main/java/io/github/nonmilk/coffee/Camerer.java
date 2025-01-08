@@ -9,6 +9,7 @@ import io.github.nonmilk.coffee.grinder.camera.ClippingBox;
 import io.github.nonmilk.coffee.grinder.camera.Orientation;
 import io.github.nonmilk.coffee.grinder.camera.OrthographicCamera;
 import io.github.nonmilk.coffee.grinder.camera.PerspectiveCamera;
+import io.github.nonmilk.coffee.grinder.camera.view.OrthographicView;
 import io.github.nonmilk.coffee.grinder.camera.view.PerspectiveView;
 import io.github.nonmilk.coffee.grinder.math.Vec3f;
 import io.github.nonmilk.coffee.grinder.render.Scene;
@@ -62,7 +63,10 @@ public final class Camerer {
     private final ObservableList<NamedCamera> list = FXCollections.observableArrayList();
 
     @FXML
-    private Button addBtn;
+    private Button addPerspectiveBtn;
+
+    @FXML
+    private Button addOrthographicBtn;
 
     @FXML
     private Button removeBtn;
@@ -171,7 +175,7 @@ public final class Camerer {
         if (camera != null) {
             add(camera, name);
         } else {
-            add(defaultCamera(), name);
+            add(defaultPerspectiveCamera(), name);
         }
 
         list.clear();
@@ -200,9 +204,15 @@ public final class Camerer {
     }
 
     private void initAdd() {
-        addBtn.setOnAction(e -> {
+        addPerspectiveBtn.setOnAction(e -> {
             final var name = uniqueName();
-            add(defaultCamera(), name);
+            add(defaultPerspectiveCamera(), name);
+            markActive(name);
+        });
+
+        addOrthographicBtn.setOnAction(e -> {
+            final var name = uniqueName();
+            add(defaultOrthographicCamera(), name);
             markActive(name);
         });
     }
@@ -636,17 +646,26 @@ public final class Camerer {
                         DEFAULT_TARGET_Z));
     }
 
-    private PerspectiveView defaultView() {
+    private PerspectiveView defaultPerspectiveView() {
         return new PerspectiveView(DEFAULT_VIEW_FOV, DEFAULT_VIEW_AR);
+    }
+
+    private OrthographicView defaultOrthographicView() {
+        return new OrthographicView(DEFAULT_VIEW_WIDTH, DEFAULT_VIEW_HEIGHT);
     }
 
     private ClippingBox defaultBox() {
         return new ClippingBox(DEFAULT_NEAR_PLANE, DEFAULT_FAR_PLANE);
     }
 
-    private Camera defaultCamera() {
+    private Camera defaultPerspectiveCamera() {
         return new PerspectiveCamera(
-                defaultOrientation(), defaultView(), defaultBox());
+                defaultOrientation(), defaultPerspectiveView(), defaultBox());
+    }
+
+    private Camera defaultOrthographicCamera() {
+        return new OrthographicCamera(
+                defaultOrientation(), defaultOrthographicView(), defaultBox());
     }
 
     private NamedCamera selected() {
