@@ -595,8 +595,6 @@ public final class Camerer {
     }
 
     private Camera defaultCamera() {
-        // return new OrthographicCamera(defaultOrientation(), new
-        // OrthographicView(1080, 720), defaultBox());
         return new PerspectiveCamera(
                 defaultOrientation(), defaultView(), defaultBox());
     }
