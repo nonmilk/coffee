@@ -506,6 +506,18 @@ public final class Modeler {
         model.unwrap().transformer().setScaling(x, y, z);
     }
 
+    private void translate(final String name,
+            final float x, final float y, final float z) {
+
+        final var model = models.get(name);
+
+        if (model == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        model.unwrap().transformer().setTranslation(x, y, z);
+    }
+
     private NamedModel selected() {
         return view.selectionModelProperty().get().getSelectedItem();
     }
