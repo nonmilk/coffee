@@ -58,9 +58,6 @@ public final class CameraController {
                 return;
             }
 
-            final Vector3 target = camera.orientation().target();
-            final Vector3 position = camera.orientation().position();
-
             final double newX = event.getX();
             final double newY = event.getY();
             final float dx = (float) (newX - oldX);
@@ -73,10 +70,7 @@ public final class CameraController {
                 return;
             }
 
-            position.setX(position.x() + dx);
-            position.setY(position.y() + dy);
-            target.setX(target.x() + dx);
-            target.setY(target.y() + dy);
+            handleSimpleMovement(dx, dy);
         });
     }
 
@@ -122,5 +116,15 @@ public final class CameraController {
         position.setX((float) (target.x() + r * Math.cos(hAngle) * Math.cos(vAngle)));
         position.setY((float) (target.y() + r * Math.sin(hAngle) * Math.cos(vAngle)));
         position.setZ((float) (target.z() + r * Math.sin(vAngle)));
+    }
+
+    private void handleSimpleMovement(float mouseDX, float mouseDY) {
+        final Vector3 target = camera.orientation().target();
+        final Vector3 position = camera.orientation().position();
+
+        position.setX(position.x() + mouseDX);
+        position.setY(position.y() + mouseDY);
+        target.setX(target.x() + mouseDX);
+        target.setY(target.y() + mouseDY);
     }
 }
