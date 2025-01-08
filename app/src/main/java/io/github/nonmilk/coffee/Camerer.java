@@ -249,7 +249,6 @@ public final class Camerer {
         cameras.remove(name);
     }
 
-    // TODO manage view from there
     private void rename(final String oldName, final String newName) {
         final var camera = cameras.get(oldName);
         if (camera == null) {
@@ -263,6 +262,8 @@ public final class Camerer {
         cameras.remove(oldName);
         camera.rename(newName);
         cameras.put(newName, camera);
+
+        view.refresh();
     }
 
     // TODO manage view from there
