@@ -4,14 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import io.github.alphameo.linear_algebra.vec.Vec3;
-import io.github.alphameo.linear_algebra.vec.Vector3;
 import io.github.nonmilk.coffee.grinder.camera.Camera;
 import io.github.nonmilk.coffee.grinder.camera.ClippingBox;
 import io.github.nonmilk.coffee.grinder.camera.Orientation;
 import io.github.nonmilk.coffee.grinder.camera.OrthographicCamera;
 import io.github.nonmilk.coffee.grinder.camera.PerspectiveCamera;
-import io.github.nonmilk.coffee.grinder.camera.view.OrthographicView;
 import io.github.nonmilk.coffee.grinder.camera.view.PerspectiveView;
 import io.github.nonmilk.coffee.grinder.math.Vec3f;
 import io.github.nonmilk.coffee.grinder.render.Scene;
@@ -127,7 +124,6 @@ public final class Camerer {
     @FXML
     private TextField boxFarPlaneField;
 
-    // TODO refactor
     @FXML
     private void initialize() {
         view.setItems(list);
@@ -313,39 +309,6 @@ public final class Camerer {
 
     private Camera active() {
         return active.unwrap();
-    }
-
-    // TODO error handling
-    private Camera createFromFields() {
-        final var posX = Float.parseFloat(positionXField.getText());
-        final var posY = Float.parseFloat(positionYField.getText());
-        final var posZ = Float.parseFloat(positionZField.getText());
-        final Vector3 pos = new Vec3(posX, posY, posZ);
-
-        final var targetX = Float.parseFloat(targetXField.getText());
-        final var targetY = Float.parseFloat(targetYField.getText());
-        final var targetZ = Float.parseFloat(targetZField.getText());
-        final Vector3 target = new Vec3(targetX, targetY, targetZ);
-
-        final var orientation = new Orientation(pos, target);
-
-        final var nearPlane = Float.parseFloat(boxNearPlaneField.getText());
-        final var farPlane = Float.parseFloat(boxFarPlaneField.getText());
-        final var box = new ClippingBox(nearPlane, farPlane);
-
-        if (orthographicBtn.isSelected()) {
-            final var width = Float.parseFloat(widthField.getText());
-            final var height = Float.parseFloat(heightField.getText());
-            final var view = new OrthographicView(width, height);
-            return new OrthographicCamera(orientation, view, box);
-        } else if (perspectiveBtn.isSelected()) {
-            final var fov = Float.parseFloat(fovField.getText());
-            final var ar = Float.parseFloat(arField.getText());
-            final var view = new PerspectiveView(fov, ar);
-            return new PerspectiveCamera(orientation, view, box);
-        }
-
-        return null; // maybe not the best solution
     }
 
     private void updateFields() {
