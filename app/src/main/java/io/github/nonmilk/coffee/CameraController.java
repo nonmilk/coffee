@@ -36,6 +36,7 @@ public final class CameraController {
     public void setCamera(final Camera camera) {
         Objects.requireNonNull(camera);
         this.camera = camera;
+        initAngles();
     }
 
     public void setView(final Canvas view) {
@@ -132,5 +133,14 @@ public final class CameraController {
         position.setY(position.y() + mouseDY);
         target.setX(target.x() + mouseDX);
         target.setY(target.y() + mouseDY);
+    }
+
+    private void initAngles() {
+        final Vector3 target = camera.orientation().target();
+        final Vector3 position = camera.orientation().position();
+
+        final double r = Vec3Math.len(Vec3Math.subtracted(target, position));
+        vAngle = Math.asin((position.z() - target.z()) / r);
+        hAngle = Math.asin((position.y() - target.y()) / r / Math.cos(vAngle));
     }
 }
