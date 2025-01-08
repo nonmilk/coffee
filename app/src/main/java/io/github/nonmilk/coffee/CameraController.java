@@ -70,7 +70,7 @@ public final class CameraController {
         }
     }
 
-    private void handleOnMouseDrag(MouseEvent event) {
+    private void handleOnMouseDrag(final MouseEvent event) {
         if (!event.isPrimaryButtonDown()) {
             return;
         }
@@ -96,7 +96,7 @@ public final class CameraController {
         handleSimpleMovement(dx, dy);
     }
 
-    private void handleScroll(float scrollValue) {
+    private void handleScroll(final float scrollValue) {
         if (Validator.equalsEpsilon(scrollValue, 0, 0.0001f)) {
             return;
         }
@@ -105,12 +105,12 @@ public final class CameraController {
 
         final Vector3 direction = Vec3Math.subtracted(target, position);
 
-        float scrollMultiplier = Math.signum(scrollValue) * ABS_SCROLL_MULTIPLIER;
+        final float scrollMultiplier = Math.signum(scrollValue) * ABS_SCROLL_MULTIPLIER;
 
         Vec3Math.add(position, Vec3Math.mult(direction, scrollMultiplier));
     }
 
-    private void handleSphereMovement(float mouseDX, float mouseDY) {
+    private void handleSphereMovement(final float mouseDX, final float mouseDY) {
         final Vector3 target = camera.orientation().target();
         final Vector3 position = camera.orientation().position();
 
@@ -124,7 +124,7 @@ public final class CameraController {
         position.setZ((float) (target.z() + r * Math.sin(vAngle)));
     }
 
-    private void handleSimpleMovement(float mouseDX, float mouseDY) {
+    private void handleSimpleMovement(final float mouseDX, final float mouseDY) {
         final Vector3 target = camera.orientation().target();
         final Vector3 position = camera.orientation().position();
 
