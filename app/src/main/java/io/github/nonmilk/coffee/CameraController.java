@@ -11,15 +11,20 @@ import javafx.scene.input.MouseEvent;
 
 public final class CameraController {
 
-    public static final float DEFAULT_MOUSE_TO_ANGLE_MULTIPLIER = 0.02f;
-    public static final float DEFAULT_MOUSE_TO_MOVEMENT_MULTIPLIER = 0.01f;
-    public static final float DEFAULT_SCROLL_ABS_MULTIPLIER = 0.05f;
     public static final float MIN_SENSITIVITY = 1f;
     public static final float MAX_SENSITIVITY = 11f;
     public static final float DEFAULT_OVERALL_SENSITIVITY = 6f;
 
-    private float scrollSensitivity = 6f;
-    private float mouseSensitivity = 6f;
+    private float scrollSensitivity = DEFAULT_OVERALL_SENSITIVITY;
+    private float mouseSensitivity = DEFAULT_OVERALL_SENSITIVITY;
+
+    public static final float DEFAULT_MOUSE_TO_ANGLE_MULTIPLIER = 0.02f;
+    public static final float DEFAULT_MOUSE_TO_MOVEMENT_MULTIPLIER = 0.01f;
+    public static final float DEFAULT_SCROLL_ABS_MULTIPLIER = 0.05f;
+
+    private float mouseToAngleMultiplier = DEFAULT_MOUSE_TO_ANGLE_MULTIPLIER;
+    private float mouseToMovementMultiplier = DEFAULT_MOUSE_TO_MOVEMENT_MULTIPLIER;
+    private float scrollAbsMultiplier = DEFAULT_SCROLL_ABS_MULTIPLIER;
 
     private Camera camera;
     private Canvas view;
@@ -31,10 +36,6 @@ public final class CameraController {
     private float oldY;
 
     private boolean drag = false;
-
-    private float mouseToAngleMultiplier = DEFAULT_MOUSE_TO_ANGLE_MULTIPLIER;
-    private float mouseToMovementMultiplier = DEFAULT_MOUSE_TO_MOVEMENT_MULTIPLIER;
-    private float scrollAbsMultiplier = DEFAULT_SCROLL_ABS_MULTIPLIER;
 
     public CameraController() {
     }
@@ -60,6 +61,15 @@ public final class CameraController {
         return mouseSensitivity;
     }
 
+    public void setMouseSensitivity(final float sensitivity) {
+        mouseSensitivity = validateSensitivity(sensitivity);
+
+        final float senseMultiplier = computeSensitivityMultiplier(mouseSensitivity);
+
+        mouseToMovementMultiplier = DEFAULT_MOUSE_TO_MOVEMENT_MULTIPLIER * senseMultiplier;
+        mouseToAngleMultiplier = DEFAULT_MOUSE_TO_ANGLE_MULTIPLIER * senseMultiplier;
+    }
+
     public float getScrollSensitivity() {
         return scrollSensitivity;
     }
@@ -69,15 +79,6 @@ public final class CameraController {
         final float senseMultiplier = computeSensitivityMultiplier(sensitivity);
 
         scrollAbsMultiplier = DEFAULT_SCROLL_ABS_MULTIPLIER * senseMultiplier;
-    }
-
-    public void setMouseSensitivity(final float sensitivity) {
-        mouseSensitivity = validateSensitivity(sensitivity);
-
-        final float senseMultiplier = computeSensitivityMultiplier(mouseSensitivity);
-
-        mouseToMovementMultiplier = DEFAULT_MOUSE_TO_MOVEMENT_MULTIPLIER * senseMultiplier;
-        mouseToAngleMultiplier = DEFAULT_MOUSE_TO_ANGLE_MULTIPLIER * senseMultiplier;
     }
 
     private void initCanvas() {
