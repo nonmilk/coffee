@@ -14,10 +14,12 @@ public final class CameraController {
     public static final float DEFAULT_MOUSE_TO_ANGLE_MULTIPLIER = 0.02f;
     public static final float DEFAULT_MOUSE_TO_MOVEMENT_MULTIPLIER = 0.01f;
     public static final float DEFAULT_SCROLL_ABS_MULTIPLIER = 0.05f;
+    public static final float MIN_SENSITIVITY = 1f;
+    public static final float MAX_SENSITIVITY = 10f;
     public static final float DEFAULT_OVERALL_SENSITIVITY = 5f;
 
-    private float scrollSensitivity = 1f;
-    private float mouseSensitivity = 1f;
+    private float scrollSensitivity = 5f;
+    private float mouseSensitivity = 5f;
 
     private Camera camera;
     private Canvas view;
@@ -200,11 +202,11 @@ public final class CameraController {
     }
 
     private float validateSensitivity(float sensitivity) {
-        if (sensitivity < 1) {
-            sensitivity = 1;
+        if (sensitivity < MIN_SENSITIVITY) {
+            sensitivity = MIN_SENSITIVITY;
         }
-        if (sensitivity > 10) {
-            sensitivity = 10;
+        if (sensitivity > MAX_SENSITIVITY) {
+            sensitivity = MAX_SENSITIVITY;
         }
 
         return sensitivity;
