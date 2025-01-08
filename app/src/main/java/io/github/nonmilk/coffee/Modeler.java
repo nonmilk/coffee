@@ -377,6 +377,31 @@ public final class Modeler {
         view.refresh();
     }
 
+    private void unmarkActive(final String name) {
+        final var model = models.get(name);
+
+        if (model == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        model.setStatus(NamedModel.Status.DEFAULT);
+
+        final var active = this.active.get(scene);
+
+        if (active == null) {
+            return;
+        }
+
+        if (active != model) {
+            return;
+        }
+
+        active.setStatus(NamedModel.Status.DEFAULT);
+        this.active.put(scene, null);
+
+        view.refresh();
+    }
+
     private NamedModel selected() {
         return view.selectionModelProperty().get().getSelectedItem();
     }
