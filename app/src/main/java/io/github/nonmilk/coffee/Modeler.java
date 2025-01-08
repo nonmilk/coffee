@@ -115,6 +115,12 @@ public final class Modeler {
     private TextField translationZField;
 
     @FXML
+    private Button translationApplyBtn;
+
+    @FXML
+    private Button translationResetBtn;
+
+    @FXML
     private TextField rotationXField;
 
     @FXML
@@ -153,6 +159,7 @@ public final class Modeler {
         initUnhide();
 
         initScale();
+        initTranslate();
 
         initialized = true;
     }
@@ -573,6 +580,26 @@ public final class Modeler {
 
     private void resetScale(final String name) {
         scale(name, 1, 1, 1);
+    }
+
+    private void initTranslate() {
+        translationApplyBtn.setOnAction(e -> {
+            final var model = active.get(scene);
+            if (model == null) {
+                return;
+            }
+
+            translateFromFields(model.name());
+        });
+
+        translationResetBtn.setOnAction(e -> {
+            final var model = active.get(scene);
+            if (model == null) {
+                return;
+            }
+
+            resetTranslate(model.name());
+        });
     }
 
     // TODO error handling
