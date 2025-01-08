@@ -70,6 +70,7 @@
                         </HBox>
                     </VBox>
                 </HBox>
+                <Button fx:id="orientationApplyBtn" text="Apply"/>
             </VBox>
             <VBox styleClass="spacing-8">
                 <Label text="View"/>
@@ -112,6 +113,7 @@
                         </GridPane>
                     </fx:define>
                 </StackPane>
+                <Button fx:id="viewApplyBtn" text="Apply"/>
             </VBox>
             <VBox styleClass="spacing-8">
                 <Label text="Clipping Box"/>
@@ -129,8 +131,8 @@
                         <TextField fx:id="boxFarPlaneField"/>
                     </HBox>
                 </GridPane>
+                <Button fx:id="boxApplyBtn" text="Apply"/>
             </VBox>
-            <Button fx:id="apply" text="Apply"/>
         </VBox>
     </VBox>
 </AnchorPane>
