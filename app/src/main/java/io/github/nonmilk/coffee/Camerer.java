@@ -132,16 +132,6 @@ public final class Camerer {
     private void initialize() {
         view.setItems(list);
 
-        addBtn.setOnAction(e -> {
-            final var name = uniqueName();
-
-            add(createFromFields(), name);
-            list.add(cameras.get(name));
-            view.refresh();
-
-            markActive(name);
-        });
-
         removeBtn.setOnAction(e -> {
             final var selection = view.selectionModelProperty().get();
             remove(selection.getSelectedItem().name());
@@ -161,6 +151,7 @@ public final class Camerer {
             stack.add(orthographicViewPane);
         });
 
+        initAdd();
         initMarkActive();
         initRename();
     }
@@ -202,13 +193,22 @@ public final class Camerer {
         return cameraController;
     }
 
-    // TODO manage view from there
+    private void initAdd() {
+        addBtn.setOnAction(e -> {
+            final var name = uniqueName();
+            add(defaultCamera(), name);
+            markActive(name);
+        });
+    }
+
     private void add(final Camera c, final String name) {
         if (cameras.get(name) != null) {
             throw new IllegalArgumentException("this name already exists");
         }
 
         cameras.put(name, new NamedCamera(c, name));
+        list.add(cameras.get(name));
+        view.refresh();
     }
 
     // TODO manage view from there
