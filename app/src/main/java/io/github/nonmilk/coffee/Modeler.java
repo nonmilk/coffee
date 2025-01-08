@@ -22,6 +22,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -88,6 +89,33 @@ public final class Modeler {
 
     @FXML
     private Button unhideBtn;
+
+    @FXML
+    private TextField scalingXField;
+
+    @FXML
+    private TextField scalingYField;
+
+    @FXML
+    private TextField scalingZField;
+
+    @FXML
+    private TextField translationXField;
+
+    @FXML
+    private TextField translationYField;
+
+    @FXML
+    private TextField translationZField;
+
+    @FXML
+    private TextField rotationXField;
+
+    @FXML
+    private TextField rotationYField;
+
+    @FXML
+    private TextField rotationZField;
 
     @FXML
     private void initialize() {
@@ -494,6 +522,14 @@ public final class Modeler {
         view.refresh();
     }
 
+    private void scaleFromFields(final String name) {
+        final var x = Float.parseFloat(scalingXField.getText());
+        final var y = Float.parseFloat(scalingYField.getText());
+        final var z = Float.parseFloat(scalingZField.getText());
+
+        scale(name, x, y, z);
+    }
+
     private void scale(final String name,
             final float x, final float y, final float z) {
 
@@ -510,6 +546,14 @@ public final class Modeler {
         scale(name, 1, 1, 1);
     }
 
+    private void translateFromFields(final String name) {
+        final var x = Float.parseFloat(translationXField.getText());
+        final var y = Float.parseFloat(translationYField.getText());
+        final var z = Float.parseFloat(translationZField.getText());
+
+        translate(name, x, y, z);
+    }
+
     private void translate(final String name,
             final float x, final float y, final float z) {
 
@@ -524,6 +568,14 @@ public final class Modeler {
 
     private void resetTranslate(final String name) {
         translate(name, 0, 0, 0);
+    }
+
+    private void rotateFromFields(final String name) {
+        final var x = Float.parseFloat(rotationXField.getText());
+        final var y = Float.parseFloat(rotationYField.getText());
+        final var z = Float.parseFloat(rotationZField.getText());
+
+        rotate(name, x, y, z);
     }
 
     private void rotate(final String name,
