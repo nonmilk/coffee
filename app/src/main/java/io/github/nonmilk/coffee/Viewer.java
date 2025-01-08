@@ -1,5 +1,7 @@
 package io.github.nonmilk.coffee;
 
+import java.util.Objects;
+
 import io.github.nonmilk.coffee.grinder.Renderer;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -20,6 +22,7 @@ public final class Viewer {
     private VBox viewPane;
 
     private Renderer renderer;
+    private Camerer camerer;
 
     private final Timeline timeline = new Timeline();
     private double fps;
@@ -37,13 +40,26 @@ public final class Viewer {
         setFPS(DEFAULT_FPS);
     }
 
+    // doesn't look good, but what else should i do
     private void initView() {
         viewPane.widthProperty().addListener((ov, oldValue, newValue) -> {
             view.setWidth(newValue.doubleValue());
+
+            if (camerer == null) {
+                return;
+            }
+
+            camerer.update((float) view.getWidth(), (float) view.getHeight());
         });
 
         viewPane.heightProperty().addListener((ov, oldValue, newValue) -> {
             view.setHeight(newValue.doubleValue());
+
+            if (camerer == null) {
+                return;
+            }
+
+            camerer.update((float) view.getWidth(), (float) view.getHeight());
         });
     }
 
@@ -86,5 +102,9 @@ public final class Viewer {
 
     public Renderer renderer() {
         return renderer;
+    }
+
+    public void setCamerer(final Camerer c) {
+        camerer = Objects.requireNonNull(c);
     }
 }

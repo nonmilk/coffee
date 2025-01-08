@@ -341,6 +341,22 @@ public final class Camerer {
         boxFarPlaneField.setText(String.valueOf(box.farPlane()));
     }
 
+    public void update(final float width, final float height) {
+        if (width <= 0 || height <= 0) {
+            return;
+        }
+
+        final var cam = active();
+
+        if (cam instanceof PerspectiveCamera perspective) {
+            // FIXME
+            perspective.view().setAspectRatio(height / width);
+        } else if (cam instanceof OrthographicCamera orthographic) {
+            orthographic.view().setWidth(width);
+            orthographic.view().setHeight(height);
+        }
+    }
+
     private Orientation defaultOrientation() {
         return new Orientation(
                 new Vec3f(5, 0, -5),
@@ -348,7 +364,7 @@ public final class Camerer {
     }
 
     private PerspectiveView defaultView() {
-        return new PerspectiveView(0.9f * 3.14f, 1.67f);
+        return new PerspectiveView(0.45f * 3.14f, 1f);
     }
 
     private ClippingBox defaultBox() {
@@ -356,6 +372,8 @@ public final class Camerer {
     }
 
     private Camera defaultCamera() {
+        // return new OrthographicCamera(defaultOrientation(), new
+        // OrthographicView(1080, 720), defaultBox());
         return new PerspectiveCamera(
                 defaultOrientation(), defaultView(), defaultBox());
     }
