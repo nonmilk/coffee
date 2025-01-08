@@ -62,15 +62,18 @@ public final class CameraController {
     }
 
     public float setMouseSensitivity(final float sensitivity) {
-        mouseSensitivity = validateSensitivity(sensitivity);
-
-        final float senseMultiplier = computeSensitivityMultiplier(mouseSensitivity);
-
-        mouseToMovementMultiplier = DEFAULT_MOUSE_TO_MOVEMENT_MULTIPLIER * senseMultiplier;
-        mouseToAngleMultiplier = DEFAULT_MOUSE_TO_ANGLE_MULTIPLIER * senseMultiplier;
+        setRawMouseSensitivity(validatedSensitivity(sensitivity));
 
         // return resulting value because we have no exceptions in validation
         return mouseSensitivity;
+    }
+
+    private void setRawMouseSensitivity(final float sensitivity) {
+        mouseSensitivity = sensitivity;
+        final float senseMultiplier = computeSensitivityMultiplier(sensitivity);
+
+        mouseToMovementMultiplier = DEFAULT_MOUSE_TO_MOVEMENT_MULTIPLIER * senseMultiplier;
+        mouseToAngleMultiplier = DEFAULT_MOUSE_TO_ANGLE_MULTIPLIER * senseMultiplier;
     }
 
     public float getScrollSensitivity() {
@@ -78,21 +81,26 @@ public final class CameraController {
     }
 
     public float setScrollSensitivity(final float sensitivity) {
-        scrollSensitivity = validateSensitivity(sensitivity);
-        final float senseMultiplier = computeSensitivityMultiplier(scrollSensitivity);
-
-        scrollAbsMultiplier = DEFAULT_SCROLL_ABS_MULTIPLIER * senseMultiplier;
+        setRawScrollSensitivity(validatedSensitivity(sensitivity));
 
         // return resulting value because we have no exceptions in validation
         return scrollSensitivity;
     }
 
+    private void setRawScrollSensitivity(final float sensitivity) {
+        scrollSensitivity = sensitivity;
+        final float senseMultiplier = computeSensitivityMultiplier(sensitivity);
+
+        scrollAbsMultiplier = DEFAULT_SCROLL_ABS_MULTIPLIER * senseMultiplier;
+    }
+
     public float setOverallSensitivity(final float sensitivity) {
-        setMouseSensitivity(sensitivity);
-        setScrollSensitivity(sensitivity);
+        final float validSensitivity = validatedSensitivity(sensitivity);
+        setRawMouseSensitivity(validSensitivity);
+        setRawScrollSensitivity(validSensitivity);
 
         // return resulting value because we have no exceptions in validation
-        return mouseSensitivity;
+        return validSensitivity;
     }
 
     private void initCanvas() {
@@ -216,7 +224,7 @@ public final class CameraController {
         hAngle = (float) Math.asin((position().z() - target().z()) / r / cosv);
     }
 
-    private float validateSensitivity(float sensitivity) {
+    private float validatedSensitivity(float sensitivity) {
         if (sensitivity < MIN_SENSITIVITY) {
             sensitivity = MIN_SENSITIVITY;
         }
