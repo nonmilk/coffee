@@ -24,8 +24,6 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
-// TODO selected camera edit
-
 public final class Camerer {
 
     private static final float DEFAULT_POSITION_X = 5;
@@ -655,7 +653,7 @@ public final class Camerer {
         final var cam = active();
 
         if (cam instanceof PerspectiveCamera perspective) {
-            // FIXME
+            // FIXME it works but why
             perspective.view().setAspectRatio(height / width);
         } else if (cam instanceof OrthographicCamera orthographic) {
             orthographic.view().setWidth(width);
