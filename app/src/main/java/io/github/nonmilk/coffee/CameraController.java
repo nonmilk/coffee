@@ -117,13 +117,13 @@ public final class CameraController {
         final Vector3 position = camera.orientation().position();
 
         addHorAng(mouseDX * MOUSE_TO_ANGLE_MULTIPLIER);
-        addVertAng(mouseDY * MOUSE_TO_ANGLE_MULTIPLIER);
+        addVertAng(-mouseDY * MOUSE_TO_ANGLE_MULTIPLIER);
 
         final float r = Vec3Math.len(Vec3Math.subtracted(target, position));
 
         position.setX((float) (target.x() + r * Math.cos(hAngle) * Math.cos(vAngle)));
-        position.setY((float) (target.y() + r * Math.sin(hAngle) * Math.cos(vAngle)));
-        position.setZ((float) (target.z() + r * Math.sin(vAngle)));
+        position.setY((float) (target.y() + r * Math.sin(vAngle)));
+        position.setZ((float) (target.z() + r * Math.sin(hAngle) * Math.cos(vAngle)));
     }
 
     private void handleSimpleMovement(final float mouseDX, final float mouseDY) {
@@ -146,7 +146,7 @@ public final class CameraController {
             return;
         }
 
-        vAngle = Math.asin((position.z() - target.z()) / r);
+        vAngle = Math.asin((position.y() - target.y()) / r);
 
         float cosv = (float) Math.cos(vAngle);
         if (Validator.equalsEpsilon(cosv, 0, 1e-5f)) {
@@ -155,6 +155,6 @@ public final class CameraController {
             return;
         }
 
-        hAngle = Math.asin((position.y() - target.y()) / r / cosv);
+        hAngle = Math.asin((position.z() - target.z()) / r / cosv);
     }
 }
