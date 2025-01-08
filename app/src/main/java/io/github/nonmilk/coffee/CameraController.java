@@ -48,19 +48,7 @@ public final class CameraController {
             drag = false;
         });
 
-        view.setOnScroll(event -> {
-            if (Validator.equalsEpsilon((float) event.getDeltaY(), 0, 0.0001f)) {
-                return;
-            }
-            final Vector3 target = camera.orientation().target();
-            final Vector3 position = camera.orientation().position();
-
-            final Vector3 direction = Vec3Math.subtracted(target, position);
-
-            float scrollMultiplier = Math.signum((float) event.getDeltaY()) * ABS_SCROLL_MULTIPLIER;
-
-            Vec3Math.add(position, Vec3Math.mult(direction, scrollMultiplier));
-        });
+        view.setOnScroll(event -> handleScroll((float) event.getDeltaY()));
 
         view.setOnMouseDragged(event -> {
             if (!drag) {
@@ -113,5 +101,19 @@ public final class CameraController {
         if (Math.abs(newVAngle) < Math.PI / 2) {
             vAngle = newVAngle;
         }
+    }
+
+    private void handleScroll(float scrollValue) {
+        if (Validator.equalsEpsilon(scrollValue, 0, 0.0001f)) {
+            return;
+        }
+        final Vector3 target = camera.orientation().target();
+        final Vector3 position = camera.orientation().position();
+
+        final Vector3 direction = Vec3Math.subtracted(target, position);
+
+        float scrollMultiplier = Math.signum(scrollValue) * ABS_SCROLL_MULTIPLIER;
+
+        Vec3Math.add(position, Vec3Math.mult(direction, scrollMultiplier));
     }
 }
