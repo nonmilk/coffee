@@ -341,6 +341,34 @@ public final class Camerer {
         boxFarPlaneField.setText(String.valueOf(box.farPlane()));
     }
 
+    private void setPositionFromFields(final String name) {
+        final var textX = positionXField.getText();
+        final float x;
+        if (textX.isEmpty()) {
+            x = 0;
+        } else {
+            x = Float.parseFloat(textX);
+        }
+
+        final var textY = positionYField.getText();
+        final float y;
+        if (textY.isEmpty()) {
+            y = 0;
+        } else {
+            y = Float.parseFloat(textY);
+        }
+
+        final var textZ = positionZField.getText();
+        final float z;
+        if (textZ.isEmpty()) {
+            z = 0;
+        } else {
+            z = Float.parseFloat(textZ);
+        }
+
+        setPosition(name, x, y, z);
+    }
+
     private void setPosition(final String name,
             final float x, final float y, final float z) {
 
