@@ -53,6 +53,7 @@ public final class Modeler {
     private final Map<Scene, Map<String, NamedModel>> scenes = new HashMap<>();
 
     private Map<String, NamedModel> models;
+    private Map<Scene, NamedModel> active;
 
     @FXML
     private ListView<NamedModel> view;
@@ -339,6 +340,25 @@ public final class Modeler {
         }
 
         model.unwrap().setTexture(DEFAULT_TEXTURE);
+    }
+
+    private void markActive(final String name) {
+        final var model = models.get(name);
+
+        if (model == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        final var active = this.active.get(scene);
+
+        if (active != null) {
+            active.setStatus(NamedModel.Status.DEFAULT);
+        }
+
+        model.setStatus(NamedModel.Status.ACTIVE);
+        this.active.put(scene, model);
+
+        view.refresh();
     }
 
     private NamedModel selected() {
