@@ -55,7 +55,7 @@ public final class CameraController {
     }
 
     private void addHorAng(final double rad) {
-        hAngle += rad * multiplier;
+        hAngle += rad;
         if (hAngle < -Math.PI) {
             hAngle = Math.PI;
         } else if (hAngle > Math.PI) {
@@ -64,7 +64,7 @@ public final class CameraController {
     }
 
     private void addVertAng(final double rad) {
-        final double newVAngle = vAngle + rad * multiplier;
+        final double newVAngle = vAngle + rad;
         if (Math.abs(newVAngle) < Math.PI / 2) {
             vAngle = newVAngle;
         }
@@ -114,8 +114,8 @@ public final class CameraController {
         final Vector3 target = camera.orientation().target();
         final Vector3 position = camera.orientation().position();
 
-        addHorAng(mouseDX);
-        addVertAng(mouseDY);
+        addHorAng(mouseDX * multiplier);
+        addVertAng(mouseDY * multiplier);
 
         final double r = Vec3Math.len(Vec3Math.subtracted(target, position));
 
