@@ -484,6 +484,26 @@ public final class Camerer {
         view.setAspectRatio(ar);
     }
 
+    private void setOrthographicViewFromFields(final String name) {
+        final var widthText = widthField.getText();
+        final float width;
+        if (widthText.isEmpty()) {
+            width = DEFAULT_VIEW_WIDTH;
+        } else {
+            width = Float.parseFloat(widthText);
+        }
+
+        final var heightText = heightField.getText();
+        final float height;
+        if (heightText.isEmpty()) {
+            height = DEFAULT_VIEW_HEIGHT;
+        } else {
+            height = Float.parseFloat(heightText);
+        }
+
+        setOrthographicView(name, width, height);
+    }
+
     private void setOrthographicView(final String name,
             final float width, final float height) {
 
