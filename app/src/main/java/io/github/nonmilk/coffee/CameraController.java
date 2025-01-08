@@ -6,7 +6,6 @@ import io.github.alphameo.linear_algebra.Validator;
 import io.github.alphameo.linear_algebra.vec.Vec3Math;
 import io.github.alphameo.linear_algebra.vec.Vector3;
 import io.github.nonmilk.coffee.grinder.camera.Camera;
-import io.github.nonmilk.coffee.grinder.math.Floats;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
 
@@ -15,11 +14,11 @@ public final class CameraController {
     private Camera camera;
     private Canvas view;
 
-    private double vAngle;
-    private double hAngle;
+    private float vAngle;
+    private float hAngle;
 
-    private double oldX;
-    private double oldY;
+    private float oldX;
+    private float oldY;
 
     private boolean drag = false;
 
@@ -56,17 +55,25 @@ public final class CameraController {
         view.setOnMouseDragged(event -> handleOnMouseDrag(event));
     }
 
+    private Vector3 target() {
+        return camera.orientation().target();
+    }
+
+    private Vector3 position() {
+        return camera.orientation().position();
+    }
+
     private void addHorAng(final double rad) {
         hAngle += rad;
         if (hAngle < -Math.PI) {
-            hAngle = Math.PI;
+            hAngle = (float) Math.PI;
         } else if (hAngle > Math.PI) {
-            hAngle = -Math.PI;
+            hAngle = -(float) Math.PI;
         }
     }
 
-    private void addVertAng(final double rad) {
-        final double newVAngle = vAngle + rad;
+    private void addVertAng(final float rad) {
+        final float newVAngle = vAngle + rad;
         if (Math.abs(newVAngle) < Math.PI / 2) {
             vAngle = newVAngle;
         }
@@ -77,14 +84,14 @@ public final class CameraController {
             return;
         }
         if (!drag) {
-            oldX = event.getX();
-            oldY = event.getY();
+            oldX = (float) event.getX();
+            oldY = (float) event.getY();
             drag = true;
             return;
         }
 
-        final double newX = event.getX();
-        final double newY = event.getY();
+        final float newX = (float) event.getX();
+        final float newY = (float) event.getY();
         final float dx = (float) (newX - oldX);
         final float dy = (float) (newY - oldY);
         oldX = newX;
@@ -102,59 +109,48 @@ public final class CameraController {
         if (Validator.equalsEpsilon(scrollValue, 0, 0.0001f)) {
             return;
         }
-        final Vector3 target = camera.orientation().target();
-        final Vector3 position = camera.orientation().position();
 
-        final Vector3 direction = Vec3Math.subtracted(target, position);
+        final Vector3 direction = Vec3Math.subtracted(target(), position());
 
         final float scrollMultiplier = Math.signum(scrollValue) * ABS_SCROLL_MULTIPLIER;
 
-        Vec3Math.add(position, Vec3Math.mult(direction, scrollMultiplier));
+        Vec3Math.add(position(), Vec3Math.mult(direction, scrollMultiplier));
     }
 
     private void handleSphereMovement(final float mouseDX, final float mouseDY) {
-        final Vector3 target = camera.orientation().target();
-        final Vector3 position = camera.orientation().position();
-
         addHorAng(mouseDX * MOUSE_TO_ANGLE_MULTIPLIER);
         addVertAng(-mouseDY * MOUSE_TO_ANGLE_MULTIPLIER);
 
-        final float r = Vec3Math.len(Vec3Math.subtracted(target, position));
+        final float r = Vec3Math.len(Vec3Math.subtracted(target(), position()));
 
-        position.setX((float) (target.x() + r * Math.cos(hAngle) * Math.cos(vAngle)));
-        position.setY((float) (target.y() + r * Math.sin(vAngle)));
-        position.setZ((float) (target.z() + r * Math.sin(hAngle) * Math.cos(vAngle)));
+        position().setX((float) (target().x() + r * Math.cos(hAngle) * Math.cos(vAngle)));
+        position().setY((float) (target().y() + r * Math.sin(vAngle)));
+        position().setZ((float) (target().z() + r * Math.sin(hAngle) * Math.cos(vAngle)));
     }
 
     private void handleSimpleMovement(final float mouseDX, final float mouseDY) {
-        final Vector3 target = camera.orientation().target();
-        final Vector3 position = camera.orientation().position();
-
-        position.setX(position.x() + mouseDX);
-        position.setY(position.y() + mouseDY);
-        target.setX(target.x() + mouseDX);
-        target.setY(target.y() + mouseDY);
+        position().setX(position().x() + mouseDX);
+        position().setY(position().y() + mouseDY);
+        target().setX(target().x() + mouseDX);
+        target().setY(target().y() + mouseDY);
     }
 
     private void initAngles() {
-        final Vector3 target = camera.orientation().target();
-        final Vector3 position = camera.orientation().position();
-
-        float r = Vec3Math.len(Vec3Math.subtracted(target, position));
+        final float r = Vec3Math.len(Vec3Math.subtracted(target(), position()));
         if (Validator.equalsEpsilon(r, 0, 1e-5f)) {
             // Position and target matches. So keep default angles.
             return;
         }
 
-        vAngle = Math.asin((position.y() - target.y()) / r);
+        vAngle = (float) Math.asin((position().y() - target().y()) / r);
 
-        float cosv = (float) Math.cos(vAngle);
+        final float cosv = (float) Math.cos(vAngle);
         if (Validator.equalsEpsilon(cosv, 0, 1e-5f)) {
             // See the target from above or from below -> horizontal angle is not important.
             // So keep default.
             return;
         }
 
-        hAngle = Math.asin((position.z() - target.z()) / r / cosv);
+        hAngle = (float) Math.asin((position().z() - target().z()) / r / cosv);
     }
 }
