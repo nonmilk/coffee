@@ -196,7 +196,7 @@ public final class Camerer {
         if (camera != null) {
             add(camera, name);
         } else {
-            add(camera(), name); // FIXME
+            add(defaultCamera(), name);
         }
 
         list.clear();
@@ -341,12 +341,23 @@ public final class Camerer {
         boxFarPlaneField.setText(String.valueOf(box.farPlane()));
     }
 
-    // FIXME test code
-    private Camera camera() {
-        final var orientation = new Orientation(new Vec3f(5, 0, -5), new Vec3f(0, 0, 0));
-        final var view = new PerspectiveView((float) ((70f * Math.PI) / 100f), 1.5f);
-        final var box = new ClippingBox(0.1f, 10);
-        return new PerspectiveCamera(orientation, view, box);
+    private Orientation defaultOrientation() {
+        return new Orientation(
+                new Vec3f(5, 0, -5),
+                new Vec3f(0, 0, 0));
+    }
+
+    private PerspectiveView defaultView() {
+        return new PerspectiveView(0.9f * 3.14f, 1.67f);
+    }
+
+    private ClippingBox defaultBox() {
+        return new ClippingBox(0.1f, 10);
+    }
+
+    private Camera defaultCamera() {
+        return new PerspectiveCamera(
+                defaultOrientation(), defaultView(), defaultBox());
     }
 
     // FIXME don't increment the number on unsuccessful rename
