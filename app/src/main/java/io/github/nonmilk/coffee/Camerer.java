@@ -92,6 +92,9 @@ public final class Camerer {
     private TextField targetZField;
 
     @FXML
+    private Button orientationApplyBtn;
+
+    @FXML
     private StackPane viewPane;
 
     @FXML
@@ -119,10 +122,16 @@ public final class Camerer {
     private TextField fovField;
 
     @FXML
+    private Button viewApplyBtn;
+
+    @FXML
     private TextField boxNearPlaneField;
 
     @FXML
     private TextField boxFarPlaneField;
+
+    @FXML
+    private Button boxApplyBtn;
 
     @FXML
     private void initialize() {
