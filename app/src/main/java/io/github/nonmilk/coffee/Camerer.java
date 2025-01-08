@@ -409,7 +409,7 @@ public final class Camerer {
             setPositionFromFields(name);
             setTargetFromFields(name);
 
-            updateFields();
+            updateOrientation();
         });
     }
 
@@ -422,7 +422,7 @@ public final class Camerer {
 
             setBoxFromFields(cam.name());
 
-            updateFields();
+            updateBox();
         });
     }
 
