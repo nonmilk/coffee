@@ -427,6 +427,26 @@ public final class Camerer {
         target.setZ(z);
     }
 
+    private void setPerspectiveViewFromFields(final String name) {
+        final var widthText = widthField.getText();
+        final float width;
+        if (widthText.isEmpty()) {
+            width = 0; // FIXME
+        } else {
+            width = Float.parseFloat(widthText);
+        }
+
+        final var heightText = heightField.getText();
+        final float height;
+        if (heightText.isEmpty()) {
+            height = 0; // FIXME
+        } else {
+            height = Float.parseFloat(heightText);
+        }
+
+        setPerspectiveView(name, width, height);
+    }
+
     private void setPerspectiveView(final String name,
             final float fov, final float ar) {
 
