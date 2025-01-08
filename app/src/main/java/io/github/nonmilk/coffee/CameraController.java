@@ -15,11 +15,11 @@ public final class CameraController {
     private Camera camera;
     private Canvas view;
 
-    private double vAngle;
-    private double hAngle;
+    private float vAngle;
+    private float hAngle;
 
-    private double oldX;
-    private double oldY;
+    private float oldX;
+    private float oldY;
 
     private boolean drag = false;
 
@@ -67,14 +67,14 @@ public final class CameraController {
     private void addHorAng(final double rad) {
         hAngle += rad;
         if (hAngle < -Math.PI) {
-            hAngle = Math.PI;
+            hAngle = (float) Math.PI;
         } else if (hAngle > Math.PI) {
-            hAngle = -Math.PI;
+            hAngle = -(float) Math.PI;
         }
     }
 
-    private void addVertAng(final double rad) {
-        final double newVAngle = vAngle + rad;
+    private void addVertAng(final float rad) {
+        final float newVAngle = vAngle + rad;
         if (Math.abs(newVAngle) < Math.PI / 2) {
             vAngle = newVAngle;
         }
@@ -85,14 +85,14 @@ public final class CameraController {
             return;
         }
         if (!drag) {
-            oldX = event.getX();
-            oldY = event.getY();
+            oldX = (float) event.getX();
+            oldY = (float) event.getY();
             drag = true;
             return;
         }
 
-        final double newX = event.getX();
-        final double newY = event.getY();
+        final float newX = (float) event.getX();
+        final float newY = (float) event.getY();
         final float dx = (float) (newX - oldX);
         final float dy = (float) (newY - oldY);
         oldX = newX;
@@ -143,7 +143,7 @@ public final class CameraController {
             return;
         }
 
-        vAngle = Math.asin((position().y() - target().y()) / r);
+        vAngle = (float) Math.asin((position().y() - target().y()) / r);
 
         float cosv = (float) Math.cos(vAngle);
         if (Validator.equalsEpsilon(cosv, 0, 1e-5f)) {
@@ -152,6 +152,6 @@ public final class CameraController {
             return;
         }
 
-        hAngle = Math.asin((position().z() - target().z()) / r / cosv);
+        hAngle = (float) Math.asin((position().z() - target().z()) / r / cosv);
     }
 }
