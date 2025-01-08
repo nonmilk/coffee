@@ -132,8 +132,8 @@ public final class CameraController {
     private void handleSimpleMovement(final float mouseDX, final float mouseDY) {
         float ang = (float) Math.atan2(target().z() - position().z(), target().x() - position().x());
         ang -= ((float) Math.PI) / 2;
-        float dx = mouseDX * ((float) Math.cos(ang)) * MOUSE_TO_MOVEMENT_MULTIPLIER;
-        float dy = mouseDX * ((float) Math.sin(ang)) * MOUSE_TO_MOVEMENT_MULTIPLIER;
+        final float dx = mouseDX * ((float) Math.cos(ang)) * MOUSE_TO_MOVEMENT_MULTIPLIER;
+        final float dy = mouseDX * ((float) Math.sin(ang)) * MOUSE_TO_MOVEMENT_MULTIPLIER;
 
         // Horizontal: X movement
         position().setX(position().x() + dx);
