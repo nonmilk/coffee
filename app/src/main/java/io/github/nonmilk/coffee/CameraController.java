@@ -2,6 +2,7 @@ package io.github.nonmilk.coffee;
 
 import java.util.Objects;
 
+import io.github.alphameo.linear_algebra.Validator;
 import io.github.alphameo.linear_algebra.vec.Vec3;
 import io.github.alphameo.linear_algebra.vec.Vec3Math;
 import io.github.alphameo.linear_algebra.vec.Vector3;
@@ -22,7 +23,7 @@ public final class CameraController {
     private boolean drag = false;
 
     private static final float multiplier = 0.02f;
-    private static final float SCROLL_MULTIPLIER = 0.01f;
+    private static final float ABS_SCROLL_MULTIPLIER = 0.05f;
 
     public CameraController() {
     }
@@ -48,23 +49,18 @@ public final class CameraController {
             drag = false;
         });
 
-        final Vector3 target = camera.orientation().target();
-        final Vector3 position = camera.orientation().position();
-
         view.setOnScroll(event -> {
-            final Vector3 direction = Vec3Math.subtracted(target, position);
-            float absScroll = (float) Math.abs(event.getDeltaY() * SCROLL_MULTIPLIER);
-            Vector3 dvec;
-            if (event.getDeltaY() < 0) {
-                dvec = Vec3Math.divided(direction, absScroll);
-            } else {
-                dvec = Vec3Math.multiplied(direction, absScroll);
+            if (Validator.equalsEpsilon((float) event.getDeltaY(), 0, 0.0001f)) {
+                return;
             }
-            final Vector3 pos = Vec3Math.added(new Vec3(position), dvec);
-            System.out.println(pos.x() + " " + pos.y() + " " + pos.z());
-            position.setX(pos.x());
-            position.setY(pos.y());
-            position.setZ(pos.z());
+            final Vector3 target = camera.orientation().target();
+            final Vector3 position = camera.orientation().position();
+
+            final Vector3 direction = Vec3Math.subtracted(target, position);
+
+            float scrollMultiplier = Math.signum((float) event.getDeltaY()) * ABS_SCROLL_MULTIPLIER;
+
+            Vec3Math.add(position, Vec3Math.mult(direction, scrollMultiplier));
         });
 
         view.setOnMouseDragged(event -> {
@@ -75,6 +71,8 @@ public final class CameraController {
                 return;
             }
 
+            final Vector3 target = camera.orientation().target();
+            final Vector3 position = camera.orientation().position();
             final double newX = event.getX();
             final double newY = event.getY();
             final float dx = (float) (newX - oldX);
@@ -91,14 +89,9 @@ public final class CameraController {
             if (event.isShiftDown()) {
                 addHorAng(dx);
                 addVertAng(dy);
-                position
-                        .setX((float) (target.x() + r * Math.cos(hAngle) * Math.cos(vAngle)));
-                position
-                        .setY((float) (target.y() + r * Math.sin(hAngle) * Math.cos(vAngle)));
-                position
-                        .setZ((float) (target.z() + r * Math.sin(vAngle)));
-
-                System.out.println("h=" + hAngle + " v=" + vAngle);
+                position.setX((float) (target.x() + r * Math.cos(hAngle) * Math.cos(vAngle)));
+                position.setY((float) (target.y() + r * Math.sin(hAngle) * Math.cos(vAngle)));
+                position.setZ((float) (target.z() + r * Math.sin(vAngle)));
                 return;
             }
 
@@ -123,12 +116,5 @@ public final class CameraController {
         if (Math.abs(newVAngle) < Math.PI / 2) {
             vAngle = newVAngle;
         }
-    }
-
-    private double LengthBetween(final Vector3 v1, final Vector3 v2) {
-        return Math.sqrt(
-                (v1.x() - v2.x()) * (v1.x() - v2.x())
-                        + (v1.y() - v2.y()) * (v1.y() - v2.y())
-                        + (v1.z() - v2.z()) * (v1.z() - v2.z()));
     }
 }
