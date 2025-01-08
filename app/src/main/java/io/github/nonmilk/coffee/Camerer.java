@@ -132,18 +132,7 @@ public final class Camerer {
     private void initialize() {
         view.setItems(list);
 
-        final var stack = viewPane.getChildren();
-
-        perspectiveBtn.setOnAction(e -> {
-            stack.clear();
-            stack.add(perspectiveViewPane);
-        });
-
-        orthographicBtn.setOnAction(e -> {
-            stack.clear();
-            stack.add(orthographicViewPane);
-        });
-
+        initStack();
         initAdd();
         initRemove();
         initMarkActive();
@@ -184,6 +173,21 @@ public final class Camerer {
 
     public CameraController controller() {
         return cameraController;
+    }
+
+    private void initStack() {
+        final var stack = viewPane.getChildren();
+
+        perspectiveBtn.setOnAction(e -> {
+            stack.clear();
+            stack.add(perspectiveViewPane);
+        });
+
+        orthographicBtn.setOnAction(e -> {
+            stack.clear();
+            stack.add(orthographicViewPane);
+        });
+
     }
 
     private void initAdd() {
