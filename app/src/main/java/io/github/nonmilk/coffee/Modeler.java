@@ -631,9 +631,29 @@ public final class Modeler {
 
     // TODO error handling
     private void translateFromFields(final String name) {
-        final var x = Float.parseFloat(translationXField.getText());
-        final var y = Float.parseFloat(translationYField.getText());
-        final var z = Float.parseFloat(translationZField.getText());
+        final var textX = translationXField.getText();
+        final float x;
+        if (textX.isEmpty()) {
+            x = 1;
+        } else {
+            x = Float.parseFloat(textX);
+        }
+
+        final var textY = translationYField.getText();
+        final float y;
+        if (textY.isEmpty()) {
+            y = 1;
+        } else {
+            y = Float.parseFloat(textY);
+        }
+
+        final var textZ = translationZField.getText();
+        final float z;
+        if (textZ.isEmpty()) {
+            z = 1;
+        } else {
+            z = Float.parseFloat(textZ);
+        }
 
         translate(name, x, y, z);
     }
