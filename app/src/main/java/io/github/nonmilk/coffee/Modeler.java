@@ -100,6 +100,12 @@ public final class Modeler {
     private TextField scalingZField;
 
     @FXML
+    private Button scalingApplyBtn;
+
+    @FXML
+    private Button scalingResetBtn;
+
+    @FXML
     private TextField translationXField;
 
     @FXML
@@ -145,6 +151,8 @@ public final class Modeler {
 
         initHide();
         initUnhide();
+
+        initScale();
 
         initialized = true;
     }
@@ -520,6 +528,26 @@ public final class Modeler {
         scene.models().add(model.unwrap());
 
         view.refresh();
+    }
+
+    private void initScale() {
+        scalingApplyBtn.setOnAction(e -> {
+            final var model = active.get(scene);
+            if (model == null) {
+                return;
+            }
+
+            scaleFromFields(model.name());
+        });
+
+        scalingResetBtn.setOnAction(e -> {
+            final var model = active.get(scene);
+            if (model == null) {
+                return;
+            }
+
+            resetScale(model.name());
+        });
     }
 
     // TODO error handling
