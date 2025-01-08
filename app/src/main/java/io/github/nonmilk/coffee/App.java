@@ -10,6 +10,9 @@ import javafx.stage.Stage;
 
 public final class App extends Application {
 
+    public static final int DEFAULT_WIDTH = 1280;
+    public static final int DEFAULT_HEIGHT = 720;
+
     public App() {
     }
 
@@ -18,7 +21,7 @@ public final class App extends Application {
         final var loader = new FXMLLoader(Grinder.class.getResource("app.fxml"));
 
         final Parent p = loader.load();
-        final var scene = new Scene(p);
+        final var scene = new Scene(p, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
         final Grinder g = loader.getController();
         g.init(stage);
