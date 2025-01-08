@@ -81,6 +81,9 @@ public final class Modeler {
     private Button activeAddBtn;
 
     @FXML
+    private Button activeRemoveBtn;
+
+    @FXML
     private void initialize() {
         view.setItems(list);
     }
@@ -104,6 +107,7 @@ public final class Modeler {
         initRemoveTexture();
 
         initMarkActive();
+        initUnmarkActive();
 
         initialized = true;
     }
@@ -375,6 +379,17 @@ public final class Modeler {
         this.active.put(scene, model);
 
         view.refresh();
+    }
+
+    private void initUnmarkActive() {
+        activeRemoveBtn.setOnAction(e -> {
+            final var model = selected();
+            if (model == null) {
+                return;
+            }
+
+            unmarkActive(model.name());
+        });
     }
 
     private void unmarkActive(final String name) {
