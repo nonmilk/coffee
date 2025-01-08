@@ -533,12 +533,18 @@ public final class Camerer {
 
     private Orientation defaultOrientation() {
         return new Orientation(
-                new Vec3f(5, 0, -5),
-                new Vec3f(0, 0, 0));
+                new Vec3f(
+                        DEFAULT_POSITION_X,
+                        DEFAULT_POSITION_Y,
+                        DEFAULT_POSITION_Z),
+                new Vec3f(
+                        DEFAULT_TARGET_X,
+                        DEFAULT_TARGET_Y,
+                        DEFAULT_TARGET_Z));
     }
 
     private PerspectiveView defaultView() {
-        return new PerspectiveView(0.45f * 3.14f, 1f);
+        return new PerspectiveView(DEFAULT_VIEW_FOV, DEFAULT_VIEW_AR);
     }
 
     private ClippingBox defaultBox() {
