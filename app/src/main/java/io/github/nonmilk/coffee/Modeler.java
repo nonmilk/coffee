@@ -518,6 +518,22 @@ public final class Modeler {
         model.unwrap().transformer().setTranslation(x, y, z);
     }
 
+    private void rotate(final String name,
+            final float x, final float y, final float z) {
+
+        final var model = models.get(name);
+
+        if (model == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        final var transformer = model.unwrap().transformer();
+
+        transformer.setRotationX(x);
+        transformer.setRotationY(y);
+        transformer.setRotationZ(z);
+    }
+
     private NamedModel selected() {
         return view.selectionModelProperty().get().getSelectedItem();
     }
