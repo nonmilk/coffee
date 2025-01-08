@@ -371,6 +371,26 @@ public final class Camerer {
         target.setZ(z);
     }
 
+    private void setPerspectiveView(final String name,
+            final float fov, final float ar) {
+
+        final var cam = cameras.get(name);
+        if (cam == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        final var unwrapped = cam.unwrap();
+        if (!(unwrapped instanceof PerspectiveCamera)) {
+            throw new IllegalArgumentException("this camera is not perspective");
+        }
+
+        final var perspective = (PerspectiveCamera) unwrapped;
+        final var view = perspective.view();
+
+        view.setFOV(fov);
+        view.setAspectRatio(ar);
+    }
+
     public void update(final float width, final float height) {
         if (width <= 0 || height <= 0) {
             return;
