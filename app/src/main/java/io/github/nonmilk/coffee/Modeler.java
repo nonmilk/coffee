@@ -22,6 +22,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -37,8 +38,6 @@ public final class Modeler {
     private static final String DEFAULT_NAME = "Model";
     private final StringBuilder nameBuilder = new StringBuilder();
 
-    private String renaming;
-
     private Stage stage;
     private boolean initialized = false;
 
@@ -51,6 +50,7 @@ public final class Modeler {
     private Scene scene;
 
     private final Map<Scene, Map<String, NamedModel>> scenes = new HashMap<>();
+    private final Map<Scene, NamedModel> active = new HashMap<>();
 
     private Map<String, NamedModel> models;
 
@@ -77,6 +77,63 @@ public final class Modeler {
     private Button textureRemoveBtn;
 
     @FXML
+    private Button activeAddBtn;
+
+    @FXML
+    private Button activeRemoveBtn;
+
+    @FXML
+    private Button hideBtn;
+
+    @FXML
+    private Button unhideBtn;
+
+    @FXML
+    private TextField scalingXField;
+
+    @FXML
+    private TextField scalingYField;
+
+    @FXML
+    private TextField scalingZField;
+
+    @FXML
+    private Button scalingApplyBtn;
+
+    @FXML
+    private Button scalingResetBtn;
+
+    @FXML
+    private TextField translationXField;
+
+    @FXML
+    private TextField translationYField;
+
+    @FXML
+    private TextField translationZField;
+
+    @FXML
+    private Button translationApplyBtn;
+
+    @FXML
+    private Button translationResetBtn;
+
+    @FXML
+    private TextField rotationXField;
+
+    @FXML
+    private TextField rotationYField;
+
+    @FXML
+    private TextField rotationZField;
+
+    @FXML
+    private Button rotationApplyBtn;
+
+    @FXML
+    private Button rotationResetBtn;
+
+    @FXML
     private void initialize() {
         view.setItems(list);
     }
@@ -98,6 +155,16 @@ public final class Modeler {
 
         initAddTexture();
         initRemoveTexture();
+
+        initMarkActive();
+        initUnmarkActive();
+
+        initHide();
+        initUnhide();
+
+        initScale();
+        initTranslate();
+        initRotate();
 
         initialized = true;
     }
@@ -206,29 +273,22 @@ public final class Modeler {
         final var field = dialog.getEditor();
 
         renameBtn.setOnAction(e -> {
-            final var selected = selected();
-            if (selected == null) {
+            final var model = selected();
+            if (model == null) {
                 return;
             }
 
-            renaming = selected.name();
+            field.setText(model.name());
 
-            field.setText(renaming);
-            dialog.show();
-        });
-
-        // FIXME ignore rename on closing with cancel
-        dialog.setOnCloseRequest(e -> {
-            try {
-                rename(renaming, field.getText());
-            } catch (IllegalArgumentException err) {
-                e.consume();
-                // TODO error
-            }
-        });
-
-        dialog.setOnHidden(e -> {
-            view.refresh();
+            dialog.showAndWait().ifPresent(response -> {
+                try {
+                    rename(model.name(), response);
+                } catch (final IllegalArgumentException err) {
+                    return;
+                    // TODO intercept?
+                    // TODO error alert
+                }
+            });
         });
     }
 
@@ -245,6 +305,8 @@ public final class Modeler {
         models.remove(oldName);
         model.rename(newName);
         models.put(newName, model);
+
+        view.refresh();
     }
 
     private void initRemove() {
@@ -339,6 +401,339 @@ public final class Modeler {
         }
 
         model.unwrap().setTexture(DEFAULT_TEXTURE);
+    }
+
+    private void initMarkActive() {
+        activeAddBtn.setOnAction(e -> {
+            final var model = selected();
+            if (model == null) {
+                return;
+            }
+
+            markActive(model.name());
+        });
+    }
+
+    private void markActive(final String name) {
+        final var model = models.get(name);
+
+        if (model == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        if (model.status() == NamedModel.Status.ACTIVE) {
+            return;
+        }
+
+        unhide(name);
+
+        final var active = this.active.get(scene);
+
+        if (active != null) {
+            active.setStatus(NamedModel.Status.DEFAULT);
+        }
+
+        model.setStatus(NamedModel.Status.ACTIVE);
+        this.active.put(scene, model);
+
+        view.refresh();
+    }
+
+    private void initUnmarkActive() {
+        activeRemoveBtn.setOnAction(e -> {
+            final var model = selected();
+            if (model == null) {
+                return;
+            }
+
+            unmarkActive(model.name());
+        });
+    }
+
+    private void unmarkActive(final String name) {
+        final var model = models.get(name);
+
+        if (model == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        if (model.status() != NamedModel.Status.ACTIVE) {
+            return;
+        }
+
+        model.setStatus(NamedModel.Status.DEFAULT);
+
+        final var active = this.active.get(scene);
+
+        if (active == null) {
+            return;
+        }
+
+        if (active != model) {
+            return;
+        }
+
+        active.setStatus(NamedModel.Status.DEFAULT);
+        this.active.put(scene, null);
+
+        view.refresh();
+    }
+
+    private void initHide() {
+        hideBtn.setOnAction(e -> {
+            final var model = selected();
+            if (model == null) {
+                return;
+            }
+
+            hide(model.name());
+        });
+    }
+
+    private void hide(final String name) {
+        final var model = models.get(name);
+
+        if (model == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        if (model.status() == NamedModel.Status.HIDDEN) {
+            return;
+        }
+
+        unmarkActive(name);
+
+        model.setStatus(NamedModel.Status.HIDDEN);
+        scene.models().remove(model.unwrap());
+
+        view.refresh();
+    }
+
+    private void initUnhide() {
+        unhideBtn.setOnAction(e -> {
+            final var model = selected();
+            if (model == null) {
+                return;
+            }
+
+            unhide(model.name());
+        });
+    }
+
+    private void unhide(final String name) {
+        final var model = models.get(name);
+
+        if (model == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        if (model.status() != NamedModel.Status.HIDDEN) {
+            return;
+        }
+
+        model.setStatus(NamedModel.Status.DEFAULT);
+        scene.models().add(model.unwrap());
+
+        view.refresh();
+    }
+
+    private void initScale() {
+        scalingApplyBtn.setOnAction(e -> {
+            final var model = active.get(scene);
+            if (model == null) {
+                return;
+            }
+
+            scaleFromFields(model.name());
+        });
+
+        scalingResetBtn.setOnAction(e -> {
+            final var model = active.get(scene);
+            if (model == null) {
+                return;
+            }
+
+            resetScale(model.name());
+        });
+    }
+
+    // TODO error handling
+    private void scaleFromFields(final String name) {
+        final var textX = scalingXField.getText();
+        final float x;
+        if (textX.isEmpty()) {
+            x = 1;
+        } else {
+            x = Float.parseFloat(textX);
+        }
+
+        final var textY = scalingYField.getText();
+        final float y;
+        if (textY.isEmpty()) {
+            y = 1;
+        } else {
+            y = Float.parseFloat(textY);
+        }
+
+        final var textZ = scalingZField.getText();
+        final float z;
+        if (textZ.isEmpty()) {
+            z = 1;
+        } else {
+            z = Float.parseFloat(textZ);
+        }
+
+        scale(name, x, y, z);
+    }
+
+    private void scale(final String name,
+            final float x, final float y, final float z) {
+
+        final var model = models.get(name);
+
+        if (model == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        model.unwrap().transformer().setScaling(x, y, z);
+    }
+
+    private void resetScale(final String name) {
+        scale(name, 1, 1, 1);
+    }
+
+    private void initTranslate() {
+        translationApplyBtn.setOnAction(e -> {
+            final var model = active.get(scene);
+            if (model == null) {
+                return;
+            }
+
+            translateFromFields(model.name());
+        });
+
+        translationResetBtn.setOnAction(e -> {
+            final var model = active.get(scene);
+            if (model == null) {
+                return;
+            }
+
+            resetTranslate(model.name());
+        });
+    }
+
+    // TODO error handling
+    private void translateFromFields(final String name) {
+        final var textX = translationXField.getText();
+        final float x;
+        if (textX.isEmpty()) {
+            x = 1;
+        } else {
+            x = Float.parseFloat(textX);
+        }
+
+        final var textY = translationYField.getText();
+        final float y;
+        if (textY.isEmpty()) {
+            y = 1;
+        } else {
+            y = Float.parseFloat(textY);
+        }
+
+        final var textZ = translationZField.getText();
+        final float z;
+        if (textZ.isEmpty()) {
+            z = 1;
+        } else {
+            z = Float.parseFloat(textZ);
+        }
+
+        translate(name, x, y, z);
+    }
+
+    private void translate(final String name,
+            final float x, final float y, final float z) {
+
+        final var model = models.get(name);
+
+        if (model == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        model.unwrap().transformer().setTranslation(x, y, z);
+    }
+
+    private void resetTranslate(final String name) {
+        translate(name, 0, 0, 0);
+    }
+
+    private void initRotate() {
+        rotationApplyBtn.setOnAction(e -> {
+            final var model = active.get(scene);
+            if (model == null) {
+                return;
+            }
+
+            rotateFromFields(model.name());
+        });
+
+        rotationResetBtn.setOnAction(e -> {
+            final var model = active.get(scene);
+            if (model == null) {
+                return;
+            }
+
+            resetRotate(model.name());
+        });
+    }
+
+    // TODO error handling
+    private void rotateFromFields(final String name) {
+        final var textX = rotationXField.getText();
+        final float x;
+        if (textX.isEmpty()) {
+            x = 1;
+        } else {
+            x = Float.parseFloat(textX);
+        }
+
+        final var textY = rotationYField.getText();
+        final float y;
+        if (textY.isEmpty()) {
+            y = 1;
+        } else {
+            y = Float.parseFloat(textY);
+        }
+
+        final var textZ = rotationZField.getText();
+        final float z;
+        if (textZ.isEmpty()) {
+            z = 1;
+        } else {
+            z = Float.parseFloat(textZ);
+        }
+
+        rotate(name, x, y, z);
+    }
+
+    private void rotate(final String name,
+            final float x, final float y, final float z) {
+
+        final var model = models.get(name);
+
+        if (model == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        final var transformer = model.unwrap().transformer();
+
+        transformer.setRotationX(x);
+        transformer.setRotationY(y);
+        transformer.setRotationZ(z);
+    }
+
+    private void resetRotate(final String name) {
+        rotate(name, 0, 0, 0);
     }
 
     private NamedModel selected() {

@@ -38,6 +38,10 @@ public final class NamedModel implements Named {
         return model;
     }
 
+    public Status status() {
+        return status;
+    }
+
     public void setStatus(final Status s) {
         status = Objects.requireNonNull(s);
     }
