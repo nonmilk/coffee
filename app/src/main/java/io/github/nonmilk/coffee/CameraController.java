@@ -61,29 +61,35 @@ public final class CameraController {
         return mouseSensitivity;
     }
 
-    public void setMouseSensitivity(final float sensitivity) {
+    public float setMouseSensitivity(final float sensitivity) {
         mouseSensitivity = validateSensitivity(sensitivity);
 
         final float senseMultiplier = computeSensitivityMultiplier(mouseSensitivity);
 
         mouseToMovementMultiplier = DEFAULT_MOUSE_TO_MOVEMENT_MULTIPLIER * senseMultiplier;
         mouseToAngleMultiplier = DEFAULT_MOUSE_TO_ANGLE_MULTIPLIER * senseMultiplier;
+
+        return mouseSensitivity;
     }
 
     public float getScrollSensitivity() {
         return scrollSensitivity;
     }
 
-    public void setScrollSensitivity(final float sensitivity) {
+    public float setScrollSensitivity(final float sensitivity) {
         scrollSensitivity = validateSensitivity(sensitivity);
         final float senseMultiplier = computeSensitivityMultiplier(sensitivity);
 
         scrollAbsMultiplier = DEFAULT_SCROLL_ABS_MULTIPLIER * senseMultiplier;
+
+        return scrollSensitivity;
     }
 
-    public void setOverallSensitivity(final float sensitivity) {
+    public float setOverallSensitivity(final float sensitivity) {
         setMouseSensitivity(sensitivity);
         setScrollSensitivity(sensitivity);
+
+        return mouseSensitivity;
     }
 
     private void initCanvas() {
