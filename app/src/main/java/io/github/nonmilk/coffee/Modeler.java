@@ -417,6 +417,21 @@ public final class Modeler {
         view.refresh();
     }
 
+    private void hide(final String name) {
+        final var model = models.get(name);
+
+        if (model == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        unmarkActive(name);
+
+        model.setStatus(NamedModel.Status.HIDDEN);
+        scene.models().remove(model.unwrap());
+
+        view.refresh();
+    }
+
     private NamedModel selected() {
         return view.selectionModelProperty().get().getSelectedItem();
     }
