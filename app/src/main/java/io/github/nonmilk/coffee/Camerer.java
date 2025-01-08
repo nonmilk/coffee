@@ -384,6 +384,34 @@ public final class Camerer {
         pos.setZ(z);
     }
 
+    private void setTargetFromFields(final String name) {
+        final var textX = targetXField.getText();
+        final float x;
+        if (textX.isEmpty()) {
+            x = 0;
+        } else {
+            x = Float.parseFloat(textX);
+        }
+
+        final var textY = targetYField.getText();
+        final float y;
+        if (textY.isEmpty()) {
+            y = 0;
+        } else {
+            y = Float.parseFloat(textY);
+        }
+
+        final var textZ = targetZField.getText();
+        final float z;
+        if (textZ.isEmpty()) {
+            z = 0;
+        } else {
+            z = Float.parseFloat(textZ);
+        }
+
+        setTarget(name, x, y, z);
+    }
+
     private void setTarget(final String name,
             final float x, final float y, final float z) {
 
