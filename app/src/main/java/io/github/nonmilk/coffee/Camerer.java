@@ -137,6 +137,8 @@ public final class Camerer {
     private void initialize() {
         view.setItems(list);
 
+        cameraController.setCamerer(this);
+
         initStack();
         initAdd();
         initRemove();

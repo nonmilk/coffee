@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 
 public final class CameraController {
 
+    private Camerer camerer;
     private Camera camera;
     private Canvas view;
 
@@ -43,6 +44,10 @@ public final class CameraController {
         Objects.requireNonNull(view);
         this.view = view;
         initCanvas();
+    }
+
+    public void setCamerer(final Camerer c) {
+        camerer = Objects.requireNonNull(c);
     }
 
     private void initCanvas() {
@@ -103,6 +108,8 @@ public final class CameraController {
         }
 
         handleSimpleMovement(dx, dy);
+
+        camerer.updateOrientation();
     }
 
     private void handleScroll(final float scrollValue) {
@@ -115,6 +122,8 @@ public final class CameraController {
         final float scrollMultiplier = Math.signum(scrollValue) * ABS_SCROLL_MULTIPLIER;
 
         Vec3Math.add(position(), Vec3Math.mult(direction, scrollMultiplier));
+
+        camerer.updateOrientation();
     }
 
     private void handleSphereMovement(final float mouseDX, final float mouseDY) {
