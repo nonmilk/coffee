@@ -564,6 +564,8 @@ public final class Camerer {
             orthographic.view().setWidth(width);
             orthographic.view().setHeight(height);
         }
+
+        updateFields();
     }
 
     private Orientation defaultOrientation() {
