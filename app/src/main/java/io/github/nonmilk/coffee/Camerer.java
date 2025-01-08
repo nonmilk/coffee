@@ -445,23 +445,23 @@ public final class Camerer {
     }
 
     private void setPerspectiveViewFromFields(final String name) {
-        final var widthText = widthField.getText();
-        final float width;
-        if (widthText.isEmpty()) {
-            width = DEFAULT_VIEW_WIDTH;
+        final var fovText = fovField.getText();
+        final float fov;
+        if (fovText.isEmpty()) {
+            fov = DEFAULT_VIEW_FOV;
         } else {
-            width = Float.parseFloat(widthText);
+            fov = Float.parseFloat(fovText);
         }
 
-        final var heightText = heightField.getText();
-        final float height;
-        if (heightText.isEmpty()) {
-            height = DEFAULT_VIEW_HEIGHT;
+        final var arText = arField.getText();
+        final float ar;
+        if (arText.isEmpty()) {
+            ar = DEFAULT_VIEW_AR;
         } else {
-            height = Float.parseFloat(heightText);
+            ar = Float.parseFloat(arText);
         }
 
-        setPerspectiveView(name, width, height);
+        setPerspectiveView(name, fov, ar);
     }
 
     private void setPerspectiveView(final String name,
