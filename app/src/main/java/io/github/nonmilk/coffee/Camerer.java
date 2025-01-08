@@ -341,6 +341,21 @@ public final class Camerer {
         boxFarPlaneField.setText(String.valueOf(box.farPlane()));
     }
 
+    private void setPosition(final String name,
+            final float x, final float y, final float z) {
+
+        final var cam = cameras.get(name);
+        if (cam == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        final var pos = cam.unwrap().orientation().position();
+
+        pos.setX(x);
+        pos.setY(y);
+        pos.setZ(z);
+    }
+
     public void update(final float width, final float height) {
         if (width <= 0 || height <= 0) {
             return;
