@@ -356,6 +356,21 @@ public final class Camerer {
         pos.setZ(z);
     }
 
+    private void setTarget(final String name,
+            final float x, final float y, final float z) {
+
+        final var cam = cameras.get(name);
+        if (cam == null) {
+            throw new IllegalArgumentException("this name doesn't exist");
+        }
+
+        final var target = cam.unwrap().orientation().target();
+
+        target.setX(x);
+        target.setY(y);
+        target.setZ(z);
+    }
+
     public void update(final float width, final float height) {
         if (width <= 0 || height <= 0) {
             return;
