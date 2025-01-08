@@ -81,6 +81,11 @@ public final class CameraController {
         scrollAbsMultiplier = DEFAULT_SCROLL_ABS_MULTIPLIER * senseMultiplier;
     }
 
+    public void setOverallSensitivity(final float sensitivity) {
+        setMouseSensitivity(sensitivity);
+        setScrollSensitivity(sensitivity);
+    }
+
     private void initCanvas() {
         view.setOnMouseReleased(event -> {
             drag = false;
