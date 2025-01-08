@@ -321,10 +321,9 @@ public final class Camerer {
         return active.unwrap();
     }
 
-    private void updateFields() {
+    public void updateOrientation() {
         final var cam = active();
         final var orientation = cam.orientation();
-        final var box = cam.box();
         final var pos = orientation.position();
         final var target = orientation.target();
 
@@ -335,6 +334,10 @@ public final class Camerer {
         targetXField.setText(String.valueOf(target.x()));
         targetYField.setText(String.valueOf(target.y()));
         targetZField.setText(String.valueOf(target.z()));
+    }
+
+    public void updateView() {
+        final var cam = active();
 
         if (cam instanceof OrthographicCamera orthographic) {
             final var view = orthographic.view();
@@ -355,9 +358,20 @@ public final class Camerer {
             widthField.clear();
             heightField.clear();
         }
+    }
+
+    public void updateBox() {
+        final var cam = active();
+        final var box = cam.box();
 
         boxNearPlaneField.setText(String.valueOf(box.nearPlane()));
         boxFarPlaneField.setText(String.valueOf(box.farPlane()));
+    }
+
+    public void updateFields() {
+        updateOrientation();
+        updateView();
+        updateBox();
     }
 
     private void initApplyOrientation() {
