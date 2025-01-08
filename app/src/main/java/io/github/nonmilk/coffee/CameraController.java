@@ -79,7 +79,7 @@ public final class CameraController {
 
     public float setScrollSensitivity(final float sensitivity) {
         scrollSensitivity = validateSensitivity(sensitivity);
-        final float senseMultiplier = computeSensitivityMultiplier(sensitivity);
+        final float senseMultiplier = computeSensitivityMultiplier(scrollSensitivity);
 
         scrollAbsMultiplier = DEFAULT_SCROLL_ABS_MULTIPLIER * senseMultiplier;
 
