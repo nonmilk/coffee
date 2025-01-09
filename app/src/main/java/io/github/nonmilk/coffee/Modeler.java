@@ -286,7 +286,7 @@ public final class Modeler {
                 try {
                     rename(model.name(), response);
                 } catch (final IllegalArgumentException err) {
-                    throw new CoffeeError(err);
+                    return;
                 }
             });
         });
