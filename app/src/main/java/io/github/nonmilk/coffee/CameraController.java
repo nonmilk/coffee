@@ -143,6 +143,14 @@ public final class CameraController {
         }
     }
 
+    public void undrag() {
+        drag = false;
+    }
+
+    public void drag(final MouseEvent e) {
+        handleOnMouseDrag(e);
+    }
+
     private void handleOnMouseDrag(final MouseEvent event) {
         if (!event.isPrimaryButtonDown()) {
             return;
