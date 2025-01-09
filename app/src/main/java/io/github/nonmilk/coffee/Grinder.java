@@ -71,6 +71,8 @@ public final class Grinder {
                 renderer.setDrawWireframe(false);
             }
         });
+
+        wireframeCheck.fire();
     }
 
     private void initTexture() {
@@ -84,6 +86,8 @@ public final class Grinder {
                 renderer.setDrawTexture(false);
             }
         });
+
+        textureCheck.fire();
     }
 
     private void initLighting() {
@@ -97,5 +101,7 @@ public final class Grinder {
                 renderer.setDrawLighting(false);
             }
         });
+
+        lightingCheck.fire();
     }
 }
