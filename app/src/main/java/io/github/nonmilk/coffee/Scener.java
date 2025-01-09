@@ -121,8 +121,6 @@ public final class Scener {
                     rename(scene.name(), response);
                 } catch (final IllegalArgumentException err) {
                     return;
-                    // TODO intercept?
-                    // TODO error alert
                 }
             });
         });
