@@ -332,6 +332,8 @@ public final class Modeler {
             throw new IllegalArgumentException("this name doesn't exist");
         }
 
+        unmarkActive(name);
+
         models.remove(name);
         scene.models().remove(model.unwrap());
 
