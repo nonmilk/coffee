@@ -3,6 +3,7 @@ package io.github.nonmilk.coffee;
 import java.util.Objects;
 
 import io.github.nonmilk.coffee.grinder.Renderer;
+import io.github.shimeoki.jfx.rasterization.Point2i;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -30,10 +31,8 @@ public final class Viewer {
 
     private boolean drag = false;
 
-    private int startX;
-    private int startY;
-    private int endX;
-    private int endY;
+    private Point2i start;
+    private Point2i end;
 
     {
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -82,24 +81,24 @@ public final class Viewer {
 
     private void handleMouse(final MouseEvent e) {
         if (!e.isPrimaryButtonDown()) {
-            startX = -1;
-            startY = -1;
-            endX = -1;
-            endY = -1;
+            start.setX(-1);
+            start.setY(-1);
+            end.setX(-1);
+            end.setY(-1);
 
             return;
         }
 
         if (!drag) {
-            startX = (int) e.getX();
-            startY = (int) e.getY();
+            start.setX((int) e.getX());
+            start.setY((int) e.getY());
 
             drag = true;
             return;
         }
 
-        endX = (int) e.getX();
-        endY = (int) e.getY();
+        end.setX((int) e.getX());
+        end.setY((int) e.getY());
     }
 
     public int fps() {
