@@ -26,7 +26,6 @@ public final class CameraController {
     private float mouseToMovementMultiplier = DEFAULT_MOUSE_TO_MOVEMENT_MULTIPLIER;
     private float scrollAbsMultiplier = DEFAULT_SCROLL_ABS_MULTIPLIER;
 
-
     private Camerer camerer;
 
     private Camera camera;
@@ -59,10 +58,10 @@ public final class CameraController {
         this.view = view;
         initCanvas();
     }
-  
+
     public void setCamerer(final Camerer c) {
         camerer = Objects.requireNonNull(c);
-
+    }
 
     public float getMouseSensitivity() {
         return mouseSensitivity;
@@ -187,9 +186,8 @@ public final class CameraController {
     }
 
     private void handleSphereMovement(final float mouseDX, final float mouseDY) {
-        addHorAng(-mouseDX * MOUSE_TO_ANGLE_MULTIPLIER);
-        addVertAng(mouseDY * MOUSE_TO_ANGLE_MULTIPLIER);
-
+        addHorAng(-mouseDX * mouseToAngleMultiplier);
+        addVertAng(mouseDY * mouseToAngleMultiplier);
         final float r = Vec3Math.len(Vec3Math.subtracted(target(), position()));
 
         position().setX((float) (target().x() + r * Math.cos(hAngle) * Math.cos(vAngle)));
@@ -200,10 +198,8 @@ public final class CameraController {
     private void handleSimpleMovement(final float mouseDX, final float mouseDY) {
         float ang = (float) Math.atan2(target().z() - position().z(), target().x() - position().x());
         ang -= ((float) Math.PI) / 2;
-        final float dx = -mouseDX * ((float) Math.cos(ang)) * MOUSE_TO_MOVEMENT_MULTIPLIER;
-        final float dy = -mouseDX * ((float) Math.sin(ang)) * MOUSE_TO_MOVEMENT_MULTIPLIER;
-
-
+        final float dx = -mouseDX * ((float) Math.cos(ang)) * mouseToMovementMultiplier;
+        final float dy = -mouseDX * ((float) Math.sin(ang)) * mouseToMovementMultiplier;
         // Horizontal: X movement
         position().setX(position().x() + dx);
         target().setX(target().x() + dx);
@@ -213,8 +209,8 @@ public final class CameraController {
         target().setZ(target().z() + dy);
 
         // Vertical: Z movement
-        position().setY(position().y() + mouseDY * MOUSE_TO_MOVEMENT_MULTIPLIER);
-        target().setY(target().y() + mouseDY * MOUSE_TO_MOVEMENT_MULTIPLIER);
+        position().setY(position().y() + mouseDY * mouseToMovementMultiplier);
+        target().setY(target().y() + mouseDY * mouseToMovementMultiplier);
     }
 
     private void initAngles() {
