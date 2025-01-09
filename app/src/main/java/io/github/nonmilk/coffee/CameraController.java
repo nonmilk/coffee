@@ -166,10 +166,10 @@ public final class CameraController {
                 handleSimpleMovement(KEYBOARD_MOTION_VALUE, 0);
             }
             case S, DOWN -> {
-                handleSimpleMovement(0, -KEYBOARD_MOTION_VALUE);
+                handleSimpleMovement(0, KEYBOARD_MOTION_VALUE);
             }
             case W, UP -> {
-                handleSimpleMovement(0, KEYBOARD_MOTION_VALUE);
+                handleSimpleMovement(0, -KEYBOARD_MOTION_VALUE);
             }
             case Q, BRACELEFT -> {
                 handleSphereMovement(-KEYBOARD_MOTION_VALUE, 0);
@@ -178,10 +178,10 @@ public final class CameraController {
                 handleSphereMovement(KEYBOARD_MOTION_VALUE, 0);
             }
             case CONTROL -> {
-                handleSphereMovement(0, -KEYBOARD_MOTION_VALUE);
+                handleSphereMovement(0, KEYBOARD_MOTION_VALUE);
             }
             case SHIFT -> {
-                handleSphereMovement(0, KEYBOARD_MOTION_VALUE);
+                handleSphereMovement(0, -KEYBOARD_MOTION_VALUE);
             }
             case EQUALS -> {
                 handleScroll(KEYBOARD_MOTION_VALUE);
