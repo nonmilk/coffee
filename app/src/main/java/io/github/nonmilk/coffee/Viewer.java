@@ -1,10 +1,12 @@
 package io.github.nonmilk.coffee;
 
+import java.util.List;
 import java.util.Objects;
 
 import io.github.nonmilk.coffee.grinder.Renderer;
 import io.github.shimeoki.jfx.rasterization.Point2i;
 import io.github.shimeoki.jfx.rasterization.Vector2i;
+import io.github.shimeoki.jshaper.obj.Triplet;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -27,6 +29,7 @@ public final class Viewer {
 
     private Renderer renderer;
     private Camerer camerer;
+    private Modeler modeler;
 
     private final Timeline timeline = new Timeline();
     private double fps;
@@ -39,6 +42,7 @@ public final class Viewer {
     private final Point2i end = new Vector2i(-1, -1);
 
     private Selection selection = new Selection();
+    private List<Triplet> selected;
 
     {
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -106,7 +110,7 @@ public final class Viewer {
             return;
         }
 
-        renderer.select(
+        selected = renderer.select(
                 selection.x(), selection.y(),
                 selection.width(), selection.height());
 
@@ -205,5 +209,9 @@ public final class Viewer {
 
     public void setCamerer(final Camerer c) {
         camerer = Objects.requireNonNull(c);
+    }
+
+    public void setModeler(final Modeler m) {
+        modeler = Objects.requireNonNull(m);
     }
 }
