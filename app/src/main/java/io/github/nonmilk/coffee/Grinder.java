@@ -48,6 +48,7 @@ public final class Grinder {
         modelsController.init(s);
 
         initWireframe();
+        initTexture();
     }
 
     public void start() {
@@ -67,6 +68,19 @@ public final class Grinder {
                 renderer.setDrawWireframe(true);
             } else {
                 renderer.setDrawWireframe(false);
+            }
+        });
+    }
+
+    private void initTexture() {
+        textureCheck.setIndeterminate(false);
+        final var renderer = viewController.renderer();
+
+        textureCheck.setOnAction(e -> {
+            if (textureCheck.isSelected()) {
+                renderer.setDrawTexture(true);
+            } else {
+                renderer.setDrawTexture(false);
             }
         });
     }
