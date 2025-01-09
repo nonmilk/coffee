@@ -1,0 +1,7 @@
+# models
+*.obj
+
+# images
+*.png
+*.jpg
+*.jpeg
