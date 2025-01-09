@@ -627,7 +627,7 @@ public final class Modeler {
         final var textX = translationXField.getText();
         final float x;
         if (textX.isEmpty()) {
-            x = 1;
+            x = 0;
         } else {
             x = Float.parseFloat(textX);
         }
@@ -635,7 +635,7 @@ public final class Modeler {
         final var textY = translationYField.getText();
         final float y;
         if (textY.isEmpty()) {
-            y = 1;
+            y = 0;
         } else {
             y = Float.parseFloat(textY);
         }
@@ -643,7 +643,7 @@ public final class Modeler {
         final var textZ = translationZField.getText();
         final float z;
         if (textZ.isEmpty()) {
-            z = 1;
+            z = 0;
         } else {
             z = Float.parseFloat(textZ);
         }
@@ -692,7 +692,7 @@ public final class Modeler {
         final var textX = rotationXField.getText();
         final float x;
         if (textX.isEmpty()) {
-            x = 1;
+            x = 0;
         } else {
             x = Float.parseFloat(textX);
         }
@@ -700,7 +700,7 @@ public final class Modeler {
         final var textY = rotationYField.getText();
         final float y;
         if (textY.isEmpty()) {
-            y = 1;
+            y = 0;
         } else {
             y = Float.parseFloat(textY);
         }
@@ -708,7 +708,7 @@ public final class Modeler {
         final var textZ = rotationZField.getText();
         final float z;
         if (textZ.isEmpty()) {
-            z = 1;
+            z = 0;
         } else {
             z = Float.parseFloat(textZ);
         }

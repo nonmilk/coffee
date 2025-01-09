@@ -26,6 +26,9 @@ public final class CameraController {
     private float mouseToMovementMultiplier = DEFAULT_MOUSE_TO_MOVEMENT_MULTIPLIER;
     private float scrollAbsMultiplier = DEFAULT_SCROLL_ABS_MULTIPLIER;
 
+
+    private Camerer camerer;
+
     private Camera camera;
     private Canvas view;
 
@@ -56,6 +59,10 @@ public final class CameraController {
         this.view = view;
         initCanvas();
     }
+  
+    public void setCamerer(final Camerer c) {
+        camerer = Objects.requireNonNull(c);
+
 
     public float getMouseSensitivity() {
         return mouseSensitivity;
@@ -161,6 +168,8 @@ public final class CameraController {
         }
 
         handleSimpleMovement(dx, dy);
+
+        camerer.updateOrientation();
     }
 
     private void handleScroll(final float scrollValue) {
@@ -173,6 +182,8 @@ public final class CameraController {
         final float scrollMultiplier = Math.signum(scrollValue) * scrollAbsMultiplier;
 
         Vec3Math.add(position(), Vec3Math.mult(direction, scrollMultiplier));
+
+        camerer.updateOrientation();
     }
 
     private void handleSphereMovement(final float mouseDX, final float mouseDY) {
