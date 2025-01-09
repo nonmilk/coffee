@@ -224,9 +224,12 @@ public final class Modeler {
         final ObjFile obj;
         try {
             obj = reader.read(f);
-        } catch (final ShaperError err) {
-            // TODO handle
-            return;
+        } catch (final ShaperError e) {
+            throw new CoffeeError(e);
+        }
+
+        if (obj.elements().faces().size() == 0) {
+            throw new CoffeeError("model has no polygons or is not valid");
         }
 
         final var model = new Model(obj, DEFAULT_TEXTURE);
@@ -262,9 +265,8 @@ public final class Modeler {
     private void exportObj(final ObjFile src, final File dst) {
         try {
             writer.write(src, dst);
-        } catch (final ShaperError err) {
-            // TODO handle
-            return;
+        } catch (final ShaperError e) {
+            throw new CoffeeError(e);
         }
     }
 
@@ -285,8 +287,6 @@ public final class Modeler {
                     rename(model.name(), response);
                 } catch (final IllegalArgumentException err) {
                     return;
-                    // TODO intercept?
-                    // TODO error alert
                 }
             });
         });
@@ -331,6 +331,8 @@ public final class Modeler {
         if (model == null) {
             throw new IllegalArgumentException("this name doesn't exist");
         }
+
+        unmarkActive(name);
 
         models.remove(name);
         scene.models().remove(model.unwrap());
@@ -557,7 +559,6 @@ public final class Modeler {
         });
     }
 
-    // TODO error handling
     private void scaleFromFields(final String name) {
         final var textX = scalingXField.getText();
         final float x;
@@ -622,7 +623,6 @@ public final class Modeler {
         });
     }
 
-    // TODO error handling
     private void translateFromFields(final String name) {
         final var textX = translationXField.getText();
         final float x;
@@ -687,7 +687,6 @@ public final class Modeler {
         });
     }
 
-    // TODO error handling
     private void rotateFromFields(final String name) {
         final var textX = rotationXField.getText();
         final float x;
