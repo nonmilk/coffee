@@ -32,6 +32,8 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 public final class Modeler {
 
+    private static final File INITIAL_DIRECTORY = new File("../assets/");
+
     private static final Texture DEFAULT_TEXTURE = new ColorTexture(
             HTMLColorf.BLACK);
 
@@ -210,6 +212,10 @@ public final class Modeler {
 
     private void initImport() {
         importBtn.setOnAction(e -> {
+            if (INITIAL_DIRECTORY.isDirectory()) {
+                modelChooser.setInitialDirectory(INITIAL_DIRECTORY);
+            }
+
             final var file = modelChooser.showOpenDialog(stage);
 
             if (file == null) {
@@ -251,6 +257,10 @@ public final class Modeler {
             final var selected = selected();
             if (selected == null) {
                 return;
+            }
+
+            if (INITIAL_DIRECTORY.isDirectory()) {
+                modelChooser.setInitialDirectory(INITIAL_DIRECTORY);
             }
 
             modelChooser.setInitialFileName(selected.name());
@@ -364,6 +374,10 @@ public final class Modeler {
             final var model = selection.getSelectedItem();
             if (model == null) {
                 return;
+            }
+
+            if (INITIAL_DIRECTORY.isDirectory()) {
+                textureChooser.setInitialDirectory(INITIAL_DIRECTORY);
             }
 
             final var file = textureChooser.showOpenDialog(stage);
