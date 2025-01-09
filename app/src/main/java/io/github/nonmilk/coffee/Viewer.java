@@ -91,6 +91,12 @@ public final class Viewer {
         view.setOnMouseDragReleased(e -> {
             undrag();
         });
+
+        view.setFocusTraversable(true);
+        view.setOnMouseClicked(e -> view.requestFocus());
+        view.setOnKeyPressed(e -> {
+            camerer.controller().handleKeyEvent(e);
+        });
     }
 
     private void undrag() {
