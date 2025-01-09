@@ -11,7 +11,24 @@ import javafx.scene.input.MouseEvent;
 
 public final class CameraController {
 
+    public static final float MIN_SENSITIVITY = 1f;
+    public static final float MAX_SENSITIVITY = 11f;
+    public static final float DEFAULT_OVERALL_SENSITIVITY = 6f;
+
+    private float scrollSensitivity = DEFAULT_OVERALL_SENSITIVITY;
+    private float mouseSensitivity = DEFAULT_OVERALL_SENSITIVITY;
+
+    public static final float DEFAULT_MOUSE_TO_ANGLE_MULTIPLIER = 0.02f;
+    public static final float DEFAULT_MOUSE_TO_MOVEMENT_MULTIPLIER = 0.01f;
+    public static final float DEFAULT_SCROLL_ABS_MULTIPLIER = 0.05f;
+
+    private float mouseToAngleMultiplier = DEFAULT_MOUSE_TO_ANGLE_MULTIPLIER;
+    private float mouseToMovementMultiplier = DEFAULT_MOUSE_TO_MOVEMENT_MULTIPLIER;
+    private float scrollAbsMultiplier = DEFAULT_SCROLL_ABS_MULTIPLIER;
+
+
     private Camerer camerer;
+
     private Camera camera;
     private Canvas view;
 
@@ -22,10 +39,6 @@ public final class CameraController {
     private float oldY;
 
     private boolean drag = false;
-
-    private static final float MOUSE_TO_ANGLE_MULTIPLIER = 0.02f;
-    private static final float MOUSE_TO_MOVEMENT_MULTIPLIER = 0.01f;
-    private static final float ABS_SCROLL_MULTIPLIER = 0.05f;
 
     public CameraController() {
     }
@@ -46,9 +59,55 @@ public final class CameraController {
         this.view = view;
         initCanvas();
     }
-
+  
     public void setCamerer(final Camerer c) {
         camerer = Objects.requireNonNull(c);
+
+
+    public float getMouseSensitivity() {
+        return mouseSensitivity;
+    }
+
+    public float setMouseSensitivity(final float sensitivity) {
+        setRawMouseSensitivity(validatedSensitivity(sensitivity));
+
+        // return resulting value because we have no exceptions in validation
+        return mouseSensitivity;
+    }
+
+    private void setRawMouseSensitivity(final float sensitivity) {
+        mouseSensitivity = sensitivity;
+        final float senseMultiplier = computeSensitivityMultiplier(sensitivity);
+
+        mouseToMovementMultiplier = DEFAULT_MOUSE_TO_MOVEMENT_MULTIPLIER * senseMultiplier;
+        mouseToAngleMultiplier = DEFAULT_MOUSE_TO_ANGLE_MULTIPLIER * senseMultiplier;
+    }
+
+    public float getScrollSensitivity() {
+        return scrollSensitivity;
+    }
+
+    public float setScrollSensitivity(final float sensitivity) {
+        setRawScrollSensitivity(validatedSensitivity(sensitivity));
+
+        // return resulting value because we have no exceptions in validation
+        return scrollSensitivity;
+    }
+
+    private void setRawScrollSensitivity(final float sensitivity) {
+        scrollSensitivity = sensitivity;
+        final float senseMultiplier = computeSensitivityMultiplier(sensitivity);
+
+        scrollAbsMultiplier = DEFAULT_SCROLL_ABS_MULTIPLIER * senseMultiplier;
+    }
+
+    public float setOverallSensitivity(final float sensitivity) {
+        final float validSensitivity = validatedSensitivity(sensitivity);
+        setRawMouseSensitivity(validSensitivity);
+        setRawScrollSensitivity(validSensitivity);
+
+        // return resulting value because we have no exceptions in validation
+        return validSensitivity;
     }
 
     private void initCanvas() {
@@ -120,7 +179,7 @@ public final class CameraController {
 
         final Vector3 direction = Vec3Math.subtracted(target(), position());
 
-        final float scrollMultiplier = Math.signum(scrollValue) * ABS_SCROLL_MULTIPLIER;
+        final float scrollMultiplier = Math.signum(scrollValue) * scrollAbsMultiplier;
 
         Vec3Math.add(position(), Vec3Math.mult(direction, scrollMultiplier));
 
@@ -143,6 +202,7 @@ public final class CameraController {
         ang -= ((float) Math.PI) / 2;
         final float dx = -mouseDX * ((float) Math.cos(ang)) * MOUSE_TO_MOVEMENT_MULTIPLIER;
         final float dy = -mouseDX * ((float) Math.sin(ang)) * MOUSE_TO_MOVEMENT_MULTIPLIER;
+
 
         // Horizontal: X movement
         position().setX(position().x() + dx);
@@ -174,5 +234,26 @@ public final class CameraController {
         }
 
         hAngle = (float) Math.asin((position().z() - target().z()) / r / cosv);
+    }
+
+    private float validatedSensitivity(float sensitivity) {
+        if (sensitivity < MIN_SENSITIVITY) {
+            sensitivity = MIN_SENSITIVITY;
+        }
+        if (sensitivity > MAX_SENSITIVITY) {
+            sensitivity = MAX_SENSITIVITY;
+        }
+
+        return sensitivity;
+    }
+
+    private float computeSensitivityMultiplier(final float sensitivity) {
+        float midSense = sensitivity - DEFAULT_OVERALL_SENSITIVITY;
+        if (midSense == 0) {
+            return 1;
+        } else if (midSense < 0) {
+            return 1 / (Math.abs(midSense) + 1);
+        }
+        return Math.abs(midSense) + 1;
     }
 }
