@@ -1,6 +1,9 @@
 package io.github.nonmilk.coffee;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public final class Grinder {
@@ -20,6 +23,33 @@ public final class Grinder {
     private Modeler modelsController;
 
     @FXML
+    private CheckBox wireframeCheck;
+
+    @FXML
+    private CheckBox textureCheck;
+
+    @FXML
+    private CheckBox lightingCheck;
+
+    @FXML
+    private TextField fpsField;
+
+    @FXML
+    private Button fpsApplyBtn;
+
+    @FXML
+    private TextField mouseSensField;
+
+    @FXML
+    private Button mouseSensApplyBtn;
+
+    @FXML
+    private TextField scrollSensField;
+
+    @FXML
+    private Button scrollSensApplyBtn;
+
+    @FXML
     private void initialize() {
         scenesController.setRenderer(viewController.renderer());
         scenesController.setCamerer(camerasController);
@@ -36,6 +66,13 @@ public final class Grinder {
         }
 
         modelsController.init(s);
+
+        initWireframe();
+        initTexture();
+        initLighting();
+        initFPS();
+        initMouseSens();
+        initScrollSens();
     }
 
     public void start() {
@@ -44,5 +81,104 @@ public final class Grinder {
 
     public void stop() {
         viewController.stop();
+    }
+
+    private void initWireframe() {
+        wireframeCheck.setIndeterminate(false);
+        final var renderer = viewController.renderer();
+
+        wireframeCheck.setOnAction(e -> {
+            if (wireframeCheck.isSelected()) {
+                renderer.setDrawWireframe(true);
+            } else {
+                renderer.setDrawWireframe(false);
+            }
+        });
+
+        wireframeCheck.fire();
+    }
+
+    private void initTexture() {
+        textureCheck.setIndeterminate(false);
+        final var renderer = viewController.renderer();
+
+        textureCheck.setOnAction(e -> {
+            if (textureCheck.isSelected()) {
+                renderer.setDrawTexture(true);
+            } else {
+                renderer.setDrawTexture(false);
+            }
+        });
+
+        textureCheck.fire();
+    }
+
+    private void initLighting() {
+        lightingCheck.setIndeterminate(false);
+        final var renderer = viewController.renderer();
+
+        lightingCheck.setOnAction(e -> {
+            if (lightingCheck.isSelected()) {
+                renderer.setDrawLighting(true);
+            } else {
+                renderer.setDrawLighting(false);
+            }
+        });
+
+        lightingCheck.fire();
+    }
+
+    private void initFPS() {
+        fpsApplyBtn.setOnAction(e -> {
+            final var fpsText = fpsField.getText();
+            if (fpsText.isEmpty()) {
+                fpsField.setText(String.valueOf(Viewer.DEFAULT_FPS));
+            }
+
+            final var fps = Integer.parseInt(fpsText);
+            viewController.setFPS(fps);
+
+            fpsField.setText(String.valueOf(viewController.fps()));
+        });
+
+        fpsApplyBtn.fire();
+    }
+
+    private void initMouseSens() {
+        final var senser = camerasController.controller();
+
+        mouseSensApplyBtn.setOnAction(e -> {
+            final var sensText = mouseSensField.getText();
+            if (sensText.isEmpty()) {
+                mouseSensField.setText(String.valueOf(
+                        CameraController.DEFAULT_OVERALL_SENSITIVITY));
+            }
+
+            final var sens = Float.parseFloat(sensText);
+            senser.setMouseSensitivity(sens);
+
+            mouseSensField.setText(String.valueOf(senser.getMouseSensitivity()));
+        });
+
+        mouseSensApplyBtn.fire();
+    }
+
+    private void initScrollSens() {
+        final var senser = camerasController.controller();
+
+        scrollSensApplyBtn.setOnAction(e -> {
+            final var sensText = scrollSensField.getText();
+            if (sensText.isEmpty()) {
+                scrollSensField.setText(String.valueOf(
+                        CameraController.DEFAULT_OVERALL_SENSITIVITY));
+            }
+
+            final var sens = Float.parseFloat(sensText);
+            senser.setScrollSensitivity(sens);
+
+            scrollSensField.setText(String.valueOf(senser.getScrollSensitivity()));
+        });
+
+        scrollSensApplyBtn.fire();
     }
 }

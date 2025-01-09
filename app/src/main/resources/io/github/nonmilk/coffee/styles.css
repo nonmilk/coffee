@@ -81,23 +81,7 @@
     -fx-border-width: 2;
 }
 
-.cameras-root {
-    -fx-pref-width: 400;
-    -fx-background-color: #1e1e2e;
-    -fx-background-radius: 16;
-    -fx-background-insets: 8;
-    -fx-padding: 8 16 8 16;
-}
-
-.scenes-root {
-    -fx-pref-width: 400;
-    -fx-background-color: #1e1e2e;
-    -fx-background-radius: 16;
-    -fx-background-insets: 8;
-    -fx-padding: 8 16 8 16;
-}
-
-.models-root {
+.panel {
     -fx-pref-width: 400;
     -fx-background-color: #1e1e2e;
     -fx-background-radius: 16;
