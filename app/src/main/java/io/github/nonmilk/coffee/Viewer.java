@@ -3,11 +3,15 @@ package io.github.nonmilk.coffee;
 import java.util.Objects;
 
 import io.github.nonmilk.coffee.grinder.Renderer;
+import io.github.shimeoki.jfx.rasterization.Point2i;
+import io.github.shimeoki.jfx.rasterization.Vector2i;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -27,6 +31,15 @@ public final class Viewer {
     private final Timeline timeline = new Timeline();
     private double fps;
 
+    private boolean drag = false;
+
+    private GraphicsContext ctx;
+
+    private final Point2i start = new Vector2i(-1, -1);
+    private final Point2i end = new Vector2i(-1, -1);
+
+    private Selection selection = new Selection();
+
     {
         timeline.setCycleCount(Animation.INDEFINITE);
     }
@@ -36,6 +49,8 @@ public final class Viewer {
         renderer = new Renderer(view.getGraphicsContext2D());
 
         initView();
+        initSelection();
+        ctx = view.getGraphicsContext2D();
 
         setFPS(DEFAULT_FPS);
     }
@@ -61,6 +76,69 @@ public final class Viewer {
 
             camerer.update((float) view.getWidth(), (float) view.getHeight());
         });
+    }
+
+    private void initSelection() {
+        view.setOnMouseReleased(e -> {
+            undrag();
+        });
+
+        view.setOnMouseDragged(e -> {
+            handleMouse(e);
+            camerer.controller().drag(e);
+        });
+
+        view.setOnMouseDragReleased(e -> {
+            undrag();
+        });
+    }
+
+    private void undrag() {
+        // TODO
+        // select vertices
+
+        drag = false;
+        camerer.controller().undrag();
+    }
+
+    private void handleMouse(final MouseEvent e) {
+        if (!e.isSecondaryButtonDown()) {
+            return;
+        }
+
+        if (!drag) {
+            start.setX((int) e.getX());
+            start.setY((int) e.getY());
+
+            drag = true;
+            return;
+        }
+
+        end.setX((int) e.getX());
+        end.setY((int) e.getY());
+    }
+
+    private void cropSelectionPoints() {
+        start.setX(Math.max(0, start.x()));
+        start.setY(Math.max(0, start.y()));
+
+        end.setX(Math.min((int) view.getWidth(), end.x()));
+        end.setY(Math.min((int) view.getHeight(), end.y()));
+    }
+
+    private void renderSelection() {
+        if (!drag) {
+            return;
+        }
+
+        cropSelectionPoints();
+        selection.update(start, end);
+
+        ctx.strokeRect(
+                selection.x(),
+                selection.y(),
+                selection.width(),
+                selection.height());
     }
 
     public int fps() {
@@ -97,6 +175,7 @@ public final class Viewer {
         return new KeyFrame(Duration.millis(1000 / fps), e -> {
             ctx.clearRect(0, 0, view.getWidth(), view.getHeight());
             renderer.render();
+            renderSelection();
         });
     }
 
