@@ -15,6 +15,8 @@ public final class App extends Application {
     public static final int DEFAULT_WIDTH = 1280;
     public static final int DEFAULT_HEIGHT = 720;
 
+    private Grinder grinder;
+
     public App() {
     }
 
@@ -27,8 +29,8 @@ public final class App extends Application {
         final Parent p = loader.load();
         final var scene = new Scene(p, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
-        final Grinder g = loader.getController();
-        g.init(stage);
+        grinder = loader.getController();
+        grinder.init(stage);
 
         stage.setTitle("coffee-grinder");
         stage.setScene(scene);
@@ -51,7 +53,11 @@ public final class App extends Application {
     }
 
     private void showErrorAlert(final String msg) {
+        grinder.stop();
+
         final var alert = new Alert(Alert.AlertType.ERROR, msg);
+        alert.setOnHidden(e -> grinder.start());
+
         alert.show();
     }
 

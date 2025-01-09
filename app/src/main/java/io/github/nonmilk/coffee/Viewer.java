@@ -169,6 +169,14 @@ public final class Viewer {
         timeline.play();
     }
 
+    public void stop() {
+        timeline.stop();
+    }
+
+    public void start() {
+        update();
+    }
+
     private KeyFrame frame() {
         final var ctx = view.getGraphicsContext2D();
 
