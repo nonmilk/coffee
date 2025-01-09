@@ -54,7 +54,7 @@
                             <VBox styleClass="spacing-8">
                                 <Label text="Scroll"/>
                                 <TextField fx:id="scrollSensField"/>
-                                <Button fx:id="scrollSensField" text="Apply"/>
+                                <Button fx:id="scrollSensApplyBtn" text="Apply"/>
                             </VBox>
                         </VBox>
                         <VBox styleClass="spacing-8">
