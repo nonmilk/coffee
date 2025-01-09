@@ -7,6 +7,7 @@ import io.github.alphameo.linear_algebra.vec.Vec3Math;
 import io.github.alphameo.linear_algebra.vec.Vector3;
 import io.github.nonmilk.coffee.grinder.camera.Camera;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 public final class CameraController {
@@ -25,6 +26,8 @@ public final class CameraController {
     private float mouseToAngleMultiplier = DEFAULT_MOUSE_TO_ANGLE_MULTIPLIER;
     private float mouseToMovementMultiplier = DEFAULT_MOUSE_TO_MOVEMENT_MULTIPLIER;
     private float scrollAbsMultiplier = DEFAULT_SCROLL_ABS_MULTIPLIER;
+
+    private float KEYBOARD_MOTION_VALUE = 10;
 
     private Camerer camerer;
 
@@ -153,6 +156,44 @@ public final class CameraController {
         handleOnMouseDrag(e);
     }
 
+    public void handleKeyEvent(final KeyEvent event) {
+        switch (event.getCode()) {
+            case A, LEFT -> {
+                handleSimpleMovement(-KEYBOARD_MOTION_VALUE, 0);
+            }
+            case D, RIGHT -> {
+                handleSimpleMovement(KEYBOARD_MOTION_VALUE, 0);
+            }
+            case S, DOWN -> {
+                handleSimpleMovement(0, KEYBOARD_MOTION_VALUE);
+            }
+            case W, UP -> {
+                handleSimpleMovement(0, -KEYBOARD_MOTION_VALUE);
+            }
+            case Q, OPEN_BRACKET -> {
+                handleSphereMovement(-KEYBOARD_MOTION_VALUE, 0);
+            }
+            case E, CLOSE_BRACKET -> {
+                handleSphereMovement(KEYBOARD_MOTION_VALUE, 0);
+            }
+            case CONTROL -> {
+                handleSphereMovement(0, KEYBOARD_MOTION_VALUE);
+            }
+            case SHIFT -> {
+                handleSphereMovement(0, -KEYBOARD_MOTION_VALUE);
+            }
+            case EQUALS -> {
+                handleScroll(KEYBOARD_MOTION_VALUE);
+            }
+            case MINUS -> {
+                handleScroll(-KEYBOARD_MOTION_VALUE);
+            }
+            default -> {
+                return;
+            }
+        }
+    }
+
     private void handleOnMouseDrag(final MouseEvent event) {
         if (!event.isPrimaryButtonDown()) {
             return;
@@ -171,7 +212,7 @@ public final class CameraController {
         oldX = newX;
         oldY = newY;
 
-        if (event.isShiftDown()) {
+        if (event.isAltDown()) {
             handleSphereMovement(dx, dy);
             return;
         }
