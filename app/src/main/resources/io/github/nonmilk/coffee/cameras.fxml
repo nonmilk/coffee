@@ -20,14 +20,16 @@
         </HBox>
         <ListView fx:id="view" styleClass="cameras-view"/>
         <VBox styleClass="spacing-8">
+            <Label text="Add"/>
             <FlowPane styleClass="gaps-8">
-                <Button fx:id="addBtn" text="Add"/>
-                <Button fx:id="removeBtn" text="Remove"/>
+                <Button fx:id="addPerspectiveBtn" text="Perspective"/>
+                <Button fx:id="addOrthographicBtn" text="Orthographic"/>
             </FlowPane>
         </VBox>
         <VBox styleClass="spacing-8">
             <Label text="Control (selected)"/>
             <FlowPane styleClass="gaps-8">
+                <Button fx:id="removeBtn" text="Remove"/>
                 <Button fx:id="renameBtn" text="Rename"/>
                 <Button fx:id="markActiveBtn" text="Mark Active"/>
             </FlowPane>
@@ -70,6 +72,7 @@
                         </HBox>
                     </VBox>
                 </HBox>
+                <Button fx:id="orientationApplyBtn" text="Apply"/>
             </VBox>
             <VBox styleClass="spacing-8">
                 <Label text="View"/>
@@ -112,6 +115,7 @@
                         </GridPane>
                     </fx:define>
                 </StackPane>
+                <Button fx:id="viewApplyBtn" text="Apply"/>
             </VBox>
             <VBox styleClass="spacing-8">
                 <Label text="Clipping Box"/>
@@ -129,8 +133,8 @@
                         <TextField fx:id="boxFarPlaneField"/>
                     </HBox>
                 </GridPane>
+                <Button fx:id="boxApplyBtn" text="Apply"/>
             </VBox>
-            <Button fx:id="apply" text="Apply"/>
         </VBox>
     </VBox>
 </AnchorPane>
