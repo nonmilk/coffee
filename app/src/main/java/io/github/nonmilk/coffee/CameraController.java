@@ -187,8 +187,8 @@ public final class CameraController {
     }
 
     private void handleSphereMovement(final float mouseDX, final float mouseDY) {
-        addHorAng(mouseDX * mouseToAngleMultiplier);
-        addVertAng(-mouseDY * mouseToAngleMultiplier);
+        addHorAng(-mouseDX * MOUSE_TO_ANGLE_MULTIPLIER);
+        addVertAng(mouseDY * MOUSE_TO_ANGLE_MULTIPLIER);
 
         final float r = Vec3Math.len(Vec3Math.subtracted(target(), position()));
 
@@ -200,8 +200,9 @@ public final class CameraController {
     private void handleSimpleMovement(final float mouseDX, final float mouseDY) {
         float ang = (float) Math.atan2(target().z() - position().z(), target().x() - position().x());
         ang -= ((float) Math.PI) / 2;
-        final float dx = mouseDX * ((float) Math.cos(ang)) * mouseToMovementMultiplier;
-        final float dy = mouseDX * ((float) Math.sin(ang)) * mouseToMovementMultiplier;
+        final float dx = -mouseDX * ((float) Math.cos(ang)) * MOUSE_TO_MOVEMENT_MULTIPLIER;
+        final float dy = -mouseDX * ((float) Math.sin(ang)) * MOUSE_TO_MOVEMENT_MULTIPLIER;
+
 
         // Horizontal: X movement
         position().setX(position().x() + dx);
@@ -212,8 +213,8 @@ public final class CameraController {
         target().setZ(target().z() + dy);
 
         // Vertical: Z movement
-        position().setY(position().y() - mouseDY * mouseToMovementMultiplier);
-        target().setY(target().y() - mouseDY * mouseToMovementMultiplier);
+        position().setY(position().y() + mouseDY * MOUSE_TO_MOVEMENT_MULTIPLIER);
+        target().setY(target().y() + mouseDY * MOUSE_TO_MOVEMENT_MULTIPLIER);
     }
 
     private void initAngles() {
