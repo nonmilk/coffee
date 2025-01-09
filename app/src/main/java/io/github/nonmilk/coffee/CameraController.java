@@ -213,7 +213,7 @@ public final class CameraController {
         oldX = newX;
         oldY = newY;
 
-        if (event.isShiftDown()) {
+        if (event.isAltDown()) {
             handleSphereMovement(dx, dy);
             return;
         }
