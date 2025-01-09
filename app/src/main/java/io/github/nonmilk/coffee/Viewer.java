@@ -100,11 +100,17 @@ public final class Viewer {
     }
 
     private void undrag() {
-        // TODO
-        // select vertices
+        camerer.controller().undrag();
+
+        if (!drag) {
+            return;
+        }
+
+        renderer.select(
+                selection.x(), selection.y(),
+                selection.width(), selection.height());
 
         drag = false;
-        camerer.controller().undrag();
     }
 
     private void handleMouse(final MouseEvent e) {
