@@ -8,6 +8,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -27,6 +28,13 @@ public final class Viewer {
     private final Timeline timeline = new Timeline();
     private double fps;
 
+    private boolean drag = false;
+
+    private int startX;
+    private int startY;
+    private int endX;
+    private int endY;
+
     {
         timeline.setCycleCount(Animation.INDEFINITE);
     }
@@ -36,6 +44,7 @@ public final class Viewer {
         renderer = new Renderer(view.getGraphicsContext2D());
 
         initView();
+        initSelection();
 
         setFPS(DEFAULT_FPS);
     }
@@ -61,6 +70,36 @@ public final class Viewer {
 
             camerer.update((float) view.getWidth(), (float) view.getHeight());
         });
+    }
+
+    private void initSelection() {
+        view.setOnMouseReleased(e -> {
+            drag = false;
+        });
+
+        view.setOnMouseDragged(e -> handleMouse(e));
+    }
+
+    private void handleMouse(final MouseEvent e) {
+        if (!e.isPrimaryButtonDown()) {
+            startX = -1;
+            startY = -1;
+            endX = -1;
+            endY = -1;
+
+            return;
+        }
+
+        if (!drag) {
+            startX = (int) e.getX();
+            startY = (int) e.getY();
+
+            drag = true;
+            return;
+        }
+
+        endX = (int) e.getX();
+        endY = (int) e.getY();
     }
 
     public int fps() {
