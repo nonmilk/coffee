@@ -130,7 +130,9 @@ public final class Scener {
         addBtn.setOnAction(e -> {
             final var name = uniqueName();
             add(new Scene(), name);
-            markActive(name);
+
+            view.selectionModelProperty().get().selectLast();
+            markActive(selected().name());
         });
     }
 
