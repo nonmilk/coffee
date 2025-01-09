@@ -6,10 +6,12 @@ import java.util.Map;
 import java.util.Objects;
 
 import io.github.nonmilk.coffee.grinder.Model;
+import io.github.nonmilk.coffee.grinder.math.affine.Rotator.Axis;
 import io.github.nonmilk.coffee.grinder.render.ColorTexture;
 import io.github.nonmilk.coffee.grinder.render.ImageTexture;
 import io.github.nonmilk.coffee.grinder.render.Scene;
 import io.github.nonmilk.coffee.grinder.render.Texture;
+import io.github.nonmilk.coffee.grinder.transformations.ModelTransformer;
 import io.github.shimeoki.jfx.rasterization.HTMLColorf;
 import io.github.shimeoki.jshaper.ObjFile;
 import io.github.shimeoki.jshaper.ShaperError;
@@ -55,9 +57,10 @@ public final class Modeler {
 
     private Map<String, NamedModel> models;
 
-    private static final float KEYBOARD_ROTATE_ANGLE = (float) Math.toRadians(12);
-    private static final float KEYBOARD_TRANSLATE_VALUE = 10;
-    private static final float KEYBOARD_SCALE_MULTIPLIER = 1.1f;
+    private static final float KEYBOARD_ROTATE_ANGLE_DELTA = (float) Math.toRadians(6);
+    private static final float KEYBOARD_TRANSLATE_DELTA = 1;
+    private static final float KEYBOARD_SCALE_DELTA = 0.2f;
+    private Axis modificationAxis = Axis.X;
 
     @FXML
     private ListView<NamedModel> view;
@@ -768,18 +771,123 @@ public final class Modeler {
 
     public void handleKeyEvent(final KeyEvent event) {
         System.out.println(event.getCode());
-        final var selection = view.selectionModelProperty().get();
+        switch (event.getCode()) {
+            case X -> {
+                modificationAxis = Axis.X;
+            }
+            case Y -> {
+                modificationAxis = Axis.Z;
+            }
+            case Z -> {
+                modificationAxis = Axis.Y;
+            }
+            default -> {
+                break;
+            }
+        }
 
-        final var model = selection.getSelectedItem();
+        final NamedModel model = this.active.get(scene);
         if (model == null) {
             return;
         }
-        String modelName = model.name();
 
-        remove(model.name());
+        final ModelTransformer transformer = model.unwrap().transformer();
         switch (event.getCode()) {
+            case R -> {
+                handleKeyboarRotation(event, transformer);
+            }
+            case T -> {
+                handleKeyboardTranslation(event, transformer);
+            }
+            case F -> {
+                handleKeyboardScaling(event, transformer);
+            }
+            default -> {
+                return;
+            }
+        }
+    }
+
+    private void handleKeyboarRotation(KeyEvent event, ModelTransformer transformer) {
+        switch (modificationAxis) {
             case X -> {
-                rotate(modelName, KEYBOARD_ROTATE_ANGLE, 0, 0);
+                if (event.isAltDown()) {
+                    transformer.setRotationX(transformer.getRotationX() - KEYBOARD_ROTATE_ANGLE_DELTA);
+                    return;
+                }
+                transformer.setRotationX(transformer.getRotationX() + KEYBOARD_ROTATE_ANGLE_DELTA);
+            }
+            case Y -> {
+                if (event.isAltDown()) {
+                    transformer.setRotationY(transformer.getRotationY() - KEYBOARD_ROTATE_ANGLE_DELTA);
+                    return;
+                }
+                transformer.setRotationY(transformer.getRotationY() + KEYBOARD_ROTATE_ANGLE_DELTA);
+            }
+            case Z -> {
+                if (event.isAltDown()) {
+                    transformer.setRotationZ(transformer.getRotationZ() - KEYBOARD_ROTATE_ANGLE_DELTA);
+                    return;
+                }
+                transformer.setRotationZ(transformer.getRotationZ() + KEYBOARD_ROTATE_ANGLE_DELTA);
+            }
+            default -> {
+                return;
+            }
+        }
+    }
+
+    private void handleKeyboardTranslation(KeyEvent event, ModelTransformer transformer) {
+        switch (modificationAxis) {
+            case X -> {
+                if (event.isAltDown()) {
+                    transformer.setTranslationX(transformer.getTranslationX() - KEYBOARD_TRANSLATE_DELTA);
+                    return;
+                }
+                transformer.setTranslationX(transformer.getTranslationX() + KEYBOARD_TRANSLATE_DELTA);
+            }
+            case Y -> {
+                if (event.isAltDown()) {
+                    transformer.setTranslationY(transformer.getTranslationY() - KEYBOARD_TRANSLATE_DELTA);
+                    return;
+                }
+                transformer.setTranslationY(transformer.getTranslationY() + KEYBOARD_TRANSLATE_DELTA);
+            }
+            case Z -> {
+                if (event.isAltDown()) {
+                    transformer.setTranslationZ(transformer.getTranslationZ() - KEYBOARD_TRANSLATE_DELTA);
+                    return;
+                }
+                transformer.setTranslationZ(transformer.getTranslationZ() + KEYBOARD_TRANSLATE_DELTA);
+            }
+            default -> {
+                return;
+            }
+        }
+    }
+
+    private void handleKeyboardScaling(KeyEvent event, ModelTransformer transformer) {
+        switch (modificationAxis) {
+            case X -> {
+                if (event.isAltDown()) {
+                    transformer.setScalingX(transformer.getScalingX() - KEYBOARD_SCALE_DELTA);
+                    return;
+                }
+                transformer.setScalingX(transformer.getScalingX() + KEYBOARD_SCALE_DELTA);
+            }
+            case Y -> {
+                if (event.isAltDown()) {
+                    transformer.setScalingY(transformer.getScalingY() - KEYBOARD_SCALE_DELTA);
+                    return;
+                }
+                transformer.setScalingY(transformer.getScalingY() + KEYBOARD_SCALE_DELTA);
+            }
+            case Z -> {
+                if (event.isAltDown()) {
+                    transformer.setScalingZ(transformer.getScalingZ() - KEYBOARD_SCALE_DELTA);
+                    return;
+                }
+                transformer.setScalingZ(transformer.getScalingZ() + KEYBOARD_SCALE_DELTA);
             }
             default -> {
                 return;
