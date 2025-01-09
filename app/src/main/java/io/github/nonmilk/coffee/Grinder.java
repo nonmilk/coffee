@@ -46,6 +46,8 @@ public final class Grinder {
         }
 
         modelsController.init(s);
+
+        initWireframe();
     }
 
     public void start() {
@@ -54,5 +56,18 @@ public final class Grinder {
 
     public void stop() {
         viewController.stop();
+    }
+
+    private void initWireframe() {
+        wireframeCheck.setIndeterminate(false);
+        final var renderer = viewController.renderer();
+
+        wireframeCheck.setOnAction(e -> {
+            if (wireframeCheck.isSelected()) {
+                renderer.setDrawWireframe(true);
+            } else {
+                renderer.setDrawWireframe(false);
+            }
+        });
     }
 }
