@@ -1,6 +1,7 @@
 package io.github.nonmilk.coffee;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -34,6 +35,9 @@ public final class Grinder {
     private TextField fpsField;
 
     @FXML
+    private Button fpsApplyBtn;
+
+    @FXML
     private TextField mouseSensField;
 
     @FXML
@@ -57,6 +61,7 @@ public final class Grinder {
         initWireframe();
         initTexture();
         initLighting();
+        initFPS();
     }
 
     public void start() {
@@ -110,5 +115,19 @@ public final class Grinder {
         });
 
         lightingCheck.fire();
+    }
+
+    private void initFPS() {
+        fpsField.setText(String.valueOf(viewController.fps()));
+
+        fpsApplyBtn.setOnAction(e -> {
+            final var fpsText = fpsField.getText();
+            if (fpsText.isEmpty()) {
+                fpsField.setText(String.valueOf(Viewer.DEFAULT_FPS));
+            }
+
+            final var fps = Integer.parseInt(fpsField.getText());
+            viewController.setFPS(fps);
+        });
     }
 }
