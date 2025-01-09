@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import io.github.nonmilk.coffee.grinder.Renderer;
 import io.github.shimeoki.jfx.rasterization.Point2i;
+import io.github.shimeoki.jfx.rasterization.Vector2i;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -34,8 +35,8 @@ public final class Viewer {
 
     private GraphicsContext ctx;
 
-    private Point2i start;
-    private Point2i end;
+    private final Point2i start = new Vector2i(-1, -1);
+    private final Point2i end = new Vector2i(-1, -1);
 
     private Selection selection = new Selection();
 
