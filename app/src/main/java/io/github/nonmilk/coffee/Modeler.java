@@ -24,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -53,6 +54,10 @@ public final class Modeler {
     private final Map<Scene, NamedModel> active = new HashMap<>();
 
     private Map<String, NamedModel> models;
+
+    private static final float KEYBOARD_ROTATE_ANGLE = (float) Math.toRadians(12);
+    private static final float KEYBOARD_TRANSLATE_VALUE = 10;
+    private static final float KEYBOARD_SCALE_MULTIPLIER = 1.1f;
 
     @FXML
     private ListView<NamedModel> view;
@@ -759,5 +764,26 @@ public final class Modeler {
         }
 
         return name;
+    }
+
+    public void handleKeyEvent(final KeyEvent event) {
+        System.out.println(event.getCode());
+        final var selection = view.selectionModelProperty().get();
+
+        final var model = selection.getSelectedItem();
+        if (model == null) {
+            return;
+        }
+        String modelName = model.name();
+
+        remove(model.name());
+        switch (event.getCode()) {
+            case X -> {
+                rotate(modelName, KEYBOARD_ROTATE_ANGLE, 0, 0);
+            }
+            default -> {
+                return;
+            }
+        }
     }
 }

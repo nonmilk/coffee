@@ -58,6 +58,7 @@ public final class Grinder {
         camerasController.controller().setView(viewController.view());
 
         viewController.setCamerer(camerasController);
+        viewController.setModeler(modelsController);
     }
 
     public void init(final Stage s) {
