@@ -157,7 +157,6 @@ public final class CameraController {
     }
 
     public void handleKeyEvent(final KeyEvent event) {
-        System.out.println(event.getCode());
         switch (event.getCode()) {
             case A, LEFT -> {
                 handleSimpleMovement(-KEYBOARD_MOTION_VALUE, 0);
