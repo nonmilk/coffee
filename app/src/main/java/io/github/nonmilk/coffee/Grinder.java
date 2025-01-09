@@ -37,4 +37,12 @@ public final class Grinder {
 
         modelsController.init(s);
     }
+
+    public void start() {
+        viewController.start();
+    }
+
+    public void stop() {
+        viewController.stop();
+    }
 }
