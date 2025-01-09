@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
 
 <AnchorPane fx:id="root" fx:controller="io.github.nonmilk.coffee.Grinder" xmlns:fx="http://javafx.com/fxml" styleClass="root" stylesheets="@styles.css">
     <HBox styleClass="fill-height" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -45,20 +46,20 @@
                         </VBox>
                         <VBox styleClass="spacing-8">
                             <Label text="Miscellaneous"/>
-                            <GridPane styleClass="gaps-8">
-                                <HBox styleClass="centered-right" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                            <VBox styleClass="spacing-8">
+                                <HBox styleClass="spacing-8">
                                     <Label text="FPS"/>
-                                </HBox>
-                                <HBox styleClass="centered-left" GridPane.rowIndex="0" GridPane.columnIndex="1">
                                     <TextField fx:id="fpsField"/>
                                 </HBox>
-                                <HBox styleClass="centered-right" GridPane.rowIndex="1" GridPane.columnIndex="0">
+                                <Button fx:id="fpsApplyBtn" text="Apply"/>
+                            </VBox>
+                            <VBox styleClass="spacing-8">
+                                <HBox styleClass="spacing-8">
                                     <Label text="Mouse Sensivitity"/>
-                                </HBox>
-                                <HBox styleClass="centered-left" GridPane.rowIndex="1" GridPane.columnIndex="1">
                                     <TextField fx:id="mouseSensField"/>
                                 </HBox>
-                            </GridPane>
+                                <Button fx:id="mouseSensApplyBtn" text="Apply"/>
+                            </VBox>
                         </VBox>
                     </VBox>
                 </AnchorPane>
