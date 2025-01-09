@@ -16,32 +16,34 @@
                 <fx:include fx:id="scenes" source="scenes.fxml"/>
                 <fx:include fx:id="models" source="models.fxml"/>
                 <fx:include fx:id="cameras" source="cameras.fxml"/>
-                <VBox styleClass="panel">
-                    <Label text="Settings"/>
-                    <VBox>
-                        <Label text="Render"/>
-                        <GridPane styleClass="gaps-8">
-                            <HBox styleClass="centered-right" GridPane.rowIndex="0" GridPane.columnIndex="0">
-                                <Label text="Wireframe"/>
-                            </HBox>
-                            <HBox GridPane.rowIndex="0" GridPane.columnIndex="1">
-                                <CheckBox/>
-                            </HBox>
-                            <HBox styleClass="centered-right" GridPane.rowIndex="1" GridPane.columnIndex="0">
-                                <Label text="Texture"/>
-                            </HBox>
-                            <HBox GridPane.rowIndex="1" GridPane.columnIndex="1">
-                                <CheckBox/>
-                            </HBox>
-                            <HBox styleClass="centered-right" GridPane.rowIndex="2" GridPane.columnIndex="0">
-                                <Label text="Lighting"/>
-                            </HBox>
-                            <HBox GridPane.rowIndex="2" GridPane.columnIndex="1">
-                                <CheckBox/>
-                            </HBox>
-                        </GridPane>
+                <AnchorPane styleClass="panel">
+                    <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" styleClass="padding-20, spacing-16">
+                        <Label text="Settings"/>
+                        <VBox styleClass="spacing-8">
+                            <Label text="Render"/>
+                            <GridPane styleClass="gaps-8">
+                                <HBox styleClass="centered-right" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                                    <Label text="Wireframe"/>
+                                </HBox>
+                                <HBox styleClass="centered-left" GridPane.rowIndex="0" GridPane.columnIndex="1">
+                                    <CheckBox/>
+                                </HBox>
+                                <HBox styleClass="centered-right" GridPane.rowIndex="1" GridPane.columnIndex="0">
+                                    <Label text="Texture"/>
+                                </HBox>
+                                <HBox styleClass="centered-left" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                                    <CheckBox/>
+                                </HBox>
+                                <HBox styleClass="centered-right" GridPane.rowIndex="2" GridPane.columnIndex="0">
+                                    <Label text="Lighting"/>
+                                </HBox>
+                                <HBox styleClass="centered-left" GridPane.rowIndex="2" GridPane.columnIndex="1">
+                                    <CheckBox/>
+                                </HBox>
+                            </GridPane>
+                        </VBox>
                     </VBox>
-                </VBox>
+                </AnchorPane>
             </VBox>
         </ScrollPane>
     </HBox>
