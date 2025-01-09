@@ -49,6 +49,7 @@ public final class Grinder {
 
         initWireframe();
         initTexture();
+        initLighting();
     }
 
     public void start() {
@@ -81,6 +82,19 @@ public final class Grinder {
                 renderer.setDrawTexture(true);
             } else {
                 renderer.setDrawTexture(false);
+            }
+        });
+    }
+
+    private void initLighting() {
+        lightingCheck.setIndeterminate(false);
+        final var renderer = viewController.renderer();
+
+        lightingCheck.setOnAction(e -> {
+            if (lightingCheck.isSelected()) {
+                renderer.setDrawLighting(true);
+            } else {
+                renderer.setDrawLighting(false);
             }
         });
     }
