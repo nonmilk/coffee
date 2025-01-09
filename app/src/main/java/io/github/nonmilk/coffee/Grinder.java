@@ -118,8 +118,6 @@ public final class Grinder {
     }
 
     private void initFPS() {
-        fpsField.setText(String.valueOf(viewController.fps()));
-
         fpsApplyBtn.setOnAction(e -> {
             final var fpsText = fpsField.getText();
             if (fpsText.isEmpty()) {
@@ -128,6 +126,10 @@ public final class Grinder {
 
             final var fps = Integer.parseInt(fpsField.getText());
             viewController.setFPS(fps);
+
+            fpsField.setText(String.valueOf(viewController.fps()));
         });
+
+        fpsApplyBtn.fire();
     }
 }
