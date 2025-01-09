@@ -108,6 +108,14 @@ public final class Viewer {
     }
 
     private void renderSelection() {
+        if (start.x() <= 0 || start.y() <= 0) {
+            return;
+        }
+
+        if (end.x() <= 0 || end.y() <= 0) {
+            return;
+        }
+
         selection.update(start, end);
 
         ctx.strokeRect(
