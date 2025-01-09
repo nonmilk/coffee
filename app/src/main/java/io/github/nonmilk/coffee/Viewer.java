@@ -101,6 +101,9 @@ public final class Viewer {
     }
 
     private void undrag() {
+        // TODO
+        // select vertices
+
         drag = false;
         resetSelectionPoints();
         camerer.controller().undrag();
