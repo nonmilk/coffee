@@ -41,6 +41,9 @@ public final class Grinder {
     private TextField mouseSensField;
 
     @FXML
+    private Button mouseSensApplyBtn;
+
+    @FXML
     private void initialize() {
         scenesController.setRenderer(viewController.renderer());
         scenesController.setCamerer(camerasController);
@@ -62,6 +65,7 @@ public final class Grinder {
         initTexture();
         initLighting();
         initFPS();
+        initMouseSens();
     }
 
     public void start() {
@@ -131,5 +135,24 @@ public final class Grinder {
         });
 
         fpsApplyBtn.fire();
+    }
+
+    private void initMouseSens() {
+        final var senser = camerasController.controller();
+
+        mouseSensApplyBtn.setOnAction(e -> {
+            final var sensText = mouseSensField.getText();
+            if (sensText.isEmpty()) {
+                mouseSensField.setText(String.valueOf(
+                        CameraController.DEFAULT_OVERALL_SENSITIVITY));
+            }
+
+            final var sens = Float.parseFloat(mouseSensField.getText());
+            senser.setMouseSensitivity(sens);
+
+            mouseSensField.setText(String.valueOf(senser.getMouseSensitivity()));
+        });
+
+        mouseSensApplyBtn.fire();
     }
 }
