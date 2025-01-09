@@ -188,6 +188,7 @@ public final class CameraController {
     private void handleSphereMovement(final float mouseDX, final float mouseDY) {
         addHorAng(-mouseDX * mouseToAngleMultiplier);
         addVertAng(mouseDY * mouseToAngleMultiplier);
+
         final float r = Vec3Math.len(Vec3Math.subtracted(target(), position()));
 
         position().setX((float) (target().x() + r * Math.cos(hAngle) * Math.cos(vAngle)));
@@ -198,8 +199,10 @@ public final class CameraController {
     private void handleSimpleMovement(final float mouseDX, final float mouseDY) {
         float ang = (float) Math.atan2(target().z() - position().z(), target().x() - position().x());
         ang -= ((float) Math.PI) / 2;
+
         final float dx = -mouseDX * ((float) Math.cos(ang)) * mouseToMovementMultiplier;
         final float dy = -mouseDX * ((float) Math.sin(ang)) * mouseToMovementMultiplier;
+
         // Horizontal: X movement
         position().setX(position().x() + dx);
         target().setX(target().x() + dx);
