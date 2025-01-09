@@ -80,9 +80,7 @@ public final class Viewer {
 
     private void initSelection() {
         view.setOnMouseReleased(e -> {
-            drag = false;
-            resetSelectionPoints();
-            camerer.controller().undrag();
+            undrag();
         });
 
         view.setOnMouseDragged(e -> {
@@ -91,9 +89,7 @@ public final class Viewer {
         });
 
         view.setOnMouseDragReleased(e -> {
-            drag = false;
-            resetSelectionPoints();
-            camerer.controller().undrag();
+            undrag();
         });
     }
 
@@ -102,6 +98,12 @@ public final class Viewer {
         start.setY(-1);
         end.setX(-1);
         end.setY(-1);
+    }
+
+    private void undrag() {
+        drag = false;
+        resetSelectionPoints();
+        camerer.controller().undrag();
     }
 
     private void handleMouse(final MouseEvent e) {
