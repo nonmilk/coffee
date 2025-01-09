@@ -93,25 +93,16 @@ public final class Viewer {
         });
     }
 
-    private void resetSelectionPoints() {
-        start.setX(-1);
-        start.setY(-1);
-        end.setX(-1);
-        end.setY(-1);
-    }
-
     private void undrag() {
         // TODO
         // select vertices
 
         drag = false;
-        resetSelectionPoints();
         camerer.controller().undrag();
     }
 
     private void handleMouse(final MouseEvent e) {
         if (!e.isSecondaryButtonDown()) {
-            resetSelectionPoints();
             return;
         }
 
@@ -136,14 +127,11 @@ public final class Viewer {
     }
 
     private void renderSelection() {
-        if (start.x() <= 0 || start.y() <= 0) {
+        if (!drag) {
             return;
         }
 
-        if (end.x() <= 0 || end.y() <= 0) {
-            return;
-        }
-
+        cropSelectionPoints();
         selection.update(start, end);
 
         ctx.strokeRect(
