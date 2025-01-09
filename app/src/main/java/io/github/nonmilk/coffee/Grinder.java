@@ -130,12 +130,11 @@ public final class Grinder {
 
     private void initFPS() {
         fpsApplyBtn.setOnAction(e -> {
-            final var fpsText = fpsField.getText();
-            if (fpsText.isEmpty()) {
+            if (fpsField.getText().isEmpty()) {
                 fpsField.setText(String.valueOf(Viewer.DEFAULT_FPS));
             }
 
-            final var fps = Integer.parseInt(fpsText);
+            final var fps = Integer.parseInt(fpsField.getText());
             viewController.setFPS(fps);
 
             fpsField.setText(String.valueOf(viewController.fps()));
@@ -148,13 +147,12 @@ public final class Grinder {
         final var senser = camerasController.controller();
 
         mouseSensApplyBtn.setOnAction(e -> {
-            final var sensText = mouseSensField.getText();
-            if (sensText.isEmpty()) {
+            if (mouseSensField.getText().isEmpty()) {
                 mouseSensField.setText(String.valueOf(
                         CameraController.DEFAULT_OVERALL_SENSITIVITY));
             }
 
-            final var sens = Float.parseFloat(sensText);
+            final var sens = Float.parseFloat(mouseSensField.getText());
             senser.setMouseSensitivity(sens);
 
             mouseSensField.setText(String.valueOf(senser.getMouseSensitivity()));
@@ -167,13 +165,12 @@ public final class Grinder {
         final var senser = camerasController.controller();
 
         scrollSensApplyBtn.setOnAction(e -> {
-            final var sensText = scrollSensField.getText();
-            if (sensText.isEmpty()) {
+            if (scrollSensField.getText().isEmpty()) {
                 scrollSensField.setText(String.valueOf(
                         CameraController.DEFAULT_OVERALL_SENSITIVITY));
             }
 
-            final var sens = Float.parseFloat(sensText);
+            final var sens = Float.parseFloat(scrollSensField.getText());
             senser.setScrollSensitivity(sens);
 
             scrollSensField.setText(String.valueOf(senser.getScrollSensitivity()));
