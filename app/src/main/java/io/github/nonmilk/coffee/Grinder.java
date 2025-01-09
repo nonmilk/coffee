@@ -2,6 +2,7 @@ package io.github.nonmilk.coffee;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public final class Grinder {
@@ -28,6 +29,12 @@ public final class Grinder {
 
     @FXML
     private CheckBox lightingCheck;
+
+    @FXML
+    private TextField fpsField;
+
+    @FXML
+    private TextField mouseSensField;
 
     @FXML
     private void initialize() {
