@@ -275,8 +275,6 @@ public final class Camerer {
                     rename(cam.name(), response);
                 } catch (final IllegalArgumentException err) {
                     return;
-                    // TODO intercept?
-                    // TODO error alert
                 }
             });
         });
