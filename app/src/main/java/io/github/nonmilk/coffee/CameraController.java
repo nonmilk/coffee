@@ -171,10 +171,10 @@ public final class CameraController {
             case W, UP -> {
                 handleSimpleMovement(0, -KEYBOARD_MOTION_VALUE);
             }
-            case Q, BRACELEFT -> {
+            case Q, OPEN_BRACKET -> {
                 handleSphereMovement(-KEYBOARD_MOTION_VALUE, 0);
             }
-            case E, BRACERIGHT -> {
+            case E, CLOSE_BRACKET -> {
                 handleSphereMovement(KEYBOARD_MOTION_VALUE, 0);
             }
             case CONTROL -> {
