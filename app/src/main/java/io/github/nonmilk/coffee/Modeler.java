@@ -58,8 +58,8 @@ public final class Modeler {
     private Map<String, NamedModel> models;
 
     private static final float KEYBOARD_ROTATE_ANGLE_DELTA = (float) Math.toRadians(6);
-    private static final float KEYBOARD_TRANSLATE_DELTA = 1;
-    private static final float KEYBOARD_SCALE_DELTA = 0.2f;
+    private static final float KEYBOARD_TRANSLATE_DELTA = 0.5f;
+    private static final float KEYBOARD_SCALE_DELTA = 0.1f;
     private Axis modificationAxis = Axis.X;
 
     @FXML
