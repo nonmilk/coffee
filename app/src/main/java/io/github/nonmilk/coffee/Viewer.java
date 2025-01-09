@@ -114,6 +114,8 @@ public final class Viewer {
                 selection.x(), selection.y(),
                 selection.width(), selection.height());
 
+        modeler.removeTriplets(selected);
+
         drag = false;
     }
 
