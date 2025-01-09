@@ -1,6 +1,7 @@
 package io.github.nonmilk.coffee;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.stage.Stage;
 
 public final class Grinder {
@@ -18,6 +19,15 @@ public final class Grinder {
 
     @FXML
     private Modeler modelsController;
+
+    @FXML
+    private CheckBox wireframeCheck;
+
+    @FXML
+    private CheckBox textureCheck;
+
+    @FXML
+    private CheckBox lightingCheck;
 
     @FXML
     private void initialize() {
