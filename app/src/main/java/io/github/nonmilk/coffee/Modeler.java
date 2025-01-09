@@ -212,7 +212,9 @@ public final class Modeler {
 
     private void initImport() {
         importBtn.setOnAction(e -> {
-            modelChooser.setInitialDirectory(INITIAL_DIRECTORY);
+            if (INITIAL_DIRECTORY.isDirectory()) {
+                modelChooser.setInitialDirectory(INITIAL_DIRECTORY);
+            }
 
             final var file = modelChooser.showOpenDialog(stage);
 
@@ -257,7 +259,10 @@ public final class Modeler {
                 return;
             }
 
-            modelChooser.setInitialDirectory(INITIAL_DIRECTORY);
+            if (INITIAL_DIRECTORY.isDirectory()) {
+                modelChooser.setInitialDirectory(INITIAL_DIRECTORY);
+            }
+
             modelChooser.setInitialFileName(selected.name());
 
             final var file = modelChooser.showSaveDialog(stage);
@@ -371,7 +376,9 @@ public final class Modeler {
                 return;
             }
 
-            textureChooser.setInitialDirectory(INITIAL_DIRECTORY);
+            if (INITIAL_DIRECTORY.isDirectory()) {
+                textureChooser.setInitialDirectory(INITIAL_DIRECTORY);
+            }
 
             final var file = textureChooser.showOpenDialog(stage);
             if (file == null) {
