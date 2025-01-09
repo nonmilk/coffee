@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 
@@ -39,6 +40,23 @@
                                 </HBox>
                                 <HBox styleClass="centered-left" GridPane.rowIndex="2" GridPane.columnIndex="1">
                                     <CheckBox fx:id="lightingCheck"/>
+                                </HBox>
+                            </GridPane>
+                        </VBox>
+                        <VBox styleClass="spacing-8">
+                            <Label text="Miscellaneous"/>
+                            <GridPane styleClass="gaps-8">
+                                <HBox styleClass="centered-right" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                                    <Label text="FPS"/>
+                                </HBox>
+                                <HBox styleClass="centered-left" GridPane.rowIndex="0" GridPane.columnIndex="1">
+                                    <TextField fx:id="fpsField"/>
+                                </HBox>
+                                <HBox styleClass="centered-right" GridPane.rowIndex="1" GridPane.columnIndex="0">
+                                    <Label text="Mouse Sensivitity"/>
+                                </HBox>
+                                <HBox styleClass="centered-left" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                                    <TextField fx:id="mouseSensField"/>
                                 </HBox>
                             </GridPane>
                         </VBox>
