@@ -217,6 +217,9 @@ public final class Modeler {
             }
 
             importObj(file);
+
+            view.selectionModelProperty().get().selectLast();
+            markActive(selected().name());
         });
     }
 
