@@ -86,7 +86,7 @@ public final class Viewer {
     }
 
     private void handleMouse(final MouseEvent e) {
-        if (!e.isPrimaryButtonDown()) {
+        if (!e.isSecondaryButtonDown()) {
             start.setX(-1);
             start.setY(-1);
             end.setX(-1);
