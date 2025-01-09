@@ -127,6 +127,14 @@ public final class Viewer {
         end.setY((int) e.getY());
     }
 
+    private void cropSelectionPoints() {
+        start.setX(Math.max(0, start.x()));
+        start.setY(Math.max(0, start.y()));
+
+        end.setX(Math.min((int) view.getWidth(), end.x()));
+        end.setY(Math.min((int) view.getHeight(), end.y()));
+    }
+
     private void renderSelection() {
         if (start.x() <= 0 || start.y() <= 0) {
             return;
