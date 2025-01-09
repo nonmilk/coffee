@@ -28,8 +28,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 
 // TODO handle external changes
 
@@ -770,7 +770,6 @@ public final class Modeler {
     }
 
     public void handleKeyEvent(final KeyEvent event) {
-        System.out.println(event.getCode());
         switch (event.getCode()) {
             case X -> {
                 modificationAxis = Axis.X;
@@ -808,7 +807,7 @@ public final class Modeler {
         }
     }
 
-    private void handleKeyboarRotation(KeyEvent event, ModelTransformer transformer) {
+    private void handleKeyboarRotation(final KeyEvent event, final ModelTransformer transformer) {
         switch (modificationAxis) {
             case X -> {
                 if (event.isAltDown()) {
@@ -837,7 +836,7 @@ public final class Modeler {
         }
     }
 
-    private void handleKeyboardTranslation(KeyEvent event, ModelTransformer transformer) {
+    private void handleKeyboardTranslation(final KeyEvent event, final ModelTransformer transformer) {
         switch (modificationAxis) {
             case X -> {
                 if (event.isAltDown()) {
@@ -866,7 +865,7 @@ public final class Modeler {
         }
     }
 
-    private void handleKeyboardScaling(KeyEvent event, ModelTransformer transformer) {
+    private void handleKeyboardScaling(final KeyEvent event, final ModelTransformer transformer) {
         switch (modificationAxis) {
             case X -> {
                 if (event.isAltDown()) {
