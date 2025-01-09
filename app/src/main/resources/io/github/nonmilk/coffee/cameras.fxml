@@ -13,7 +13,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Label?>
 
-<AnchorPane fx:id="root" fx:controller="io.github.nonmilk.coffee.Camerer" xmlns:fx="http://javafx.com/fxml" stylesheets="@styles.css" styleClass="cameras-root">
+<AnchorPane fx:id="root" fx:controller="io.github.nonmilk.coffee.Camerer" xmlns:fx="http://javafx.com/fxml" stylesheets="@styles.css" styleClass="panel">
     <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" styleClass="padding-20, spacing-16">
         <HBox>
             <Label text="Cameras"/>

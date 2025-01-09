@@ -16,7 +16,7 @@
                 <fx:include fx:id="scenes" source="scenes.fxml"/>
                 <fx:include fx:id="models" source="models.fxml"/>
                 <fx:include fx:id="cameras" source="cameras.fxml"/>
-                <VBox>
+                <VBox styleClass="panel">
                     <Label text="Settings"/>
                     <VBox>
                         <Label text="Render"/>
