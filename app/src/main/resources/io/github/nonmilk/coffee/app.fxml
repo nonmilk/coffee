@@ -45,20 +45,24 @@
                             </GridPane>
                         </VBox>
                         <VBox styleClass="spacing-8">
-                            <Label text="Miscellaneous"/>
+                            <Label text="Sensitivity"/>
                             <VBox styleClass="spacing-8">
-                                <HBox styleClass="spacing-8">
-                                    <Label text="FPS"/>
-                                    <TextField fx:id="fpsField"/>
-                                </HBox>
-                                <Button fx:id="fpsApplyBtn" text="Apply"/>
+                                <Label text="Mouse"/>
+                                <TextField fx:id="mouseSensField"/>
+                                <Button fx:id="mouseSensApplyBtn" text="Apply"/>
                             </VBox>
                             <VBox styleClass="spacing-8">
-                                <HBox styleClass="spacing-8">
-                                    <Label text="Mouse Sensivitity"/>
-                                    <TextField fx:id="mouseSensField"/>
-                                </HBox>
-                                <Button fx:id="mouseSensApplyBtn" text="Apply"/>
+                                <Label text="Scroll"/>
+                                <TextField fx:id="scrollSensField"/>
+                                <Button fx:id="scrollSensField" text="Apply"/>
+                            </VBox>
+                        </VBox>
+                        <VBox styleClass="spacing-8">
+                            <Label text="Miscellaneous"/>
+                            <VBox styleClass="spacing-8">
+                                <Label text="FPS"/>
+                                <TextField fx:id="fpsField"/>
+                                <Button fx:id="fpsApplyBtn" text="Apply"/>
                             </VBox>
                         </VBox>
                     </VBox>
