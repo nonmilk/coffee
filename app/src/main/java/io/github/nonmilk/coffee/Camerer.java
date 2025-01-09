@@ -210,13 +210,17 @@ public final class Camerer {
         addPerspectiveBtn.setOnAction(e -> {
             final var name = uniqueName();
             add(defaultPerspectiveCamera(), name);
-            markActive(name);
+
+            view.selectionModelProperty().get().selectLast();
+            markActive(selected().name());
         });
 
         addOrthographicBtn.setOnAction(e -> {
             final var name = uniqueName();
             add(defaultOrthographicCamera(), name);
-            markActive(name);
+
+            view.selectionModelProperty().get().selectLast();
+            markActive(selected().name());
         });
     }
 
