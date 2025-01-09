@@ -135,7 +135,7 @@ public final class Grinder {
                 fpsField.setText(String.valueOf(Viewer.DEFAULT_FPS));
             }
 
-            final var fps = Integer.parseInt(fpsField.getText());
+            final var fps = Integer.parseInt(fpsText);
             viewController.setFPS(fps);
 
             fpsField.setText(String.valueOf(viewController.fps()));
@@ -154,7 +154,7 @@ public final class Grinder {
                         CameraController.DEFAULT_OVERALL_SENSITIVITY));
             }
 
-            final var sens = Float.parseFloat(mouseSensField.getText());
+            final var sens = Float.parseFloat(sensText);
             senser.setMouseSensitivity(sens);
 
             mouseSensField.setText(String.valueOf(senser.getMouseSensitivity()));
@@ -173,7 +173,7 @@ public final class Grinder {
                         CameraController.DEFAULT_OVERALL_SENSITIVITY));
             }
 
-            final var sens = Float.parseFloat(scrollSensField.getText());
+            final var sens = Float.parseFloat(sensText);
             senser.setScrollSensitivity(sens);
 
             scrollSensField.setText(String.valueOf(senser.getScrollSensitivity()));
