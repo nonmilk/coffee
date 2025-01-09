@@ -9,6 +9,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -31,8 +32,12 @@ public final class Viewer {
 
     private boolean drag = false;
 
+    private GraphicsContext ctx;
+
     private Point2i start;
     private Point2i end;
+
+    private Selection selection = new Selection();
 
     {
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -44,6 +49,7 @@ public final class Viewer {
 
         initView();
         initSelection();
+        ctx = view.getGraphicsContext2D();
 
         setFPS(DEFAULT_FPS);
     }
@@ -99,6 +105,16 @@ public final class Viewer {
 
         end.setX((int) e.getX());
         end.setY((int) e.getY());
+    }
+
+    private void renderSelection() {
+        selection.update(start, end);
+
+        ctx.strokeRect(
+                selection.x(),
+                selection.y(),
+                selection.width(),
+                selection.height());
     }
 
     public int fps() {
