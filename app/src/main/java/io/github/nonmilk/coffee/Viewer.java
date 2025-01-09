@@ -81,9 +81,13 @@ public final class Viewer {
     private void initSelection() {
         view.setOnMouseReleased(e -> {
             drag = false;
+            camerer.controller().undrag();
         });
 
-        view.setOnMouseDragged(e -> handleMouse(e));
+        view.setOnMouseDragged(e -> {
+            handleMouse(e);
+            camerer.controller().drag(e);
+        });
     }
 
     private void handleMouse(final MouseEvent e) {

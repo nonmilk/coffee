@@ -110,13 +110,15 @@ public final class CameraController {
     }
 
     private void initCanvas() {
-        view.setOnMouseReleased(event -> {
-            drag = false;
-        });
+        // bad design in Viewer
+        // view.setOnMouseReleased(event -> {
+        // drag = false;
+        // });
 
         view.setOnScroll(event -> handleScroll((float) event.getDeltaY()));
 
-        view.setOnMouseDragged(event -> handleOnMouseDrag(event));
+        // bad design in Viewer
+        // view.setOnMouseDragged(event -> handleOnMouseDrag(event));
     }
 
     private Vector3 target() {
