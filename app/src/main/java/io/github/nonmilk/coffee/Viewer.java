@@ -27,6 +27,7 @@ public final class Viewer {
 
     private Renderer renderer;
     private Camerer camerer;
+    private Modeler modeler;
 
     private final Timeline timeline = new Timeline();
     private double fps;
@@ -96,6 +97,7 @@ public final class Viewer {
         view.setOnMouseClicked(e -> view.requestFocus());
         view.setOnKeyPressed(e -> {
             camerer.controller().handleKeyEvent(e);
+            modeler.handleKeyEvent(e);
         });
     }
 
@@ -199,5 +201,9 @@ public final class Viewer {
 
     public void setCamerer(final Camerer c) {
         camerer = Objects.requireNonNull(c);
+    }
+
+    public void setModeler(final Modeler m) {
+        modeler = Objects.requireNonNull(m);
     }
 }
