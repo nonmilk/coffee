@@ -1,6 +1,7 @@
 plugins {
     id("application")
     id("org.openjfx.javafxplugin") version "0.1.0"
+    id("edu.sc.seis.launch4j") version "3.0.6"
 }
 
 group = "io.github.nonmilk"
@@ -26,6 +27,12 @@ java {
     }
 }
 
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = "io.github.nonmilk.coffee.App"
+    }
+}
+
 javafx {
     version = "21"
     modules("javafx.controls", "javafx.fxml")
@@ -33,4 +40,11 @@ javafx {
 
 application {
     mainClass = "io.github.nonmilk.coffee.App"
+}
+
+launch4j {
+    mainClassName = "io.github.nonmilk.coffee.App"
+    icon = "${projectDir}/java.ico"
+    stayAlive = true
+    jvmOptions = setOf("--module-path=lib", "--add-modules=javafx.controls,javafx.base,javafx.fxml,javafx.graphics,io.github.shimeoki.jfx.rasterization,io.github.shimeoki.jshaper,io.github.nonmilk.coffee.grinder,io.github.alphameo.linear_algebra")
 }
