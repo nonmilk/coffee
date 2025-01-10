@@ -116,9 +116,11 @@ public final class Viewer {
                 selection.x(), selection.y(),
                 selection.width(), selection.height());
 
-        modeler.removeTriplets(selected);
-
         drag = false;
+    }
+
+    public void removeSelectedTriplets() {
+        modeler.removeTriplets(selected);
     }
 
     private void handleMouse(final MouseEvent e) {
