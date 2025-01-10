@@ -23,7 +23,7 @@
             <Label text="Add"/>
             <FlowPane styleClass="gaps-8">
                 <Button fx:id="addPerspectiveBtn" text="Perspective"/>
-                <Button fx:id="addOrthographicBtn" text="Orthographic"/>
+                <Button fx:id="addOrthographicBtn" text="Orthographic" disable="true"/>
             </FlowPane>
         </VBox>
         <VBox styleClass="spacing-8">
