@@ -35,7 +35,7 @@ import javafx.stage.Stage;
 
 public final class Modeler {
 
-    private static final File INITIAL_DIRECTORY = new File("../assets/");
+    private static final File INITIAL_DIRECTORY = new File("./assets/");
 
     private static final Texture DEFAULT_TEXTURE = new ColorTexture(
             HTMLColorf.BLACK);
