@@ -1,5 +1,6 @@
 package io.github.nonmilk.coffee;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -42,7 +43,7 @@ public final class Viewer {
     private final Point2i end = new Vector2i(-1, -1);
 
     private Selection selection = new Selection();
-    private List<Triplet> selected;
+    private List<Triplet> selected = new ArrayList<>();
 
     {
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -115,9 +116,11 @@ public final class Viewer {
                 selection.x(), selection.y(),
                 selection.width(), selection.height());
 
-        modeler.removeTriplets(selected);
-
         drag = false;
+    }
+
+    public void removeSelectedTriplets() {
+        modeler.removeTriplets(selected);
     }
 
     private void handleMouse(final MouseEvent e) {

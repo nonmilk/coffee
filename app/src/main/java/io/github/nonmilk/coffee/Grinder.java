@@ -50,6 +50,9 @@ public final class Grinder {
     private Button scrollSensApplyBtn;
 
     @FXML
+    private Button deleteSelectedVerticesBtn;
+
+    @FXML
     private void initialize() {
         scenesController.setRenderer(viewController.renderer());
         scenesController.setCamerer(camerasController);
@@ -74,6 +77,7 @@ public final class Grinder {
         initFPS();
         initMouseSens();
         initScrollSens();
+        initSelectedVerticesDelete();
     }
 
     public void start() {
@@ -178,5 +182,11 @@ public final class Grinder {
         });
 
         scrollSensApplyBtn.fire();
+    }
+
+    private void initSelectedVerticesDelete() {
+        deleteSelectedVerticesBtn.setOnAction(e -> {
+            viewController.removeSelectedTriplets();
+        });
     }
 }
