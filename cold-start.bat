@@ -1,5 +1,5 @@
 :: clear previous submodule files
-rm grinder
+rd /s /q drinder
 mkdir grinder
 
 :: submodule initialization
