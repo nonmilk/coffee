@@ -13,7 +13,7 @@ import io.github.nonmilk.coffee.grinder.render.ImageTexture;
 import io.github.nonmilk.coffee.grinder.render.Scene;
 import io.github.nonmilk.coffee.grinder.render.Texture;
 import io.github.nonmilk.coffee.grinder.transformations.ModelTransformer;
-import io.github.shimeoki.jfx.rasterization.HTMLColorf;
+import io.github.shimeoki.jfx.rasterization.Colorf;
 import io.github.shimeoki.jshaper.ObjFile;
 import io.github.shimeoki.jshaper.ShaperError;
 import io.github.shimeoki.jshaper.obj.ModelReader;
@@ -38,7 +38,7 @@ public final class Modeler {
     private static final File INITIAL_DIRECTORY = new File("../assets/");
 
     private static final Texture DEFAULT_TEXTURE = new ColorTexture(
-            HTMLColorf.BLACK);
+            new Colorf(0.8f, 0.8f, 0.8f, 1f));
 
     private static final String DEFAULT_NAME = "Model";
     private final StringBuilder nameBuilder = new StringBuilder();
