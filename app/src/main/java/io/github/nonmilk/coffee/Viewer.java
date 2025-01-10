@@ -1,10 +1,12 @@
 package io.github.nonmilk.coffee;
 
+import java.util.List;
 import java.util.Objects;
 
 import io.github.nonmilk.coffee.grinder.Renderer;
 import io.github.shimeoki.jfx.rasterization.Point2i;
 import io.github.shimeoki.jfx.rasterization.Vector2i;
+import io.github.shimeoki.jshaper.obj.Triplet;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -40,6 +42,7 @@ public final class Viewer {
     private final Point2i end = new Vector2i(-1, -1);
 
     private Selection selection = new Selection();
+    private List<Triplet> selected;
 
     {
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -102,11 +105,19 @@ public final class Viewer {
     }
 
     private void undrag() {
-        // TODO
-        // select vertices
+        camerer.controller().undrag();
+
+        if (!drag) {
+            return;
+        }
+
+        selected = renderer.select(
+                selection.x(), selection.y(),
+                selection.width(), selection.height());
+
+        modeler.removeTriplets(selected);
 
         drag = false;
-        camerer.controller().undrag();
     }
 
     private void handleMouse(final MouseEvent e) {

@@ -2,6 +2,7 @@ package io.github.nonmilk.coffee;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -18,6 +19,7 @@ import io.github.shimeoki.jshaper.ShaperError;
 import io.github.shimeoki.jshaper.obj.ModelReader;
 import io.github.shimeoki.jshaper.obj.ModelWriter;
 import io.github.shimeoki.jshaper.obj.Reader;
+import io.github.shimeoki.jshaper.obj.Triplet;
 import io.github.shimeoki.jshaper.obj.Writer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -784,6 +786,13 @@ public final class Modeler {
         }
 
         return name;
+    }
+
+    public void removeTriplets(final List<Triplet> triplets) {
+        // not efficient, but whatever
+        for (final var model : scene.models()) {
+            model.removeTriplets(triplets);
+        }
     }
 
     public void handleKeyEvent(final KeyEvent event) {
