@@ -100,6 +100,7 @@ public final class Viewer {
         view.setOnMouseClicked(e -> view.requestFocus());
         view.setOnKeyPressed(e -> {
             camerer.controller().handleKeyEvent(e);
+            modeler.handleKeyEvent(e);
         });
     }
 
