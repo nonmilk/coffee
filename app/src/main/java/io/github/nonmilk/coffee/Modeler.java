@@ -33,8 +33,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
-// TODO handle external changes
-
 public final class Modeler {
 
     private static final File INITIAL_DIRECTORY = new File("../assets/");
@@ -466,6 +464,7 @@ public final class Modeler {
         this.active.put(scene, model);
 
         view.refresh();
+        updateFields();
     }
 
     private void initUnmarkActive() {
@@ -574,6 +573,7 @@ public final class Modeler {
             }
 
             scaleFromFields(model.name());
+            updateScaling();
         });
 
         scalingResetBtn.setOnAction(e -> {
@@ -583,6 +583,7 @@ public final class Modeler {
             }
 
             resetScale(model.name());
+            updateScaling();
         });
     }
 
@@ -638,6 +639,7 @@ public final class Modeler {
             }
 
             translateFromFields(model.name());
+            updateTranslation();
         });
 
         translationResetBtn.setOnAction(e -> {
@@ -647,6 +649,7 @@ public final class Modeler {
             }
 
             resetTranslate(model.name());
+            updateTranslation();
         });
     }
 
@@ -702,6 +705,7 @@ public final class Modeler {
             }
 
             rotateFromFields(model.name());
+            updateRotation();
         });
 
         rotationResetBtn.setOnAction(e -> {
@@ -711,6 +715,7 @@ public final class Modeler {
             }
 
             resetRotate(model.name());
+            updateRotation();
         });
     }
 
@@ -838,28 +843,30 @@ public final class Modeler {
             case X -> {
                 if (event.isAltDown()) {
                     transformer.setRotationX(transformer.getRotationX() - KEYBOARD_ROTATE_ANGLE_DELTA);
-                    return;
+                } else {
+                    transformer.setRotationX(transformer.getRotationX() + KEYBOARD_ROTATE_ANGLE_DELTA);
                 }
-                transformer.setRotationX(transformer.getRotationX() + KEYBOARD_ROTATE_ANGLE_DELTA);
             }
             case Y -> {
                 if (event.isAltDown()) {
                     transformer.setRotationY(transformer.getRotationY() - KEYBOARD_ROTATE_ANGLE_DELTA);
-                    return;
+                } else {
+                    transformer.setRotationY(transformer.getRotationY() + KEYBOARD_ROTATE_ANGLE_DELTA);
                 }
-                transformer.setRotationY(transformer.getRotationY() + KEYBOARD_ROTATE_ANGLE_DELTA);
             }
             case Z -> {
                 if (event.isAltDown()) {
                     transformer.setRotationZ(transformer.getRotationZ() - KEYBOARD_ROTATE_ANGLE_DELTA);
-                    return;
+                } else {
+                    transformer.setRotationZ(transformer.getRotationZ() + KEYBOARD_ROTATE_ANGLE_DELTA);
                 }
-                transformer.setRotationZ(transformer.getRotationZ() + KEYBOARD_ROTATE_ANGLE_DELTA);
             }
             default -> {
                 return;
             }
         }
+
+        updateRotation();
     }
 
     private void handleKeyboardTranslation(final KeyEvent event, final ModelTransformer transformer) {
@@ -867,28 +874,30 @@ public final class Modeler {
             case X -> {
                 if (event.isAltDown()) {
                     transformer.setTranslationX(transformer.getTranslationX() - KEYBOARD_TRANSLATE_DELTA);
-                    return;
+                } else {
+                    transformer.setTranslationX(transformer.getTranslationX() + KEYBOARD_TRANSLATE_DELTA);
                 }
-                transformer.setTranslationX(transformer.getTranslationX() + KEYBOARD_TRANSLATE_DELTA);
             }
             case Y -> {
                 if (event.isAltDown()) {
                     transformer.setTranslationY(transformer.getTranslationY() - KEYBOARD_TRANSLATE_DELTA);
-                    return;
+                } else {
+                    transformer.setTranslationY(transformer.getTranslationY() + KEYBOARD_TRANSLATE_DELTA);
                 }
-                transformer.setTranslationY(transformer.getTranslationY() + KEYBOARD_TRANSLATE_DELTA);
             }
             case Z -> {
                 if (event.isAltDown()) {
                     transformer.setTranslationZ(transformer.getTranslationZ() - KEYBOARD_TRANSLATE_DELTA);
-                    return;
+                } else {
+                    transformer.setTranslationZ(transformer.getTranslationZ() + KEYBOARD_TRANSLATE_DELTA);
                 }
-                transformer.setTranslationZ(transformer.getTranslationZ() + KEYBOARD_TRANSLATE_DELTA);
             }
             default -> {
                 return;
             }
         }
+
+        updateTranslation();
     }
 
     private void handleKeyboardScaling(final KeyEvent event, final ModelTransformer transformer) {
@@ -896,27 +905,78 @@ public final class Modeler {
             case X -> {
                 if (event.isAltDown()) {
                     transformer.setScalingX(transformer.getScalingX() - KEYBOARD_SCALE_DELTA);
-                    return;
+                } else {
+                    transformer.setScalingX(transformer.getScalingX() + KEYBOARD_SCALE_DELTA);
                 }
-                transformer.setScalingX(transformer.getScalingX() + KEYBOARD_SCALE_DELTA);
             }
             case Y -> {
                 if (event.isAltDown()) {
                     transformer.setScalingY(transformer.getScalingY() - KEYBOARD_SCALE_DELTA);
-                    return;
+                } else {
+                    transformer.setScalingY(transformer.getScalingY() + KEYBOARD_SCALE_DELTA);
                 }
-                transformer.setScalingY(transformer.getScalingY() + KEYBOARD_SCALE_DELTA);
             }
             case Z -> {
                 if (event.isAltDown()) {
                     transformer.setScalingZ(transformer.getScalingZ() - KEYBOARD_SCALE_DELTA);
-                    return;
+                } else {
+                    transformer.setScalingZ(transformer.getScalingZ() + KEYBOARD_SCALE_DELTA);
                 }
-                transformer.setScalingZ(transformer.getScalingZ() + KEYBOARD_SCALE_DELTA);
             }
             default -> {
                 return;
             }
         }
+
+        updateScaling();
+    }
+
+    public void updateScaling() {
+        final var model = active.get(scene);
+        if (model == null) {
+            return;
+        }
+
+        final var transformer = model.unwrap().transformer();
+
+        scalingXField.setText(String.valueOf(transformer.getScalingX()));
+        scalingYField.setText(String.valueOf(transformer.getScalingY()));
+        scalingZField.setText(String.valueOf(transformer.getScalingZ()));
+    }
+
+    public void updateTranslation() {
+        final var model = active.get(scene);
+        if (model == null) {
+            return;
+        }
+
+        final var transformer = model.unwrap().transformer();
+
+        translationXField.setText(String.valueOf(transformer.getTranslationX()));
+        translationYField.setText(String.valueOf(transformer.getTranslationY()));
+        translationZField.setText(String.valueOf(transformer.getTranslationZ()));
+    }
+
+    public void updateRotation() {
+        final var model = active.get(scene);
+        if (model == null) {
+            return;
+        }
+
+        final var transformer = model.unwrap().transformer();
+
+        rotationXField.setText(String.valueOf(transformer.getRotationX()));
+        rotationYField.setText(String.valueOf(transformer.getRotationY()));
+        rotationZField.setText(String.valueOf(transformer.getRotationZ()));
+    }
+
+    public void updateFields() {
+        if (active.get(scene) == null) {
+            return;
+        }
+
+        updateScaling();
+        updateTranslation();
+        updateRotation();
     }
 }
