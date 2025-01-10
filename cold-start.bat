@@ -9,9 +9,9 @@ git submodule update
 cd ..
 
 :: build and create exe
-.\clean.bat
-.\build.bat
-.\gradlew.bat createExe
+cmd /c .\clean.bat
+cmd /c .\build.bat
+cmd /c .\gradlew.bat createExe
 
 :: execute
 cd app\build\launch4j

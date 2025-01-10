@@ -1,5 +1,5 @@
 cd grinder
-.\gradlew.bat clean
+cmd /c .\gradlew.bat clean
 
 cd ..
-.\gradlew.bat clean
+cmd /c .\gradlew.bat clean
