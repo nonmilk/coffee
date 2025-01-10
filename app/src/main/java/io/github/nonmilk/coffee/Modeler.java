@@ -945,4 +945,17 @@ public final class Modeler {
         translationYField.setText(String.valueOf(transformer.getTranslationY()));
         translationZField.setText(String.valueOf(transformer.getTranslationZ()));
     }
+
+    public void updateRotation() {
+        final var model = active.get(scene);
+        if (model == null) {
+            return;
+        }
+
+        final var transformer = model.unwrap().transformer();
+
+        rotationXField.setText(String.valueOf(transformer.getRotationX()));
+        rotationYField.setText(String.valueOf(transformer.getRotationY()));
+        rotationZField.setText(String.valueOf(transformer.getRotationZ()));
+    }
 }
