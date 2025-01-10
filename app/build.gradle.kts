@@ -46,4 +46,5 @@ launch4j {
     mainClassName = "io.github.nonmilk.coffee.App"
     icon = "${projectDir}/java.ico"
     stayAlive = true
+    jvmOptions = setOf("--module-path=lib", "--add-modules=javafx.controls,javafx.base,javafx.fxml,javafx.graphics,io.github.shimeoki.jfx.rasterization,io.github.shimeoki.jshaper,io.github.nonmilk.coffee.grinder,io.github.alphameo.linear_algebra")
 }
