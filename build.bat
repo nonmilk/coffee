@@ -1,5 +1,5 @@
 cd grinder
-.\gradlew.bat build
+cmd /c .\gradlew.bat build
 
 cd ..
-.\gradlew.bat build
+cmd /c .\gradlew.bat build
