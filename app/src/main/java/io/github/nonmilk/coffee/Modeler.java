@@ -466,6 +466,7 @@ public final class Modeler {
         this.active.put(scene, model);
 
         view.refresh();
+        updateFields();
     }
 
     private void initUnmarkActive() {
@@ -574,6 +575,7 @@ public final class Modeler {
             }
 
             scaleFromFields(model.name());
+            updateScaling();
         });
 
         scalingResetBtn.setOnAction(e -> {
@@ -583,6 +585,7 @@ public final class Modeler {
             }
 
             resetScale(model.name());
+            updateScaling();
         });
     }
 
@@ -638,6 +641,7 @@ public final class Modeler {
             }
 
             translateFromFields(model.name());
+            updateTranslation();
         });
 
         translationResetBtn.setOnAction(e -> {
@@ -647,6 +651,7 @@ public final class Modeler {
             }
 
             resetTranslate(model.name());
+            updateTranslation();
         });
     }
 
@@ -702,6 +707,7 @@ public final class Modeler {
             }
 
             rotateFromFields(model.name());
+            updateRotation();
         });
 
         rotationResetBtn.setOnAction(e -> {
@@ -711,6 +717,7 @@ public final class Modeler {
             }
 
             resetRotate(model.name());
+            updateRotation();
         });
     }
 
@@ -860,6 +867,8 @@ public final class Modeler {
                 return;
             }
         }
+
+        updateRotation();
     }
 
     private void handleKeyboardTranslation(final KeyEvent event, final ModelTransformer transformer) {
@@ -889,6 +898,8 @@ public final class Modeler {
                 return;
             }
         }
+
+        updateRotation();
     }
 
     private void handleKeyboardScaling(final KeyEvent event, final ModelTransformer transformer) {
@@ -918,6 +929,8 @@ public final class Modeler {
                 return;
             }
         }
+
+        updateScaling();
     }
 
     public void updateScaling() {
