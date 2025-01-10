@@ -33,8 +33,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
-// TODO handle external changes
-
 public final class Modeler {
 
     private static final File INITIAL_DIRECTORY = new File("../assets/");
