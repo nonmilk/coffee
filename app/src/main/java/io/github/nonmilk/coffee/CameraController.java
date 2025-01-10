@@ -12,9 +12,9 @@ import javafx.scene.input.MouseEvent;
 
 public final class CameraController {
 
-    public static final float MIN_SENSITIVITY = 1f;
-    public static final float MAX_SENSITIVITY = 11f;
-    public static final float DEFAULT_OVERALL_SENSITIVITY = 6f;
+    public static final float MIN_SENSITIVITY = 1;
+    public static final float MAX_SENSITIVITY = 11;
+    public static final float DEFAULT_OVERALL_SENSITIVITY = 6;
 
     private float scrollSensitivity = DEFAULT_OVERALL_SENSITIVITY;
     private float mouseSensitivity = DEFAULT_OVERALL_SENSITIVITY;
@@ -27,7 +27,7 @@ public final class CameraController {
     private float mouseToMovementMultiplier = DEFAULT_MOUSE_TO_MOVEMENT_MULTIPLIER;
     private float scrollAbsMultiplier = DEFAULT_SCROLL_ABS_MULTIPLIER;
 
-    private float KEYBOARD_MOTION_VALUE = 10;
+    private final float KEYBOARD_MOTION_VALUE = 10;
 
     private Camerer camerer;
 
@@ -298,7 +298,7 @@ public final class CameraController {
     }
 
     private float computeSensitivityMultiplier(final float sensitivity) {
-        float midSense = sensitivity - DEFAULT_OVERALL_SENSITIVITY;
+        final float midSense = sensitivity - DEFAULT_OVERALL_SENSITIVITY;
         if (midSense == 0) {
             return 1;
         } else if (midSense < 0) {
