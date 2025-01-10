@@ -932,4 +932,17 @@ public final class Modeler {
         scalingYField.setText(String.valueOf(transformer.getScalingY()));
         scalingZField.setText(String.valueOf(transformer.getScalingZ()));
     }
+
+    public void updateTranslation() {
+        final var model = active.get(scene);
+        if (model == null) {
+            return;
+        }
+
+        final var transformer = model.unwrap().transformer();
+
+        translationXField.setText(String.valueOf(transformer.getTranslationX()));
+        translationYField.setText(String.valueOf(transformer.getTranslationY()));
+        translationZField.setText(String.valueOf(transformer.getTranslationZ()));
+    }
 }
