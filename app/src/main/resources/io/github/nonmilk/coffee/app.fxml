@@ -64,6 +64,10 @@
                                 <TextField fx:id="fpsField"/>
                                 <Button fx:id="fpsApplyBtn" text="Apply"/>
                             </VBox>
+                            <VBox styleClass="spacing-8">
+                                <Label text="Vertex Deletion"/>
+                                <Button fx:id="deleteSelectedVerticesBtn" text="Delete Selected"/>
+                            </VBox>
                         </VBox>
                     </VBox>
                 </AnchorPane>
