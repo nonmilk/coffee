@@ -13,6 +13,6 @@ cmd /c .\clean.bat
 cmd /c .\build.bat
 cmd /c .\gradlew.bat createExe
 
-:: execute
-cd app\build\launch4j
+:: setup and execute
+robocopy app\build\launch4j .
 .\app.exe
