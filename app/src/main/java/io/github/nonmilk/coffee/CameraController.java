@@ -189,9 +189,11 @@ public final class CameraController {
                 handleScroll(-KEYBOARD_MOTION_VALUE);
             }
             default -> {
-                return;
+                break;
             }
         }
+
+        camerer.updateOrientation();
     }
 
     private void handleOnMouseDrag(final MouseEvent event) {
