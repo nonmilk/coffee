@@ -958,4 +958,14 @@ public final class Modeler {
         rotationYField.setText(String.valueOf(transformer.getRotationY()));
         rotationZField.setText(String.valueOf(transformer.getRotationZ()));
     }
+
+    public void updateFields() {
+        if (active.get(scene) == null) {
+            return;
+        }
+
+        updateScaling();
+        updateTranslation();
+        updateRotation();
+    }
 }
