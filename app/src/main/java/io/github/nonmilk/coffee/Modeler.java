@@ -845,23 +845,23 @@ public final class Modeler {
             case X -> {
                 if (event.isAltDown()) {
                     transformer.setRotationX(transformer.getRotationX() - KEYBOARD_ROTATE_ANGLE_DELTA);
-                    return;
+                } else {
+                    transformer.setRotationX(transformer.getRotationX() + KEYBOARD_ROTATE_ANGLE_DELTA);
                 }
-                transformer.setRotationX(transformer.getRotationX() + KEYBOARD_ROTATE_ANGLE_DELTA);
             }
             case Y -> {
                 if (event.isAltDown()) {
                     transformer.setRotationY(transformer.getRotationY() - KEYBOARD_ROTATE_ANGLE_DELTA);
-                    return;
+                } else {
+                    transformer.setRotationY(transformer.getRotationY() + KEYBOARD_ROTATE_ANGLE_DELTA);
                 }
-                transformer.setRotationY(transformer.getRotationY() + KEYBOARD_ROTATE_ANGLE_DELTA);
             }
             case Z -> {
                 if (event.isAltDown()) {
                     transformer.setRotationZ(transformer.getRotationZ() - KEYBOARD_ROTATE_ANGLE_DELTA);
-                    return;
+                } else {
+                    transformer.setRotationZ(transformer.getRotationZ() + KEYBOARD_ROTATE_ANGLE_DELTA);
                 }
-                transformer.setRotationZ(transformer.getRotationZ() + KEYBOARD_ROTATE_ANGLE_DELTA);
             }
             default -> {
                 return;
@@ -876,30 +876,30 @@ public final class Modeler {
             case X -> {
                 if (event.isAltDown()) {
                     transformer.setTranslationX(transformer.getTranslationX() - KEYBOARD_TRANSLATE_DELTA);
-                    return;
+                } else {
+                    transformer.setTranslationX(transformer.getTranslationX() + KEYBOARD_TRANSLATE_DELTA);
                 }
-                transformer.setTranslationX(transformer.getTranslationX() + KEYBOARD_TRANSLATE_DELTA);
             }
             case Y -> {
                 if (event.isAltDown()) {
                     transformer.setTranslationY(transformer.getTranslationY() - KEYBOARD_TRANSLATE_DELTA);
-                    return;
+                } else {
+                    transformer.setTranslationY(transformer.getTranslationY() + KEYBOARD_TRANSLATE_DELTA);
                 }
-                transformer.setTranslationY(transformer.getTranslationY() + KEYBOARD_TRANSLATE_DELTA);
             }
             case Z -> {
                 if (event.isAltDown()) {
                     transformer.setTranslationZ(transformer.getTranslationZ() - KEYBOARD_TRANSLATE_DELTA);
-                    return;
+                } else {
+                    transformer.setTranslationZ(transformer.getTranslationZ() + KEYBOARD_TRANSLATE_DELTA);
                 }
-                transformer.setTranslationZ(transformer.getTranslationZ() + KEYBOARD_TRANSLATE_DELTA);
             }
             default -> {
                 return;
             }
         }
 
-        updateRotation();
+        updateTranslation();
     }
 
     private void handleKeyboardScaling(final KeyEvent event, final ModelTransformer transformer) {
@@ -907,23 +907,23 @@ public final class Modeler {
             case X -> {
                 if (event.isAltDown()) {
                     transformer.setScalingX(transformer.getScalingX() - KEYBOARD_SCALE_DELTA);
-                    return;
+                } else {
+                    transformer.setScalingX(transformer.getScalingX() + KEYBOARD_SCALE_DELTA);
                 }
-                transformer.setScalingX(transformer.getScalingX() + KEYBOARD_SCALE_DELTA);
             }
             case Y -> {
                 if (event.isAltDown()) {
                     transformer.setScalingY(transformer.getScalingY() - KEYBOARD_SCALE_DELTA);
-                    return;
+                } else {
+                    transformer.setScalingY(transformer.getScalingY() + KEYBOARD_SCALE_DELTA);
                 }
-                transformer.setScalingY(transformer.getScalingY() + KEYBOARD_SCALE_DELTA);
             }
             case Z -> {
                 if (event.isAltDown()) {
                     transformer.setScalingZ(transformer.getScalingZ() - KEYBOARD_SCALE_DELTA);
-                    return;
+                } else {
+                    transformer.setScalingZ(transformer.getScalingZ() + KEYBOARD_SCALE_DELTA);
                 }
-                transformer.setScalingZ(transformer.getScalingZ() + KEYBOARD_SCALE_DELTA);
             }
             default -> {
                 return;
