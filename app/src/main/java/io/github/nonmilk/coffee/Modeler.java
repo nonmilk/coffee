@@ -919,4 +919,17 @@ public final class Modeler {
             }
         }
     }
+
+    public void updateScaling() {
+        final var model = active.get(scene);
+        if (model == null) {
+            return;
+        }
+
+        final var transformer = model.unwrap().transformer();
+
+        scalingXField.setText(String.valueOf(transformer.getScalingX()));
+        scalingYField.setText(String.valueOf(transformer.getScalingY()));
+        scalingZField.setText(String.valueOf(transformer.getScalingZ()));
+    }
 }
